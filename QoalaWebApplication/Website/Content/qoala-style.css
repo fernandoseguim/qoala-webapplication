@@ -1,0 +1,26 @@
+﻿.qoala-logotipo {
+    margin-top: 0.2em;
+    background: url(../Images/logo-qoala-fundo-escuro.png) no-repeat top left;
+    display: block;
+    text-indent: -99999px;
+    width: 220px;
+}
+
+.qoala-logotipo:hover {
+    background: url(../Images/logo-qoala-fundo-claro.png) no-repeat top left;
+
+}
+
+
+.navbar-collapse {
+    float: right;
+}
+
+
+footer {
+    background-color: #223641;
+    color: #fff;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
