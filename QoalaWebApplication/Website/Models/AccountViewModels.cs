@@ -65,18 +65,18 @@ namespace Website.Models
     public class RegisterViewModel
     {
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Por favor, informe o seu nome.")]
+        [StringLength(100, ErrorMessage = "O tamanho do nome deve respeitar o mínimo de {2} e máximo {1}", MinimumLength = 6)]
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Por favor, informe o seu e-mail.")]
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "A {0} deve ter pelo menos {2} caracteres.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Por favor, informe o uma senha.")]
+        [StringLength(100, ErrorMessage = "A sua senha deve ter pelo menos {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
