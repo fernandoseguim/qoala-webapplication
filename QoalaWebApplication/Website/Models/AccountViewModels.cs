@@ -84,7 +84,7 @@ namespace Website.Models
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar senha")]
         [Compare("Password", ErrorMessage = "As senhas não conferem. Verifique e tente novamente!")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }s
     }
 
     public class ResetPasswordViewModel
