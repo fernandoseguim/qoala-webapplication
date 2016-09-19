@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
+using Website.Models.BO;
 using Website.Models;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace Website.Controllers
 {
@@ -31,11 +28,8 @@ namespace Website.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            
-
-
+            new AccountsBO().doLogin(model);
             return View(model);
-            
         }
         
         //
@@ -52,10 +46,40 @@ namespace Website.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            
-            
 
-            return View(model);
+            IEnumerable<KeyValuePair<string, string>> Iuser = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("name", model.Name),
+                    new KeyValuePair<string, string>("password", model.Password),
+                    new KeyValuePair<string, string>("email", model.Email)
+                };
+
+
+            // bool result = new AccountsBO().doRegister(Iuser);
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                HttpContent q = new FormUrlEncodedContent(query);
+
+                string url = "http://ws.qoala.com.br/accounts/register";
+
+                using (HttpResponseMessage response = await client.PostAsync(url, q))
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        string mycontent = await content.ReadAsStringAsync();
+                        HttpContentHeaders headers = content.Headers;
+
+                        Console.WriteLine(mycontent);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+
         }
 
         //
@@ -64,11 +88,8 @@ namespace Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            
             return RedirectToAction("Index", "Home");
         }
-
-        
         
     }
 }
