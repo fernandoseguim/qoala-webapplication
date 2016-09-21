@@ -1,13 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 
-using Website.Models.DTO;
+using Website.API;
 
 namespace Website.Models.BO
 {
-    public class AccountsBO
+    public class AccountsBO 
     {
 
         private string email;
@@ -18,28 +23,17 @@ namespace Website.Models.BO
 
         }
 
-        public void doLogin(LoginViewModel login)
+        public string doLogin(LoginViewModel model)
         {
-            if(login != null)
-            {
-                string url = "http://ws.qoala.com.br/accounts/login";
 
-                IEnumerable<KeyValuePair<string, string>> query = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("password", login.Password),
-                    new KeyValuePair<string, string>("email", login.Email)
-                };
 
-                //new WSConn(url, query);
-            }
+            return null;
             
         }
 
         public bool doRegister(IEnumerable<KeyValuePair<string, string>> user)
         {
-
             
-
             return true;
         }
         

@@ -6,6 +6,10 @@ using Website.Models;
 using System.Net.Http;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using System.Net;
+using System.IO;
+using System.Text;
+using Website.API;
 
 namespace Website.Controllers
 {
@@ -28,7 +32,22 @@ namespace Website.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            new AccountsBO().doLogin(model);
+
+            WSConnection conn = new WSConnection("accounts/login");
+
+            IEnumerable<KeyValuePair<string, string>> login = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("password", model.Password),
+                    new KeyValuePair<string, string>("email", model.Email)
+                };
+            
+            conn.AddJsonParameter(login);
+
+            var result = conn.Execute();
+
+            //Session["token"]  = result.
+            //var token = Session["token"];
+
             return View(model);
         }
         
@@ -60,7 +79,7 @@ namespace Website.Controllers
             using (HttpClient client = new HttpClient())
             {
 
-                HttpContent q = new FormUrlEncodedContent(query);
+                HttpContent q = new FormUrlEncodedContent(Iuser);
 
                 string url = "http://ws.qoala.com.br/accounts/register";
 
