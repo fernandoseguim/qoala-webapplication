@@ -82,8 +82,6 @@ namespace Website.API
         /// </summary>
         public string Execute()
         {
-            //request.AddHeader("postman-token", "9f01718e-ed2a-3770-0f71-4b7c773b6b0f");
-            
             IRestResponse response = _client.Execute(this._request);
             
             string content = response.Content;
