@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
-using RestSharp.Deserializers;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,14 +17,13 @@ namespace Website.API
 
         /// <summary>
         /// 
-        /// Resumo
-        /// Este construtor instancia uma nova conexão com o Qoala WebService. <br/>
-        /// 
-        /// Parametros <br/>
-        /// <paramref name="path"/> Recebe uma string com o caminho até o webservice. <br/>
+        /// <para>Resumo:  
+        /// Este construtor instancia uma nova conexão com o Qoala WebService.</para>
+        ///
+        /// <para>
+        /// Parametros: 
+        /// <paramref name="path"/> Recebe uma string com o caminho até o webservice.</para>
         /// </summary>
-        /// 
-        /// <param name="path">Recebe uma string com o caminho até o webservice </param>
         public WSConnection(string path)
         {
 
@@ -43,8 +41,9 @@ namespace Website.API
 
         /// <summary>
         /// 
-        /// Resumo
-        /// Este metodo adiciona o cabeçalho à requisição
+        /// <para>
+        /// Resumo: 
+        /// Este metodo adiciona o cabeçalho à requisição.</para>
         /// </summary>
         public void AddHeader()
         {
@@ -54,17 +53,17 @@ namespace Website.API
 
         /// <summary>
         /// 
-        /// Resumo
-        /// Este metodo adiciona um objeto JSON ao corpo da requisição
+        /// <para>
+        /// Resumo: 
+        /// Este metodo adiciona um objeto JSON ao corpo da requisição.</para>
         /// 
-        /// Parametros <br/>
-        /// <paramref name="query"/> Recebe um IEnumerable de KeyValuePair<<string>stringKey</string>, <string>stringValue</string>> com a lista de parametros. <br/>
+        /// <para>
+        /// Parametros: 
+        /// <paramref name="query"/> Recebe um IEnumerable da lista de parametros.</para>
         /// </summary>
-        /// 
-        /// <param name="query">Recebe um IEnumerable de KeyValuePair<<string>stringKey</string>, <string>stringValue</string>> com a lista de parametros </param>
         public void AddJsonParameter(IEnumerable<KeyValuePair<string, string>> query)
         {
-            
+
             JsonObject json = new JsonObject();
 
             foreach (var item in query)
@@ -77,16 +76,24 @@ namespace Website.API
 
         /// <summary>
         /// 
-        /// Resumo
-        /// Executa a requisição, obtendo devolvendo um JSON com resposta
+        /// <para>Resumo: 
+        /// Executa a requisição, obtendo devolvendo um JSON com resposta.</para> 
         /// </summary>
-        public string Execute()
+        public JObject Execute()
         {
             IRestResponse response = _client.Execute(this._request);
             
             string content = response.Content;
 
-            return content;
+            return JsonParser(content);
         }
+
+
+        public JObject JsonParser(string content)
+        {
+            return (JObject)JsonConvert.DeserializeObject(content);
+
+        }
+        
     }
 }

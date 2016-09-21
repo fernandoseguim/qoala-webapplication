@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -12,22 +13,45 @@ using Website.API;
 
 namespace Website.Models.BO
 {
-    public class AccountsBO 
+    public class AccountsBO
     {
+        private static AccountsBO _account;
+        //private string _token;
 
-        private string email;
-        private string senha;
-
-        public AccountsBO()
+        private AccountsBO()
         {
 
+        }
+
+        public static AccountsBO Instance()
+        {
+            if (_account == null)
+            {
+                _account = new AccountsBO();
+            }
+
+            return _account;
         }
 
         public string doLogin(LoginViewModel model)
         {
 
+            WSConnection conn = new WSConnection("accounts/login");
 
-            return null;
+            IEnumerable<KeyValuePair<string, string>> login = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("password", model.Password),
+                    new KeyValuePair<string, string>("email", model.Email)
+                };
+
+            conn.AddJsonParameter(login);
+
+            var result = conn.Execute();
+            string token;
+
+            token = result.GetValue("token").ToString();
+
+            return token;
             
         }
 
