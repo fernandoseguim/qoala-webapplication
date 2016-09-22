@@ -34,8 +34,15 @@ namespace Website.API
             this._client = new RestClient(url);
 
             this._request = new RestRequest();
-            
-            AddHeader();
+
+
+            Dictionary<string, string> headers = new Dictionary<string, string>()
+            {
+                { "cache-control", "no-cache" },
+                { "content-type", "application/json" }
+            };
+
+            AddHeaders(headers);
         }
 
         /// <summary>
@@ -44,17 +51,23 @@ namespace Website.API
         /// Resumo: 
         /// Este metodo adiciona o cabeçalho à requisição.</para>
         /// </summary>
-        private void AddHeader()
+        public void AddHeaders(Dictionary<string, string> dictonary)
         {
-            this._request.AddHeader("cache-control", "no-cache");
-            this._request.AddHeader("content-type", "application/json");
+            foreach(KeyValuePair<string, string> dict in dictonary)
+            {
+                this._request.AddHeader(dict.Key, dict.Value);
+            }
         }
 
         public void AddAuthorization(string token)
         {
             if (token != null)
             {
-                this._request.AddHeader("Authorization", " Token " + token);
+                Dictionary<string, string> headers = new Dictionary<string, string>()
+                {
+                    { "Authorization", " Token " + token },
+                };
+                AddHeaders(headers);
             }
         }
 
