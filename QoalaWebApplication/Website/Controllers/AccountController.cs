@@ -60,14 +60,45 @@ namespace Website.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
-            return View(model);
+            WSRequest request = new WSRequest("accounts/register");
+
+            IEnumerable<KeyValuePair<string, string>> register = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("name", model.Name),
+                    new KeyValuePair<string, string>("password", model.Password),
+                    new KeyValuePair<string, string>("email", model.Email)
+                };
+
+            request.AddJsonParameter(register);
+
+            try
+            {
+                var response = request.Execute();
+                if (response.Code != 201)
+                {
+                    ModelState.AddModelError(
+                        "",
+                        response.Body.GetValue("Message").ToString()
+                    );
+                    return View(model);
+                }
+                string token = response.Body.GetValue("token").ToString();
+                Session["token"] = token;
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
