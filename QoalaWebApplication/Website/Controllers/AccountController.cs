@@ -7,12 +7,9 @@ using Website.API;
 
 namespace Website.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
-        
-        //
-        // GET: /Account/Login
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -36,7 +33,7 @@ namespace Website.Controllers
 
             try
             {
-                var response = request.Execute();
+                var response = request.Post();
                 if (response.Code != 201)
                 {
                     ModelState.AddModelError(
@@ -78,7 +75,7 @@ namespace Website.Controllers
 
             try
             {
-                var response = request.Execute();
+                var response = request.Post();
                 if (response.Code != 201)
                 {
                     ModelState.AddModelError(
@@ -98,13 +95,34 @@ namespace Website.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
-            return View();
+            WSRequest request = new WSRequest("accounts/logout");
+
+            IEnumerable<KeyValuePair<string, string>> logout = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("token", Session["token"].ToString())
+                };
+
+            request.AddAuthorization(Session["token"].ToString());
+            request.AddJsonParameter(logout);
+
+            try
+            {
+                var response = request.Post();
+                if (response.Code != 200)
+                {
+                    return RedirectToAction("Index", "Home", new { Message = "Não foi possível delogar" });
+                }
+                Session["token"] = null;
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Home", new { Message = e.Message });
+            }
+
+            return RedirectToAction("Index", "Home");
         }
-        
     }
 }

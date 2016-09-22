@@ -33,8 +33,8 @@ namespace Website.API
 
             this._client = new RestClient(url);
 
-            this._request = new RestRequest(Method.POST);
-
+            this._request = new RestRequest();
+            
             AddHeader();
         }
 
@@ -44,10 +44,18 @@ namespace Website.API
         /// Resumo: 
         /// Este metodo adiciona o cabeçalho à requisição.</para>
         /// </summary>
-        public void AddHeader()
+        private void AddHeader()
         {
             this._request.AddHeader("cache-control", "no-cache");
             this._request.AddHeader("content-type", "application/json");
+        }
+
+        public void AddAuthorization(string token)
+        {
+            if (token != null)
+            {
+                this._request.AddHeader("Authorization", " Token " + token);
+            }
         }
 
         /// <summary>
@@ -84,7 +92,19 @@ namespace Website.API
             this.response = new Response(response.Content, (int)response.StatusCode);
             return this.response;
         }
-               
+
+        public Response Post()
+        {
+            this._request.Method = Method.POST;
+            return Execute();
+        }
+
+        public Response Delete()
+        {
+            this._request.Method = Method.DELETE;
+            return Execute();
+        }
+
         public class Response
         {
             public JObject Body { get; set; }
@@ -99,7 +119,6 @@ namespace Website.API
             public JObject JsonParser(string content)
             {
                 return (JObject)JsonConvert.DeserializeObject(content);
-
             }
         }
     }
