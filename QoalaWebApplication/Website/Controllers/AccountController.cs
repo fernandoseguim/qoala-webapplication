@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Website.Models.BO;
 using Website.Models;
-using System.Net.Http;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Net;
-using System.IO;
-using System.Text;
 using Website.API;
-using System.Web;
 
 namespace Website.Controllers
 {
@@ -27,51 +20,59 @@ namespace Website.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            WSRequest request = new WSRequest("accounts/login");
 
-            AccountsBO account = AccountsBO.Instance();
+            IEnumerable<KeyValuePair<string, string>> login = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("password", model.Password),
+                    new KeyValuePair<string, string>("email", model.Email)
+                };
 
-            string r = account.doLogin(model);
+            request.AddJsonParameter(login);
 
-            Session["token"] = r;
+            try
+            {
+                var response = request.Execute();
+                if (response.Code != 201)
+                {
+                    ModelState.AddModelError(
+                        "",
+                        response.Body.GetValue("Message").ToString()
+                    );
+                    return View(model);
+                }
+                string token = response.Body.GetValue("Token").ToString();
+                Session["token"] = token;
+            } catch(Exception e) {
+                ModelState.AddModelError("", e.Message);
+                return View(model);
+            }
 
-            //Session["token"]  = result.
-            //var token = Session["token"];
-
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
-        
-        //
-        // GET: /Account/Register
+
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
-
-        //
-        // POST: /Account/Register
+        
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            
-            return RedirectToAction("Index", "Home");
-
+            return View(model);
         }
-
-        //
-        // POST: /Account/LogOff
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult Logout()
         {
-            return RedirectToAction("Index", "Home");
+            return View();
         }
         
     }

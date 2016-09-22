@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Website.API
 {
-    public class WSConnection
+    public class WSRequest
     {
 
         private string _path;
@@ -14,7 +14,7 @@ namespace Website.API
         
         private RestClient _client;
         private RestRequest _request;
-
+        public Response response { get; set; }
         /// <summary>
         /// 
         /// <para>Resumo:  
@@ -24,9 +24,8 @@ namespace Website.API
         /// Parametros: 
         /// <paramref name="path"/> Recebe uma string com o caminho até o webservice.</para>
         /// </summary>
-        public WSConnection(string path)
+        public WSRequest(string path)
         {
-
             this._path = path;
             this._url = new StringBuilder().Append("http://ws.qoala.com.br/").Append(_path);
 
@@ -79,21 +78,29 @@ namespace Website.API
         /// <para>Resumo: 
         /// Executa a requisição, obtendo devolvendo um JSON com resposta.</para> 
         /// </summary>
-        public JObject Execute()
+        public Response Execute()
         {
             IRestResponse response = _client.Execute(this._request);
-            
-            string content = response.Content;
-
-            return JsonParser(content);
+            this.response = new Response(response.Content, (int)response.StatusCode);
+            return this.response;
         }
-
-
-        public JObject JsonParser(string content)
+               
+        public class Response
         {
-            return (JObject)JsonConvert.DeserializeObject(content);
+            public JObject Body { get; set; }
+            public int Code { get; set; }
 
+            public Response(string body, int code)
+            {
+                this.Body = JsonParser(body);
+                this.Code = code;
+            }
+
+            public JObject JsonParser(string content)
+            {
+                return (JObject)JsonConvert.DeserializeObject(content);
+
+            }
         }
-        
     }
 }
