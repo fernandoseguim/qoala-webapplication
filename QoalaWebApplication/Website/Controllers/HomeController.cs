@@ -26,5 +26,20 @@ namespace Website.Controllers
 
             return View();
         }
+
+        public ActionResult News()
+        {
+            ViewBag.Message = "Listar notícias aqui.";
+
+            return View();
+        }
+
+        public ActionResult Team()
+        {
+            ViewBag.Message = "Informações sobre a equipe.";
+
+            return View();
+        }
+
     }
 }
