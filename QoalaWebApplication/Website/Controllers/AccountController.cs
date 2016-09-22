@@ -22,13 +22,13 @@ namespace Website.Controllers
         {
             WSRequest request = new WSRequest("accounts/login");
 
-            IEnumerable<KeyValuePair<string, string>> login = new List<KeyValuePair<string, string>>()
+            IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("password", model.Password),
                     new KeyValuePair<string, string>("email", model.Email)
                 };
 
-            request.AddJsonParameter(login);
+            request.AddJsonParameter(parameters);
 
             try
             {
@@ -63,14 +63,14 @@ namespace Website.Controllers
         {
             WSRequest request = new WSRequest("accounts/register");
 
-            IEnumerable<KeyValuePair<string, string>> register = new List<KeyValuePair<string, string>>()
+            IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("name", model.Name),
                     new KeyValuePair<string, string>("password", model.Password),
                     new KeyValuePair<string, string>("email", model.Email)
                 };
 
-            request.AddJsonParameter(register);
+            request.AddJsonParameter(parameters);
 
             try
             {
@@ -99,13 +99,13 @@ namespace Website.Controllers
         {
             WSRequest request = new WSRequest("accounts/logout");
 
-            IEnumerable<KeyValuePair<string, string>> logout = new List<KeyValuePair<string, string>>()
+            IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("token", Session["token"].ToString())
                 };
 
             request.AddAuthorization(Session["token"].ToString());
-            request.AddJsonParameter(logout);
+            request.AddJsonParameter(parameters);
 
             try
             {
