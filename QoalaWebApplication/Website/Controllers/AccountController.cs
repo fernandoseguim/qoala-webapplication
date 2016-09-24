@@ -48,7 +48,7 @@ namespace Website.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Profile");
         }
 
         [AllowAnonymous]
@@ -92,7 +92,7 @@ namespace Website.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Profile");
         }
         [HttpPost]
         public ActionResult Logout()
