@@ -41,7 +41,7 @@ namespace Website.Controllers
                     );
                     return View(model);
                 }
-                string token = response.Body.GetValue("Token").ToString();
+                string token = response.Body.GetValue("token").ToString();
                 Session["token"] = token;
             } catch(Exception e) {
                 ModelState.AddModelError("", e.Message);
