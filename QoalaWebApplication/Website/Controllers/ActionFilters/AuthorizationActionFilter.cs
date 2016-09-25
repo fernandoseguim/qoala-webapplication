@@ -16,11 +16,11 @@ namespace Website.Controllers.ActionFilters
                 filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());
                 return;
             }
-            API.WSRequest request = new API.WSRequest("accounts/validatetoken");
+            API.WSRequest request = new API.WSRequest("accounts/me");
 
             request.AddAuthorization(token.ToString());
 
-            var response = request.Post();
+            var response = request.Get();
             if (response.Code != 200)
             {
                 filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());

@@ -106,6 +106,12 @@ namespace Website.API
             return this.response;
         }
 
+        public Response Get()
+        {
+            this._request.Method = Method.GET;
+            return Execute();
+        }
+
         public Response Post()
         {
             this._request.Method = Method.POST;

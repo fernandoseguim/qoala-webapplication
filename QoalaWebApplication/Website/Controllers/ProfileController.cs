@@ -16,7 +16,7 @@ namespace Website.Controllers
 
             try
             {
-                var response = request.Post();
+                var response = request.Get();
                 if (response.Code != 200)
                     return RedirectToAction("Index", "Home", new { Message = "Algum erro aconteceu" });
 
