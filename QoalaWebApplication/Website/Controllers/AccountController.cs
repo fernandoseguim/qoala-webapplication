@@ -41,14 +41,14 @@ namespace Website.Controllers
                     );
                     return View(model);
                 }
-                string token = response.Body.GetValue("Token").ToString();
+                string token = response.Body.GetValue("token").ToString();
                 Session["token"] = token;
             } catch(Exception e) {
                 ModelState.AddModelError("", e.Message);
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Profile");
         }
 
         [AllowAnonymous]
@@ -92,7 +92,7 @@ namespace Website.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Profile");
         }
         [HttpPost]
         public ActionResult Logout()

@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Perfil";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+
+@{Html.RenderPartial("../Shared/Logged/Public/_Menu");}
+
+<div>
+    <h4>Seu perfil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Nome:</dt>
+        <dd>
+            @ViewBag.Name
+        </dd>
+        <dt>Email:</dt>
+        <dd>
+            @ViewBag.Email
+        </dd>
+    </dl>
+</div>
