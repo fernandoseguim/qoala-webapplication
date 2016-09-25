@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Website.Principal;
 
 namespace Website.Controllers.ActionFilters
 {
@@ -15,19 +16,24 @@ namespace Website.Controllers.ActionFilters
                 filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());
                 return;
             }
-            API.WSRequest request = new API.WSRequest("accounts/validadetoken");
-
-            IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("token", token.ToString())
-            };
+            API.WSRequest request = new API.WSRequest("accounts/validatetoken");
 
             request.AddAuthorization(token.ToString());
-            request.AddJsonParameter(parameters);
 
             var response = request.Post();
-            if (response.Code != 202)
+            if (response.Code != 200)
+            {
                 filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());
+                return;
+            }
+            var body = response.Body;
+            
+            UserPrincipal currentUser = new UserPrincipal(body.GetValue("name").ToString());
+            currentUser.Id =  (int)body.GetValue("id_user");
+            currentUser.Name = body.GetValue("name").ToString();
+            currentUser.Email = body.GetValue("email").ToString();
+
+            HttpContext.Current.User = currentUser;
         }
 
         private RouteValueDictionary routeValuesRedirect()
