@@ -307,6 +307,10 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Shared\Logged\Public\_Menu.cshtml" />
     <Content Include="Views\Device\Index.cshtml" />
+    <Content Include="Views\Shared\Logged\Editor\_Menu.cshtml" />
+    <Content Include="Views\Shared\Logged\Administrator\_Menu.cshtml" />
+    <Content Include="Views\Shared\Logged\_Menu.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -32,6 +32,7 @@ namespace Website.Controllers.ActionFilters
             currentUser.Id =  (int)body.GetValue("id_user");
             currentUser.Name = body.GetValue("name").ToString();
             currentUser.Email = body.GetValue("email").ToString();
+            currentUser.Permission = (int)body.GetValue("permission");
 
             HttpContext.Current.User = currentUser;
         }
