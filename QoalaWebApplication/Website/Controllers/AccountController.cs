@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
-using Website.Models;
 using System.Collections.Generic;
-using Website.API;
+using Website.Models.API;
+using Website.Models.ViewModels;
 
 namespace Website.Controllers
 {

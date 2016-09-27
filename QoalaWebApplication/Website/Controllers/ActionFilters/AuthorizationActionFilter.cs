@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Website.Principal;
+using Website.Models.API;
 
 namespace Website.Controllers.ActionFilters
 {
@@ -16,7 +17,7 @@ namespace Website.Controllers.ActionFilters
                 filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());
                 return;
             }
-            API.WSRequest request = new API.WSRequest("accounts/me");
+            WSRequest request = new WSRequest("accounts/me");
 
             request.AddAuthorization(token.ToString());
 

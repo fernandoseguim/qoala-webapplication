@@ -4,7 +4,7 @@ using RestSharp;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Website.API
+namespace Website.Models.API
 {
     public class WSRequest
     {
