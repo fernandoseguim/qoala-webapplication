@@ -9,6 +9,7 @@ namespace Website.Controllers
     public class PostController : Controller
     {
         [HttpGet]
+        [Route("posts/{idPost}")]
         public ActionResult GetPost(int idPost)
         {
             WSRequest request = new WSRequest("posts/" + idPost);

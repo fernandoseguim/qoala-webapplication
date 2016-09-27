@@ -10,6 +10,7 @@ namespace Website.Controllers
     {
         [AuthorizationActionFilter]
         [HttpPost]
+        [Route("comments")]
         public JsonResult New(Models.Comment comment)
         {
             var user = (UserPrincipal) HttpContext.User;

@@ -10,6 +10,7 @@ namespace Website.Controllers
     {
 
         [AllowAnonymous]
+        [Route("login")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -18,6 +19,7 @@ namespace Website.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("login")]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             WSRequest request = new WSRequest("accounts/login");
@@ -52,6 +54,7 @@ namespace Website.Controllers
         }
 
         [AllowAnonymous]
+        [Route("signup")]
         public ActionResult Register()
         {
             return View();
@@ -59,6 +62,7 @@ namespace Website.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("signup")]
         public ActionResult Register(RegisterViewModel model)
         {
             WSRequest request = new WSRequest("accounts/register");
@@ -94,7 +98,9 @@ namespace Website.Controllers
 
             return RedirectToAction("Index", "Profile");
         }
+
         [HttpPost]
+        [Route("logout")]
         public ActionResult Logout()
         {
             WSRequest request = new WSRequest("accounts/logout");
