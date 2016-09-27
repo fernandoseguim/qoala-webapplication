@@ -3,7 +3,7 @@
     using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     <ul class="nav navbar-nav navbar-right">
-        <li><button type="submit">Sair</button></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
     </ul>
     }
 }
