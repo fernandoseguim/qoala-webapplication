@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Website.Principal;
@@ -7,7 +6,7 @@ using Website.Models.API;
 
 namespace Website.Controllers.ActionFilters
 {
-    public class AuthorizationActionFilter : ActionFilterAttribute
+    public class AuthorizationRequest : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

@@ -20,11 +20,11 @@ namespace Website.Controllers
             }
             var body = response.Body;
 
-            List<Comment> comments = new List<Comment>();
+            List<CommentViewModel> comments = new List<CommentViewModel>();
             foreach (var comment in body["comments"])
             {
                 comments.Add(
-                    new Comment
+                    new CommentViewModel
                     {
                         IdPost = (int)comment["id_post"],
                         Content = comment["content"].ToString(),

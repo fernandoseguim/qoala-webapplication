@@ -3,15 +3,16 @@ using System.Web.Mvc;
 using Website.Controllers.ActionFilters;
 using Website.Models.API;
 using Website.Principal;
+using Website.Models.ViewModels;
 
 namespace Website.Controllers
 {
     public class CommentController : Controller
     {
-        [AuthorizationActionFilter]
+        [AuthorizationRequest]
         [HttpPost]
         [Route("comments")]
-        public JsonResult New(Models.Comment comment)
+        public JsonResult New(CommentViewModel comment)
         {
             var user = (UserPrincipal) HttpContext.User;
             WSRequest request = new WSRequest("posts/" + comment.IdPost.ToString() + "/comments");

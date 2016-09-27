@@ -6,7 +6,7 @@ namespace Website.Controllers
     public class DeviceController : Controller
     {
         // GET: Device
-        [AuthorizationActionFilter]
+        [AuthorizationRequest]
         public ActionResult Index()
         {
             return View();

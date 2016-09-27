@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Website.Models
+namespace Website.Models.ViewModels
 {
-    public class Comment
+    public class CommentViewModel
     {
         public int IdPost { get; set; }
         [Required]

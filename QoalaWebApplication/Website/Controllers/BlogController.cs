@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Website.Models;
 using Website.Models.API;
 using Website.Models.ViewModels;
 
@@ -18,10 +17,10 @@ namespace Website.Controllers
             if (response.Code == 200)
             {
                 var body = response.Body;
-                List<Post> posts = new List<Post>();
+                List<PostViewModel> posts = new List<PostViewModel>();
                 foreach(var post in body.GetValue("posts"))
                 {
-                    posts.Add(new Post
+                    posts.Add(new PostViewModel
                     {
                         IdPost = (int) post["id_post"],
                         Title = post["title"].ToString(),

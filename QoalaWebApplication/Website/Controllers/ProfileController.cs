@@ -6,7 +6,7 @@ namespace Website.Controllers
 {
     public class ProfileController : BaseController
     {
-        [AuthorizationActionFilter]
+        [AuthorizationRequest]
         public ActionResult Index()
         {
             // You need set currentUser to set viewbag dynamic.
@@ -15,7 +15,7 @@ namespace Website.Controllers
         }
 
         [HttpGet]
-        [AuthorizationActionFilter]
+        [AuthorizationRequest]
         public ActionResult Edit()
         {
             return View();

@@ -10,5 +10,5 @@
 
 <p>@Model.Content</p>
 
-@{ Html.RenderPartial("../Comment/New", new Website.Models.Comment { IdPost = idPost }); }
+@{ Html.RenderPartial("../Comment/New", new CommentViewModel { IdPost = idPost }); }
 @{ Html.RenderPartial("../Comment/All", Model.Comments); }
