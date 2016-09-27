@@ -206,10 +206,12 @@
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\ViewModels\AccountViewModel.cs" />
     <Compile Include="Models\ViewModels\BlogViewModel.cs" />
+    <Compile Include="Models\ViewModels\PostViewModel.cs" />
     <Compile Include="Principal\UserPrincipal.cs" />
     <Compile Include="Principal\IUserPrincipal.cs" />
     <Compile Include="Models\API\WSRequest.cs" />
@@ -304,6 +306,7 @@
     <Content Include="Views\Shared\Logged\_Menu.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Post\Get.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

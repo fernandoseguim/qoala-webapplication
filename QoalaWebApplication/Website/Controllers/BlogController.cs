@@ -9,7 +9,7 @@ namespace Website.Controllers
     public class BlogController : Controller
     {
         // GET: Blog
-        [Route("blog/{page}")]
+        [Route("blog")]
         public ActionResult Index(int page = 1)
         {
             WSRequest request = new WSRequest("posts?pageNumber=" + page);
@@ -32,9 +32,9 @@ namespace Website.Controllers
                 }
 
                 model.Posts = posts;
-                model.TotalNumberPages = (int)body.GetValue("total_number_page");
+                model.TotalNumberPages = (int) body.GetValue("total_number_pages");
                 model.PreviousPage = (bool) body.GetValue("previous_page");
-                model.NextPage = (bool)body.GetValue("next_page");
+                model.NextPage = (bool) body.GetValue("next_page");
             }
             return View(model);
         }
