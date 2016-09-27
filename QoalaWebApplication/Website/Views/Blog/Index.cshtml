@@ -17,5 +17,16 @@
             <div>@item.Content</div>
             <hr />
         }
+
+        <ul>
+            @for (var count = 1; count <= Model.TotalNumberPages; count++)
+            {
+                <li>@Html.ActionLink("Página" + count, "Index", "Blog", new { page = count }, new { @class = "" })</li>
+            }
+            @if (Model.HasMorePages)
+            {
+                <li>@Html.ActionLink("Próxima Página", "Index", "Blog", new { page = Request.Params.Get("page").AsDecimal() + 1 }, new { @class = "" })</li>
+            }
+        </ul>
     }
 }
