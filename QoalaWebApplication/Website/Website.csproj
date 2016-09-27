@@ -204,10 +204,12 @@
     <Compile Include="Controllers\ActionFilters\AuthorizationActionFilter.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\ViewModels\AccountViewModel.cs" />
     <Compile Include="Models\ViewModels\BlogViewModel.cs" />
@@ -306,7 +308,9 @@
     <Content Include="Views\Shared\Logged\_Menu.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
-    <Content Include="Views\Post\Get.cshtml" />
+    <Content Include="Views\Post\GetPost.cshtml" />
+    <Content Include="Views\Comment\New.cshtml" />
+    <Content Include="Views\Comment\All.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

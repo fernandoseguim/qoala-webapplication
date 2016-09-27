@@ -1,0 +1,52 @@
+﻿@model Website.Models.Comment
+@if (Session["token"] != null)
+{
+    using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-comment" }))
+    {
+        <fieldset>
+            <legend>
+                <div>
+                    @Html.LabelFor(model => model.Content)
+                </div>
+                <div>
+                    @Html.TextAreaFor(model => model.Content)
+                </div>
+            </legend>
+        </fieldset>
+        @Html.HiddenFor(model => model.IdPost)
+
+        <div>
+            <input type="submit" value="Comentar" />
+        </div>
+        <div id="feedback"></div>
+    }
+    <script type="text/javascript">
+    $("#form-comment").on("submit", function (event) {
+        event.preventDefault();
+        var content = $(this).find("#Content");
+        var data = {
+            content: content.val(),
+            IdPost: $(this).find("#IdPost").val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/Comment/new',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                if (msg.success) {
+                    $("#feedback").removeClass().addClass("success").html("Seu comentário foi cadastrado, e será aprovado em breve.");
+                    content.val("");
+                } else {
+                    $("#feedback").removeClass().addClass("error").html("Não foi possível cadastrar seu comentário.")
+                }
+            }
+        });
+    });
+    </script>
+}
+else
+{
+    <strong>Você precisa se logar para comentar</strong>
+}
