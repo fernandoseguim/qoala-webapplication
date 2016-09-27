@@ -9,6 +9,7 @@ namespace Website.Controllers
             return View();
         }
 
+        [Route("sobre")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -16,6 +17,7 @@ namespace Website.Controllers
             return View();
         }
 
+        [Route("contato")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -23,13 +25,7 @@ namespace Website.Controllers
             return View();
         }
 
-        public ActionResult News()
-        {
-            ViewBag.Message = "Listar notícias aqui.";
-
-            return View();
-        }
-
+        [Route("time")]
         public ActionResult Team()
         {
             ViewBag.Message = "Informações sobre a equipe.";

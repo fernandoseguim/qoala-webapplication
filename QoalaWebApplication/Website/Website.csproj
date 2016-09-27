@@ -203,9 +203,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActionFilters\AuthorizationActionFilter.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Models\API\Post.cs" />
     <Compile Include="Principal\UserPrincipal.cs" />
     <Compile Include="Principal\IUserPrincipal.cs" />
     <Compile Include="Models\API\WSRequest.cs" />
@@ -300,6 +302,7 @@
     <Content Include="Views\Shared\Logged\Administrator\_Menu.cshtml" />
     <Content Include="Views\Shared\Logged\_Menu.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
