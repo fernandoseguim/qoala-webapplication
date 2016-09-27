@@ -33,7 +33,8 @@ namespace Website.Controllers
 
                 model.Posts = posts;
                 model.TotalNumberPages = (int)body.GetValue("total_number_page");
-                model.HasMorePages = (bool) body.GetValue("has_more_pages");
+                model.PreviousPage = (bool) body.GetValue("previous_page");
+                model.NextPage = (bool)body.GetValue("next_page");
             }
             return View(model);
         }
