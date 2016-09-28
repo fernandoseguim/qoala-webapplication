@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Perfil";
-    var currentUser = (Website.Models.ViewModels.UserViewModel)Session["CurrentUser"];
+    var currentUser = Session.CurrentUser();
+
 }
 
 <h2>@ViewBag.Title.</h2>
