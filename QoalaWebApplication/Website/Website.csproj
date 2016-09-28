@@ -306,7 +306,7 @@
     <Content Include="Views\Shared\Logged\_Menu.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
-    <Content Include="Views\Post\GetPost.cshtml" />
+    <Content Include="Views\Post\Show.cshtml" />
     <Content Include="Views\Comment\New.cshtml" />
     <Content Include="Views\Comment\All.cshtml" />
   </ItemGroup>

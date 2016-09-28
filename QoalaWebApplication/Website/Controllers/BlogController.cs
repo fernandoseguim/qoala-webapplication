@@ -11,7 +11,7 @@ namespace Website.Controllers
         [Route("blog")]
         public ActionResult Index(int page = 1)
         {
-            WSRequest request = new WSRequest("posts?pageNumber=" + page);
+            WSRequest request = new WSRequest("posts?page=" + page);
             var response = request.Get();
             var model = new BlogViewModel { };
             if (response.Code == 200)
@@ -24,7 +24,7 @@ namespace Website.Controllers
                     {
                         IdPost = (int) post["id_post"],
                         Title = post["title"].ToString(),
-                        Content = post["content"].ToString(),
+                        ContentSummary = post["content"].ToString(),
                         PublishedAt = post["published_at"].ToString(),
                         IdUser = (int) post["id_user"],
                     });
@@ -34,6 +34,7 @@ namespace Website.Controllers
                 model.TotalNumberPages = (int) body.GetValue("total_number_pages");
                 model.PreviousPage = (bool) body.GetValue("previous_page");
                 model.NextPage = (bool) body.GetValue("next_page");
+                model.CurrentPage = (int)body.GetValue("current_page");
             }
             return View(model);
         }

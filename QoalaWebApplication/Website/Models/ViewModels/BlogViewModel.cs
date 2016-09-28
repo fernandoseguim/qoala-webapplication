@@ -8,5 +8,6 @@ namespace Website.Models.ViewModels
         public bool NextPage { get; set; }
         public bool PreviousPage { get; set; }
         public int TotalNumberPages { get; set; }
+        public int CurrentPage { get; set; }
     }
 }

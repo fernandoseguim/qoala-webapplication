@@ -10,7 +10,7 @@ namespace Website.Controllers
     {
         [HttpGet]
         [Route("posts/{idPost}")]
-        public ActionResult GetPost(int idPost)
+        public ActionResult Show(int idPost)
         {
             WSRequest request = new WSRequest("posts/" + idPost);
             var response = request.Get();

@@ -13,8 +13,8 @@
     {
         foreach (var item in Model.Posts)
         {
-            <h1>@Html.ActionLink(@item.Title, "GetPost", "Post", new { item.IdPost }, new { @class = "" })</h1>
-            <div>@item.Content</div>
+            <h1>@Html.ActionLink(@item.Title, "Show", "Post", new { item.IdPost }, new { @class = "" })</h1>
+            <div>@item.ContentSummary</div>
             <hr />
         }
 
@@ -22,15 +22,24 @@
 
             @if (Model.PreviousPage)
             {
-                <li>@Html.ActionLink("Página Anterior", "Index", "Blog", new { page = Request.Params.Get("page").AsDecimal() - 1 }, new { @class = "" })</li>
+                <li>@Html.ActionLink("Página Anterior", "Index", "Blog", new { page = Model.CurrentPage - 1 }, new { @class = "" })</li>
             }
             @for (var count = 1; count <= Model.TotalNumberPages; count++)
             {
-                <li>@Html.ActionLink("Página" + count, "Index", "Blog", new { page = count }, new { @class = "" })</li>
+                <li>
+                    @if (count == Model.CurrentPage)
+                    {
+                        <strong>Página @count</strong>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Página " + count, "Index", "Blog", new { page = count }, new { @class = "" });
+                    }
+                </li>
             }
             @if (Model.NextPage)
             {
-                <li>@Html.ActionLink("Próxima Página", "Index", "Blog", new { page = Request.Params.Get("page").AsDecimal() + 1 }, new { @class = "" })</li>
+                <li>@Html.ActionLink("Próxima Página", "Index", "Blog", new { page = Model.CurrentPage + 1 }, new { @class = "" })</li>
             }
         </ul>
     }
