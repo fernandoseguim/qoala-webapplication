@@ -1,0 +1,11 @@
+﻿@using Website.Models.ViewModels
+@model List<PostViewModel>
+@{
+    int idPost = (int)HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
+}
+@foreach (var post in Model)
+{
+    <h1>@post.Title</h1>
+    <span>@post.PublishedAt</span>
+    <p>@Html.Raw(post.ContentSummary)</p>
+}
