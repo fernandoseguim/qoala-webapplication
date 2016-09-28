@@ -1,6 +1,6 @@
 ﻿@{
-    var currentUser = ViewBag.currentUser;
-    switch ((int)currentUser.Permission)
+    var currentUser = (Website.Models.ViewModels.UserViewModel) Session["CurrentUser"];
+    switch (currentUser.Permission)
     {
         case 1:
             Html.RenderPartial("../Shared/Logged/Public/_Menu");

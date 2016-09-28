@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Website.Controllers.ActionFilters;
 using Website.Models.API;
-using Website.Principal;
 using Website.Models.ViewModels;
 
 namespace Website.Controllers
@@ -14,11 +13,11 @@ namespace Website.Controllers
         [Route("comments")]
         public JsonResult New(CommentViewModel comment)
         {
-            var user = (UserPrincipal) HttpContext.User;
+            var user = (UserViewModel) Session["currentUser"];
             WSRequest request = new WSRequest("posts/" + comment.IdPost.ToString() + "/comments");
             IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("id_user", user.Id.ToString()),
+                    new KeyValuePair<string, string>("id_user", user.IdUser.ToString()),
                     new KeyValuePair<string, string>("id_post", comment.IdPost.ToString()),
                     new KeyValuePair<string, string>("content", comment.Content),
                 };

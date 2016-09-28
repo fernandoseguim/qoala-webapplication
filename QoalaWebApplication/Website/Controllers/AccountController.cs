@@ -121,6 +121,7 @@ namespace Website.Controllers
                     return RedirectToAction("Index", "Home", new { Message = "Não foi possível delogar" });
                 }
                 Session["token"] = null;
+                Session["CurrentUser"] = null;
             }
             catch (Exception e)
             {
