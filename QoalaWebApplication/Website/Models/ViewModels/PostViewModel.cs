@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace Website.Models.ViewModels
@@ -7,8 +8,16 @@ namespace Website.Models.ViewModels
     {
         private string _contentSummary;
         public int IdPost { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o título.")]
+        [Display(Name = "Title")]
         public string Title { get; set; }
+
+        [Required(ErrorMessage = "Por favor, informe o conteúdo.")]
+        [Display(Name = "Conteúdo")]
+        [DataType(DataType.Html)]
         public string Content { get; set; }
+
         public string ContentSummary
         {
             get
@@ -22,6 +31,7 @@ namespace Website.Models.ViewModels
             }
         }
         public string PublishedAt { get; set; }
+        [Required]
         public int IdUser { get; set; }
         public List<CommentViewModel> Comments { get; set; }
 
