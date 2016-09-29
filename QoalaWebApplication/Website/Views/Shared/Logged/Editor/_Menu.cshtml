@@ -3,12 +3,21 @@
         <button type="button" class="btn btn-default">@Html.ActionLink("Perfil", "Index", "Profile")</button>
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Posts
+                Notícias
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Criar Posts", "New", "Post")</li>
-                <li>@Html.ActionLink("Listar Posts", "Index", "Post")</li>
+                <li>@Html.ActionLink("Criar Notícia", "New", "Post")</li>
+                <li>@Html.ActionLink("Listar Notícias", "Index", "Post")</li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Comentários
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Listar Cometários", "Index", "Comment")</li>
             </ul>
         </div>
     </div>

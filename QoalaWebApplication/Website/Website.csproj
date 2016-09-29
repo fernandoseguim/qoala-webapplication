@@ -315,6 +315,7 @@
     <Content Include="Views\Blog\ShowPost.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Shared\_LayoutLogged.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

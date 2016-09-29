@@ -1,0 +1,47 @@
+﻿@using Website.Models.ViewModels
+@model List<CommentViewModel>
+@{
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+}
+<table class="table table-bordered list-posts">
+    <tr>
+        <td>#</td>
+        <td>Usuário</td>
+        <td>Conteúdo</td>
+        <td>Aprovado</td>
+        <td>Ações</td>
+    </tr>
+    @foreach (var comment in Model)
+    {
+        <tr data-idcomment="@comment.IdComment">
+            <td>@comment.IdComment</td>
+            <td>Usuário mockado</td>
+            <td>@comment.Content</td>
+            <td>@(comment.ApprovedAt.IsEmpty() ? "Não" : "Sim")  </td>
+            <td>
+                <ul>
+                    @if (comment.ApprovedAt.IsEmpty())
+                    {
+                        using (Html.BeginForm("Approved", "Comment", new { idComment = comment.IdComment, returnUrl = "/comment?message=O comentário " + comment.IdComment + " foi aprovado" }, FormMethod.Post, new { id = "approvedCommentForm-" + comment.IdComment, idComment = comment.IdComment }))
+                        {
+                            <li><a href="javascript:document.getElementById('approvedCommentForm-@comment.IdComment').submit()">Approvar comentário</a></li>
+                        }
+                    }
+                    <li>@Html.ActionLink("Editar Comentário", "Edit", new { idComment = comment.IdComment, returnUrl = "/comment" })</li>
+                    @using (Html.BeginForm("Delete", "Comment", new { idComment = comment.IdComment, returnUrl = "/comment?message=O comentário " + comment.IdComment+ " foi deletado" }, FormMethod.Post, new { id = "deleteCommentForm-" + comment.IdComment }))
+                    {
+                        <li><a href="javascript:document.getElementById('deleteCommentForm-@comment.IdComment').submit()">Deletar Comentário</a></li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
+<script>
+    $(".table").on('click', "tr", function () {
+        var idComment = $(this).data('idcomment');
+        if (idComment != undefined) {
+            window.location.href = "/comment/show/?idComment=" + idComment;
+        }
+    });
+</script>
