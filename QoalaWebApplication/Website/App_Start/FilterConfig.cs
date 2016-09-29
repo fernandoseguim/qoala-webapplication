@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Website.Controllers.ActionFilters;
 
 namespace Website
 {
@@ -8,6 +8,7 @@ namespace Website
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new VerifyQoalaToken());
         }
     }
 }
