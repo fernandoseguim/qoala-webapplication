@@ -1,11 +1,50 @@
 ﻿@using Website.Models.ViewModels
 @model List<PostViewModel>
 @{
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
     int idPost = (int)HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
 }
-@foreach (var post in Model)
-{
-    <h1>@post.Title</h1>
-    <span>@post.PublishedAt</span>
-    <p>@Html.Raw(post.ContentSummary)</p>
-}
+<table class="table table-bordered list-posts">
+    <tr>
+        <td>#</td>
+        <td>Título</td>
+        <td>Resumo do conteudo</td>
+        <td>Publicado</td>
+        <td>Autor</td>
+        <td>Ações</td>
+    </tr>
+    @foreach (var post in Model)
+    {
+        <tr data-idpost="@post.IdPost">
+            <td>@post.IdPost</td>
+            <td>@post.Title</td>
+            <td>@post.ContentSummary</td>
+            <td>@(post.PublishedAt.IsEmpty() ? "Não" : "Sim")  </td>
+            <td>Autor mockado</td>
+            <td>
+                <ul>
+                    @if (post.PublishedAt.IsEmpty())
+                    {
+                        using (Html.BeginForm("Publish", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi publicado" }, FormMethod.Post, new { id = "publishPostForm-" + post.IdPost, idPost = post.IdPost }))
+                        {
+                            <li><a href="javascript:document.getElementById('publishPostForm-@post.IdPost').submit()">Publicar Post</a></li>
+                        }
+                    }
+                    <li>@Html.ActionLink("Editar Post", "Edit", new { idPost = post.IdPost, returnUrl = "/post" })</li>
+                    @using (Html.BeginForm("Delete", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi publicado" }, FormMethod.Post, new { id = "deletePostForm-" + post.IdPost }))
+                    {
+                        <li><a href="javascript:document.getElementById('deletePostForm-@post.IdPost').submit()">Deletar Post</a></li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
+<script>
+    $(".table").on('click', "tr", function () {
+        var idPost = $(this).data('idpost');
+        if (idPost != undefined) {
+            window.location.href = "/post/show/?idPost=" + idPost;
+        }
+    });
+</script>

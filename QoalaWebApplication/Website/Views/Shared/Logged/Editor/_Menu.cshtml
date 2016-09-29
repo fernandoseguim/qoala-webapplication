@@ -1,13 +1,15 @@
-﻿<div>
-    <ul>
-        <li>
-            @Html.ActionLink("Perfil", "Index", "Profile")
-        </li>
-        <li>
-            @Html.ActionLink("Posts", "Index", "Post")
-        </li>
-        <li>
-            @Html.ActionLink("Criar Post", "New", "Post")
-        </li>
-    </ul>
+﻿<div class="container sub-menu">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default">@Html.ActionLink("Perfil", "Index", "Profile")</button>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Posts
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Criar Posts", "New", "Post")</li>
+                <li>@Html.ActionLink("Listar Posts", "Index", "Post")</li>
+            </ul>
+        </div>
+    </div>
 </div>

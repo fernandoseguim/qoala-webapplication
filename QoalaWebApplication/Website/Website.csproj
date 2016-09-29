@@ -230,7 +230,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Images\logo-qoala-fundo-claro.png" />
     <Content Include="Images\logo-qoala-fundo-escuro.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -259,6 +258,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -312,6 +312,9 @@
     <Content Include="Views\Comment\All.cshtml" />
     <Content Include="Views\Post\Index.cshtml" />
     <Content Include="Views\Post\New.cshtml" />
+    <Content Include="Views\Blog\ShowPost.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogged.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

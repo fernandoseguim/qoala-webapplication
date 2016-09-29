@@ -14,17 +14,18 @@
 <body>
     <div class="navbar navbar-inverse main-menu">
         <div class="container">
-                @Html.ActionLink("Qoala", "Index", "Home", new { area = "" }, new { @class = "navbar-brand qoala-logotipo" })
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home Page", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sobre o Projeto", "About", "Home")</li>
-                    <li>@Html.ActionLink("Noticias", "Index", "Blog")</li>
-                    <li>@Html.ActionLink("Equipe", "Team", "Home")</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+            @Html.ActionLink("Qoala", "Index", "Home", new { area = "" }, new { @class = "navbar-brand qoala-logotipo" })
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home Page", "Index", "Home")</li>
+                <li>@Html.ActionLink("Sobre o Projeto", "About", "Home")</li>
+                <li>@Html.ActionLink("Noticias", "Index", "Blog")</li>
+                <li>@Html.ActionLink("Equipe", "Team", "Home")</li>
+                <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
+    @Html.Partial("Logged/_Menu")
     <div class="container body-content">
         @RenderBody()
     </div>

@@ -1,14 +1,38 @@
 ﻿@using Website.Models.ViewModels
 @model PostViewModel
 @{
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
     ViewBag.Title = "Blog";
     int idPost = (int) HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
 }
 
-<h1>@Model.Title</h1>
-<span>@Model.PublishedAt</span>
+<h3>Descrição do Post #@Model.IdPost <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
 
-<p>@Html.Raw(Model.Content)</p>
+<div id="actions">
+    <ul>
+        @if (Model.PublishedAt.IsEmpty())
+        {
+            using (Html.BeginForm("Publish", "Post",  new { idPost = Model.IdPost}, FormMethod.Post, new { id = "publishForm", idPost = Model.IdPost }))
+            {
+                <li><a href="javascript:document.getElementById('publishForm').submit()">Publicar Post</a></li>
+            }
+        }
+        <li>@Html.ActionLink("Editar Post", "Edit", new { idPost = Model.IdPost })</li>
+        @using (Html.BeginForm("Delete", "Post", new { idPost = Model.IdPost }, FormMethod.Post, new { id = "deleteForm" }))
+        {
+            <li><a href="javascript:document.getElementById('deleteForm').submit()">Deletar Post</a></li>
+        }
+    </ul>
+</div>
 
-@{ Html.RenderPartial("../Comment/New", new CommentViewModel { IdPost = idPost }); }
-@{ Html.RenderPartial("../Comment/All", Model.Comments); }
+<div>
+    <strong>Titulo: </strong> @Model.Title
+</div>
+<hr />
+<div>
+    <strong>Data de publicação: </strong> @Model.PublishedAt
+</div>
+<hr />
+<div>
+    <strong>Conteúdo: </strong> @Html.Raw(Model.Content)
+</div>

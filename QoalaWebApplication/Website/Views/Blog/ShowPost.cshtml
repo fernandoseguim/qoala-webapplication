@@ -1,0 +1,14 @@
+﻿@using Website.Models.ViewModels
+@model PostViewModel
+@{
+    ViewBag.Title = "Blog";
+    int idPost = (int) HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
+}
+
+<h1>@Model.Title</h1>
+<span>@Model.PublishedAt</span>
+
+<p>@Html.Raw(Model.Content)</p>
+
+@{ Html.RenderPartial("../Comment/New", new CommentViewModel { IdPost = idPost }); }
+@{ Html.RenderPartial("../Comment/All", Model.Comments); }

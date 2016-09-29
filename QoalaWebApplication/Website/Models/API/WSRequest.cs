@@ -124,6 +124,12 @@ namespace Website.Models.API
             return Execute();
         }
 
+        public Response Put()
+        {
+            this._request.Method = Method.PUT;
+            return Execute();
+        }
+
         public class Response
         {
             public JObject Body { get; set; }
