@@ -10,7 +10,7 @@ namespace Website.Models.ViewModels
         public int IdPost { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o título.")]
-        [Display(Name = "Title")]
+        [Display(Name = "Título")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o conteúdo.")]
@@ -30,6 +30,7 @@ namespace Website.Models.ViewModels
                 _contentSummary = StripHtml(value).Substring(0, limit - 1);
             }
         }
+        [Display(Name = "Publicado em")]
         public string PublishedAt { get; set; }
         [Required]
         public int IdUser { get; set; }

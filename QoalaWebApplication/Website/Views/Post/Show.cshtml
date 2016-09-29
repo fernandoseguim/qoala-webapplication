@@ -6,7 +6,7 @@
     int idPost = (int) HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
 }
 
-<h3>Descrição do Post #@Model.IdPost <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
+<h3>Detalhes do Post #@Model.IdPost <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
 
 <div id="actions">
     <ul>
@@ -25,14 +25,73 @@
     </ul>
 </div>
 
-<div>
-    <strong>Titulo: </strong> @Model.Title
-</div>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Title)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Title)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.PublishedAt)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.PublishedAt)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Content)
+    </dt>
+
+    <dd>
+        @Html.Raw(Html.DisplayFor(model => model.Content))
+    </dd>
+</dl>
+
 <hr />
-<div>
-    <strong>Data de publicação: </strong> @Model.PublishedAt
-</div>
-<hr />
-<div>
-    <strong>Conteúdo: </strong> @Html.Raw(Model.Content)
-</div>
+<h4>Comentários</h4>
+
+@if(Model.Comments.Count == 0)
+{
+    <strong>Não existem comentários aprovados neste post.</strong>
+}
+else
+{
+    <dl class="dl-horizontal">
+        @foreach (var comment in Model.Comments)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.IdUser)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdUser)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Content)
+            </dd>
+
+            <dt>
+                @Html.RouteLink(
+                    "Editar comentário",
+                    new {
+                        controller = "Comment",
+                        action = "Edit",
+                        idPost = comment.IdPost,
+                        idComment = comment.IdComment,
+                        returnUrl = "/post/show?idPost=" + comment.IdPost
+                    }
+                )
+            </dt>
+            <hr />
+        }
+    </dl>
+}

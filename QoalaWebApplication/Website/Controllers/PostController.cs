@@ -19,14 +19,28 @@ namespace Website.Controllers
                 return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse post" });
             }
             var body = response.Body;
-            
+
+            List<CommentViewModel> comments = new List<CommentViewModel>();
+            foreach (var comment in body["comments"])
+            {
+                comments.Add(
+                    new CommentViewModel
+                    {
+                        IdComment = (int)comment["id_comment"],
+                        IdPost = (int)comment["id_post"],
+                        Content = comment["content"].ToString(),
+                        IdUser = (int)comment["id_user"]
+                    }
+                );
+            }
             var model = new PostViewModel
             {
                 Content = body["content"].ToString(),
                 PublishedAt = body["published_at"].ToString(),
                 IdPost = (int)body["id_post"],
                 IdUser = (int)body["id_user"],
-                Title = body["title"].ToString()
+                Title = body["title"].ToString(),
+                Comments = comments
             };
 
             return View(model);
