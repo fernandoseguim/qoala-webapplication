@@ -3,16 +3,24 @@
 {
     using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-comment", role = "form" }))
     {
-        <strong> Deixe seu comentário abaixo </strong>
-        <div class="form-group">
-            <div>
-                @Html.TextAreaFor(m => m.Content, new { @class = "form-control" })
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ReturnUrl)
+            @Html.HiddenFor(model => model.IdComment)
+            @Html.HiddenFor(model => model.IdPost)
+            <strong> Deixe seu comentário abaixo </strong>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        @Html.HiddenFor(model => model.IdPost)
-        <div class="form-group">
-            <div>
-                <input type="submit" class="btn btn-default" value="Comentar" />
+            @Html.HiddenFor(model => model.IdPost)
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Comentar" class="btn btn-default" />
+                </div>
             </div>
         </div>
 
@@ -22,6 +30,7 @@
     $("#form-comment").on("submit", function (event) {
         event.preventDefault();
         var content = $(this).find("#Content");
+        var content = $(this).data("iduser").val();
         var data = {
             content: content.val(),
             IdPost: $(this).find("#IdPost").val()
@@ -34,7 +43,8 @@
             dataType: 'json',
             success: function (msg) {
                 if (msg.success) {
-                    $("#feedback").removeClass().addClass("success").html("Seu comentário foi cadastrado, e será aprovado em breve.");
+                    $("#feedback").removeClass().addClass("success").html("Seu comentário foi cadastrado");
+                    $("#list-comments ul").append("<li><span>Usuário - {UserINFO}</span><h5>"+content.val()+"</h5></li>")
                     content.val("");
                 } else {
                     $("#feedback").removeClass().addClass("error").html("Não foi possível cadastrar seu comentário.")
@@ -43,6 +53,10 @@
         });
     });
     </script>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 }
 else
 {

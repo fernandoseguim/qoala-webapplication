@@ -12,8 +12,15 @@ namespace Website.Controllers.ActionFilters
             var token = HttpContext.Current.Session["token"];
             if(token == null)
             {
-                filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());
-                return;
+                if(HttpContext.Current.Request.Cookies["qoala_token"] == null)
+                {
+                    filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());
+                    return;
+                } else
+                {
+                    token = HttpContext.Current.Request.Cookies["qoala_token"].Value;
+                    HttpContext.Current.Session["token"] = token;
+                }
             }
             WSRequest request = new WSRequest("accounts/me");
 

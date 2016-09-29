@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using Website.Models.API;
 using Website.Models.ViewModels;
+using System.Web;
 
 namespace Website.Controllers
 {
@@ -45,6 +46,10 @@ namespace Website.Controllers
                 }
                 string token = response.Body.GetValue("token").ToString();
                 Session["token"] = token;
+
+                var cookie = new HttpCookie("qoala_token", token);
+                cookie.Expires = DateTime.Now.AddDays(7);
+                Response.Cookies.Add(cookie);
             } catch(Exception e) {
                 ModelState.AddModelError("", e.Message);
                 return View(model);
@@ -89,6 +94,9 @@ namespace Website.Controllers
                 }
                 string token = response.Body.GetValue("token").ToString();
                 Session["token"] = token;
+                var cookie = new HttpCookie("qoala_token", token);
+                cookie.Expires = DateTime.Now.AddDays(7);
+                Response.Cookies.Add(cookie);
             }
             catch (Exception e)
             {
@@ -122,6 +130,9 @@ namespace Website.Controllers
                 }
                 Session["token"] = null;
                 Session["CurrentUser"] = null;
+                var cookie = new HttpCookie("qoala_token");
+                cookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookie);
             }
             catch (Exception e)
             {
