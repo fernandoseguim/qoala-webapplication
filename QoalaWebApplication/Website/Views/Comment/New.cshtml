@@ -30,7 +30,6 @@
     $("#form-comment").on("submit", function (event) {
         event.preventDefault();
         var content = $(this).find("#Content");
-        var content = $(this).data("iduser").val();
         var data = {
             content: content.val(),
             IdPost: $(this).find("#IdPost").val()
@@ -44,7 +43,15 @@
             success: function (msg) {
                 if (msg.success) {
                     $("#feedback").removeClass().addClass("success").html("Seu comentário foi cadastrado");
-                    $("#list-comments ul").append("<li><span>Usuário - {UserINFO}</span><h5>"+content.val()+"</h5></li>")
+                    var listComment = $("#list-comments ul");
+                    var html = null;
+                    if (listComment.find(".comment").length == 0) {
+                        html = "<h4>Comentários</h4><li class='comment'><span>Usuário - {UserINFO}</span><h5>" + content.val() + "</h5><hr /></li>";
+                        $("#list-comments ul").html(html)
+                    } else {
+                        html = "<li class='comment'><span>Usuário - {UserINFO}</span><h5>" + content.val() + "</h5><hr /></li>";
+                        $("#list-comments ul").append(html)
+                    }
                     content.val("");
                 } else {
                     $("#feedback").removeClass().addClass("error").html("Não foi possível cadastrar seu comentário.")

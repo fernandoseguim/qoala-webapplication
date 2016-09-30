@@ -1,5 +1,5 @@
 ﻿@{
-    var currentUser = (Website.Models.ViewModels.UserViewModel) Session["CurrentUser"];
+    var currentUser = Session.CurrentUser();
     switch (currentUser.Permission)
     {
         case 1:
