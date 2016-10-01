@@ -1,0 +1,27 @@
+﻿@model Website.Models.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div>
+    <h4>Seu perfil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Nome:</dt>
+        <dd>
+            @Model.Name
+        </dd>
+        <dt>Email:</dt>
+        <dd>
+            @Model.Email
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Profile", new { idUser = Model.IdUser }, FormMethod.Post, new { id = "deleteForm" }))
+    {
+        <a href="javascript:document.getElementById('deleteForm').submit()">Deletar Conta</a>
+    }
+</div>

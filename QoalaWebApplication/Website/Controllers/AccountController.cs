@@ -55,7 +55,7 @@ namespace Website.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Profile");
+            return RedirectToAction("Show", "Profile");
         }
 
         [AllowAnonymous]
@@ -104,7 +104,7 @@ namespace Website.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Profile");
+            return RedirectToAction("Show", "Profile");
         }
 
         [HttpPost]

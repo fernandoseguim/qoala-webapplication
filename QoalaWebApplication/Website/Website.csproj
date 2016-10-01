@@ -300,13 +300,12 @@
     <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
-    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Show.cshtml" />
     <Content Include="Views\Shared\Logged\Public\_Menu.cshtml" />
     <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Shared\Logged\Editor\_Menu.cshtml" />
     <Content Include="Views\Shared\Logged\Administrator\_Menu.cshtml" />
     <Content Include="Views\Shared\Logged\_Menu.cshtml" />
-    <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Post\Show.cshtml" />
     <Content Include="Views\Comment\New.cshtml" />
@@ -319,6 +318,7 @@
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Comment\Show.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
