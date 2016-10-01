@@ -1,13 +1,45 @@
-﻿<div>
-    <ul>
-        <li>
-            @Html.ActionLink("Perfil Administrativo", "Index", "Profile")
-        </li>
-        <li>
-            @Html.ActionLink("Devices", "Index", "Device")
-        </li>
-        <li>
-            @Html.ActionLink("Atualizar perfil", "Update", "Profile")
-        </li>
-    </ul>
+﻿<div class="container sub-menu">
+    <div class="btn-group" role="group">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Perfil
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Visualizar Perfil", "Show", "Profile")</li>
+                <li>@Html.ActionLink("Editar Perfil", "Edit", "Profile")</li>
+            </ul>
+        </div>
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Notícias
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Criar Notícia", "New", "Post")</li>
+                <li>@Html.ActionLink("Listar Notícias", "Index", "Post")</li>
+            </ul>
+        </div>
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Comentários
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Listar Cometários", "Index", "Comment")</li>
+            </ul>
+        </div>
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Usuários
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Listar Usuários", "Index", "User")</li>
+            </ul>
+        </div>
+    </div>
 </div>

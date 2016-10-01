@@ -45,7 +45,6 @@ namespace Website.Controllers
             return RedirectToAction("Show", "Profile");
         }
 
-
         [HttpPost]
         [AuthorizationRequest]
         public ActionResult Delete(int idUser)

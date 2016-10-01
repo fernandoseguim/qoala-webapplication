@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Website.Models.ViewModels.UserViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permission)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Permission)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { idUser = item.IdUser }) |
+            @Html.ActionLink("Details", "Show", new { idUser = item.IdUser }) |
+            @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser }))
+            {
+                <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()">Deletar Usuário</a>
+            }
+        </td>
+    </tr>
+}
+
+</table>

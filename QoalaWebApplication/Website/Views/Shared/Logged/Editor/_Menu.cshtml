@@ -1,6 +1,16 @@
 ﻿<div class="container sub-menu">
     <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default">@Html.ActionLink("Perfil", "Index", "Profile")</button>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Perfil
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Visualizar Perfil", "Show", "Profile")</li>
+                <li>@Html.ActionLink("Editar Perfil", "Edit", "Profile")</li>
+            </ul>
+        </div>
+
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Notícias

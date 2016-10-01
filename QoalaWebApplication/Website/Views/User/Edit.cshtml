@@ -1,21 +1,23 @@
 ﻿@model Website.Models.ViewModels.UserViewModel
 
 @{
-    ViewBag.Title = "Editar Conta";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutLogged.cshtml";
 }
 
-<h2>Editar Conta</h2>
+<h2>Edit</h2>
 
 
-@using (Html.BeginForm("Update", "Profile"))
+@using (Html.BeginForm("Update", "User"))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        <h4>UserViewModel</h4>
+        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-         @Html.HiddenFor(model => model.IdUser)
-    
+        @Html.HiddenFor(model => model.IdUser)
+        
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -33,6 +35,22 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Permission, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Permission, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Permission, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Atualizar" class="btn btn-default" />
             </div>
@@ -40,6 +58,9 @@
     </div>
 }
 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>  
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
