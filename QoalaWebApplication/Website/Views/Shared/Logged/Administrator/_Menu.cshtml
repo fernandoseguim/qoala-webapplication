@@ -1,6 +1,17 @@
 ﻿<div class="container sub-menu">
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Device
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Listar Devices", "Index", "Device")</li>
+            <li>@Html.ActionLink("Criar Device", "New", "Device")</li>
+        </ul>
+    </div>
+
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Perfil
             <span class="caret"></span>
         </button>
@@ -38,16 +49,6 @@
         </button>
         <ul class="dropdown-menu">
             <li>@Html.ActionLink("Listar Usuários", "Index", "User")</li>
-        </ul>
-    </div>
-
-    <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Device
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li>@Html.ActionLink("Listar Device", "Index", "Device")</li>
         </ul>
     </div>
 </div>

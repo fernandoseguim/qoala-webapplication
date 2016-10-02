@@ -214,7 +214,9 @@
     <Compile Include="Models\ViewModels\CommentViewModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModel.cs" />
     <Compile Include="Models\ViewModels\BlogViewModel.cs" />
+    <Compile Include="Models\ViewModels\DeviceListViewModel.cs" />
     <Compile Include="Models\ViewModels\DeviceViewModel.cs" />
+    <Compile Include="Models\ViewModels\PaginationViewModel.cs" />
     <Compile Include="Models\ViewModels\PostViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Models\API\WSRequest.cs" />
@@ -326,6 +328,7 @@
     <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Device\Show.cshtml" />
     <Content Include="Views\Device\Edit.cshtml" />
+    <Content Include="Views\Device\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
