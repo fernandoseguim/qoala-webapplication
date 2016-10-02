@@ -1,0 +1,67 @@
+﻿@model Website.Models.ViewModels.DeviceViewModel
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+}
+
+<h2>Show</h2>
+
+<div>
+    <h4>DeviceViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdDevice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdDevice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alarm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alarm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrequencyUpdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrequencyUpdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdUser)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { idUser = Model.IdUser, idDevice = Model.IdDevice}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

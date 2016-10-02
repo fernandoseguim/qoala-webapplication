@@ -1,13 +1,67 @@
-﻿@{
-    ViewBag.Title = "Devices";
+﻿@model IEnumerable<Website.Models.ViewModels.DeviceViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>Index</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdDevice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alarm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FrequencyUpdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdUser)
+        </th>
+        <th></th>
+    </tr>
 
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdDevice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alarm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FrequencyUpdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdUser)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { idDevice = item.IdDevice, idUser = item.IdUser }) |
+            @Html.ActionLink("Details", "Show", new { idDevice = item.IdDevice, idUser = item.IdUser }) |
+            @using (Html.BeginForm("Delete", "Device", new { idDevice = item.IdDevice }, FormMethod.Post, new { id = "deleteDeviceForm-" + item.IdDevice}))
+            {
+                <a href="javascript:document.getElementById('deleteDeviceForm-@item.IdDevice').submit()">Deletar Device</a>
+            }
+            @using (Html.BeginForm("TurnAlarm", "Device", new { alarm = item.Alarm, idDevice = item.IdDevice, idUser = item.IdUser }, FormMethod.Post, new { id = "turnDeviceForm-" + item.IdDevice }))
+            {
+                <a href="javascript:document.getElementById('turnDeviceForm-@item.IdDevice').submit()"> Device</a>
+            }
+        </td>
+    </tr>
+}
 
-@{Html.RenderPartial("../Shared/Logged/Public/_Menu");}
-
-<div>
-    <h4>Meus Devices</h4>
-    <hr />
-</div>
+</table>

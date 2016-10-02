@@ -214,6 +214,7 @@
     <Compile Include="Models\ViewModels\CommentViewModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModel.cs" />
     <Compile Include="Models\ViewModels\BlogViewModel.cs" />
+    <Compile Include="Models\ViewModels\DeviceViewModel.cs" />
     <Compile Include="Models\ViewModels\PostViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Models\API\WSRequest.cs" />
@@ -303,7 +304,6 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\Profile\Show.cshtml" />
     <Content Include="Views\Shared\Logged\Public\_Menu.cshtml" />
-    <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Shared\Logged\Editor\_Menu.cshtml" />
     <Content Include="Views\Shared\Logged\Administrator\_Menu.cshtml" />
     <Content Include="Views\Shared\Logged\_Menu.cshtml" />
@@ -323,6 +323,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Show.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Device\Index.cshtml" />
+    <Content Include="Views\Device\Show.cshtml" />
+    <Content Include="Views\Device\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
