@@ -36,20 +36,29 @@ namespace Website.Controllers
 
         [HttpGet]
         [AuthorizationRequest]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             var user = (UserViewModel) Session["CurrentUser"];
-            WSRequest request = new WSRequest("users/" + user.IdUser + "/posts/comments");
+            WSRequest request = new WSRequest("users/" + user.IdUser + "/posts/comments?page=" + page);
             request.AddAuthorization(Session["token"].ToString());
             var response = request.Get();
             if (response.Code != 200)
                 return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse post" });
             
             var body = response.Body;
-            List<CommentViewModel> model = new List<CommentViewModel>();
+            CommentListViewModel model = new CommentListViewModel();
+            var pagination = body.GetValue("pagination");
+            model.Pagination = new PaginationViewModel
+            {
+                NextPage = (bool)pagination["next_page"],
+                PreviousPage = (bool)pagination["previous_page"],
+                CurrentPage = (int)pagination["current_page"],
+                TotalNumberPages = (int)pagination["total_number_pages"],
+            };
+            model.Comments = new List<CommentViewModel>();
             foreach (var comment in body.GetValue("comments"))
             {
-                model.Add(
+                model.Comments.Add(
                     new CommentViewModel
                     {
                         IdComment = (int)comment["id_comment"],

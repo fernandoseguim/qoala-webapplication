@@ -12,9 +12,9 @@ namespace Website.Controllers
     public class UserController : Controller
     {
         [AuthorizationRequest]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            WSRequest request = new WSRequest("users");
+            WSRequest request = new WSRequest("users/?page=" + page);
             request.AddAuthorization(Session["token"].ToString());
 
             var response = request.Get();
@@ -24,10 +24,19 @@ namespace Website.Controllers
 
             var body = response.Body;
 
-            List<UserViewModel> model = new List<UserViewModel>();
+            UserListViewModel model = new UserListViewModel();
+            var pagination = body.GetValue("pagination");
+            model.Pagination = new PaginationViewModel
+            {
+                NextPage = (bool)pagination["next_page"],
+                PreviousPage = (bool)pagination["previous_page"],
+                CurrentPage = (int)pagination["current_page"],
+                TotalNumberPages = (int)pagination["total_number_pages"],
+            };
+            model.Users = new List<UserViewModel>();
             foreach (var user in body["users"])
             {
-                model.Add(
+                model.Users.Add(
                     new UserViewModel
                     {
                         IdUser = (int) user["id_user"],

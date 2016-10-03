@@ -48,10 +48,17 @@ namespace Website.Controllers
 
         [HttpGet]
         [AuthorizationRequest]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             var user = (UserViewModel)Session["CurrentUser"];
-            WSRequest request = new WSRequest("users/"+ user.IdUser + "/posts");
+            WSRequest request = null;
+            if (user.Permission == 3)
+            {
+                request = new WSRequest("/posts?page=" + page);
+            } else
+            {
+                request = new WSRequest("users/" + user.IdUser + "/posts?page=" + page);
+            }
 
             var response = request.Get();
 
@@ -60,10 +67,19 @@ namespace Website.Controllers
             
             var body = response.Body;
 
-            List<PostViewModel> model = new List<PostViewModel>();
+            PostListViewModel model = new PostListViewModel();
+            var pagination = body.GetValue("pagination");
+            model.Pagination = new PaginationViewModel
+            {
+                NextPage = (bool)pagination["next_page"],
+                PreviousPage = (bool)pagination["previous_page"],
+                CurrentPage = (int)pagination["current_page"],
+                TotalNumberPages = (int)pagination["total_number_pages"],
+            };
+            model.Posts = new List<PostViewModel>();
             foreach (var post in body["posts"])
             {
-                model.Add(
+                model.Posts.Add(
                     new PostViewModel
                     {
                         ContentSummary = post["content"].ToString(),

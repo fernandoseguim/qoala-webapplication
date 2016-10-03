@@ -2,9 +2,9 @@
 
 namespace Website.Models.ViewModels
 {
-    public class BlogViewModel
+    public class UserListViewModel
     {
-        public List<PostViewModel> Posts { get; set; }
+        public List<UserViewModel> Users { get; set; }
         public PaginationViewModel Pagination { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Website.Models.ViewModels.UserViewModel>
+﻿@model Website.Models.ViewModels.UserListViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -8,21 +8,21 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IdUser)
+            #
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Nome
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Permission)
+            Permissão
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach(var item in Model.Users) { 
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.IdUser)
@@ -46,5 +46,27 @@
         </td>
     </tr>
 }
-
+    <ul>
+        @if (Model.Pagination.PreviousPage)
+        {
+            <li>@Html.ActionLink("Página Anterior", "Index", "User", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
+        }
+        @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
+        {
+            <li>
+                @if (count == Model.Pagination.CurrentPage)
+                {
+                    <strong>Página @count</strong>
+                }
+                else
+                {
+                    @Html.ActionLink("Página " + count, "Index", "User", new { page = count }, new { @class = "" });
+                }
+            </li>
+        }
+        @if (Model.Pagination.NextPage)
+        {
+            <li>@Html.ActionLink("Próxima Página", "Index", "User", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
+        }
+    </ul>
 </table>

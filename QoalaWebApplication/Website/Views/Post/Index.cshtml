@@ -1,8 +1,6 @@
-﻿@using Website.Models.ViewModels
-@model List<PostViewModel>
+﻿@model Website.Models.ViewModels.PostListViewModel
 @{
     Layout = "~/Views/Shared/_LayoutLogged.cshtml";
-    int idPost = (int)HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
 }
 <table class="table table-bordered list-posts">
     <tr>
@@ -13,7 +11,8 @@
         <td>Autor</td>
         <td>Ações</td>
     </tr>
-    @foreach (var post in Model)
+
+    @foreach(var post in Model.Posts)
     {
         <tr data-idpost="@post.IdPost">
             <td>@post.IdPost</td>
@@ -39,6 +38,29 @@
             </td>
         </tr>
     }
+    <ul>
+        @if (Model.Pagination.PreviousPage)
+        {
+            <li>@Html.ActionLink("Página Anterior", "Index", "Post", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
+        }
+        @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
+        {
+            <li>
+                @if (count == Model.Pagination.CurrentPage)
+                {
+                    <strong>Página @count</strong>
+                }
+                else
+                {
+                    @Html.ActionLink("Página " + count, "Index", "Post", new { page = count }, new { @class = "" });
+                }
+            </li>
+        }
+        @if (Model.Pagination.NextPage)
+        {
+            <li>@Html.ActionLink("Próxima Página", "Index", "Post", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
+        }
+    </ul>
 </table>
 <script>
     $(".table").on('click', "tr", function () {

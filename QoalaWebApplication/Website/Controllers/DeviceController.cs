@@ -155,7 +155,7 @@ namespace Website.Controllers
         public ActionResult Create(DeviceViewModel device)
         {
             var user = (UserViewModel)Session["CurrentUser"];
-            WSRequest request = new WSRequest("/users/" + user.IdUser + "/devices/");
+            WSRequest request = new WSRequest("/users/" + user.IdUser + "/devices");
             request.AddAuthorization(Session["token"].ToString());
             IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {

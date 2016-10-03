@@ -1,5 +1,4 @@
-﻿@using Website.Models.ViewModels
-@model List<CommentViewModel>
+﻿@model Website.Models.ViewModels.CommentListViewModel
 @{
     Layout = "~/Views/Shared/_LayoutLogged.cshtml";
 }
@@ -11,7 +10,7 @@
         <td>Aprovado</td>
         <td>Ações</td>
     </tr>
-    @foreach (var comment in Model)
+    @foreach(var comment in Model.Comments)
     {
         <tr data-idcomment="@comment.IdComment" data-idpost="@comment.IdPost">
             <td>@comment.IdComment</td>
@@ -29,6 +28,29 @@
             </td>
         </tr>
     }
+    <ul>
+        @if (Model.Pagination.PreviousPage)
+        {
+            <li>@Html.ActionLink("Página Anterior", "Index", "Comment", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
+        }
+        @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
+        {
+            <li>
+                @if (count == Model.Pagination.CurrentPage)
+                {
+                    <strong>Página @count</strong>
+                }
+                else
+                {
+                    @Html.ActionLink("Página " + count, "Index", "Comment", new { page = count }, new { @class = "" });
+                }
+            </li>
+        }
+        @if (Model.Pagination.NextPage)
+        {
+            <li>@Html.ActionLink("Próxima Página", "Index", "Comment", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
+        }
+    </ul>
 </table>
 <script>
     $(".table").on('click', "tr", function () {

@@ -17,10 +17,10 @@ namespace Website.Controllers
             if (response.Code == 200)
             {
                 var body = response.Body;
-                List<PostViewModel> posts = new List<PostViewModel>();
+                model.Posts = new List<PostViewModel>();
                 foreach(var post in body.GetValue("posts"))
                 {
-                    posts.Add(new PostViewModel
+                    model.Posts.Add(new PostViewModel
                     {
                         IdPost = (int) post["id_post"],
                         Title = post["title"].ToString(),
@@ -29,12 +29,14 @@ namespace Website.Controllers
                         IdUser = (int) post["id_user"],
                     });
                 }
-
-                model.Posts = posts;
-                model.TotalNumberPages = (int) body.GetValue("total_number_pages");
-                model.PreviousPage = (bool) body.GetValue("previous_page");
-                model.NextPage = (bool) body.GetValue("next_page");
-                model.CurrentPage = (int)body.GetValue("current_page");
+                var pagination = body.GetValue("pagination");
+                model.Pagination = new PaginationViewModel
+                {
+                    NextPage = (bool)pagination["next_page"],
+                    PreviousPage = (bool)pagination["previous_page"],
+                    CurrentPage = (int)pagination["current_page"],
+                    TotalNumberPages = (int)pagination["total_number_pages"],
+                };
             }
             return View(model);
         }

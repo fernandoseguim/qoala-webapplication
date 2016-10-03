@@ -18,16 +18,16 @@
             <hr />
         }
 
-        <ul>
 
-            @if (Model.PreviousPage)
+        <ul>
+            @if (Model.Pagination.PreviousPage)
             {
-                <li>@Html.ActionLink("Página Anterior", "Index", "Blog", new { page = Model.CurrentPage - 1 }, new { @class = "" })</li>
+                <li>@Html.ActionLink("Página Anterior", "Index", "Blog", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
             }
-            @for (var count = 1; count <= Model.TotalNumberPages; count++)
+            @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
             {
                 <li>
-                    @if (count == Model.CurrentPage)
+                    @if (count == Model.Pagination.CurrentPage)
                     {
                         <strong>Página @count</strong>
                     }
@@ -37,9 +37,9 @@
                     }
                 </li>
             }
-            @if (Model.NextPage)
+            @if (Model.Pagination.NextPage)
             {
-                <li>@Html.ActionLink("Próxima Página", "Index", "Blog", new { page = Model.CurrentPage + 1 }, new { @class = "" })</li>
+                <li>@Html.ActionLink("Próxima Página", "Index", "Blog", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
             }
         </ul>
     }

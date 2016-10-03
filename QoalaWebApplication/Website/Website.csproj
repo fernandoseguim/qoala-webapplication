@@ -214,6 +214,9 @@
     <Compile Include="Models\ViewModels\CommentViewModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModel.cs" />
     <Compile Include="Models\ViewModels\BlogViewModel.cs" />
+    <Compile Include="Models\ViewModels\CommentListViewModel.cs" />
+    <Compile Include="Models\ViewModels\PostListViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserListViewModel.cs" />
     <Compile Include="Models\ViewModels\DeviceListViewModel.cs" />
     <Compile Include="Models\ViewModels\DeviceViewModel.cs" />
     <Compile Include="Models\ViewModels\PaginationViewModel.cs" />
