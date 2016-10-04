@@ -61,7 +61,7 @@ namespace Website.Controllers
                     {
                         IdPost = (int)comment["id_post"],
                         Content = comment["content"].ToString(),
-                        IdUser = (int)comment["id_user"]
+                        UserName = comment["user_name"].ToString()
                     }
                 );
             }
@@ -72,6 +72,7 @@ namespace Website.Controllers
                 PublishedAt = body["published_at"].ToString(),
                 IdPost = (int)body["id_post"],
                 IdUser = (int)body["id_user"],
+                UserName = body["user_name"].ToString(),
                 Title = body["title"].ToString(),
                 Comments = comments
             };

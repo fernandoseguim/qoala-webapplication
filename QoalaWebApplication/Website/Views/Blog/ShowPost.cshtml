@@ -2,13 +2,16 @@
 @model PostViewModel
 @{
     ViewBag.Title = "Blog";
-    int idPost = (int) HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
 }
 
 <h1>@Model.Title</h1>
-<span>@Model.PublishedAt</span>
+<p>Publicado em @Model.PublishedAt</p>
 
+@if (@Model.Comments.Count > 0)
+{
+    <p>Quantidade de comentários: @Model.Comments.Count</p>
+}
 <p>@Html.Raw(Model.Content)</p>
 
-@{ Html.RenderPartial("../Comment/New", new CommentViewModel { IdPost = idPost }); }
+@{ Html.RenderPartial("../Comment/New", new CommentViewModel { IdPost = Model.IdPost }); }
 @{ Html.RenderPartial("../Comment/All", Model.Comments); }

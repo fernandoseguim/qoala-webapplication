@@ -16,6 +16,7 @@ namespace Website.Models.ViewModels
         [Required(ErrorMessage = "Por favor, informe o conteúdo.")]
         [Display(Name = "Conteúdo")]
         [DataType(DataType.Html)]
+        [System.Web.Mvc.AllowHtml]
         public string Content { get; set; }
 
         public string ContentSummary
@@ -26,14 +27,16 @@ namespace Website.Models.ViewModels
             }
             set
             {
-                int limit = value.Length < 100 ? value.Length : 100;
-                _contentSummary = StripHtml(value).Substring(0, limit - 1);
+                string content = StripHtml(value);
+                int limit = content.Length < 100 ? content.Length : 100;
+                _contentSummary  = content.Substring(0, limit - 1);
             }
         }
         [Display(Name = "Publicado em")]
         public string PublishedAt { get; set; }
         [Required]
         public int IdUser { get; set; }
+        public string UserName { get; set; }
         public List<CommentViewModel> Comments { get; set; }
 
         private string StripHtml(string html)

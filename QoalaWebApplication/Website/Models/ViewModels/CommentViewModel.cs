@@ -16,5 +16,6 @@ namespace Website.Models.ViewModels
         [Display(Name = "Criado em")]
         public string CreatedAt { get; set; }
         public int IdUser { get; set; }
+        public string UserName { get; set; }
     }
 }
