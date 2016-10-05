@@ -19,33 +19,44 @@
         <th>
             Permissão
         </th>
+        <th>Endereço</th>
+        <th>CEP</th>
         <th></th>
     </tr>
 
-@foreach(var item in Model.Users) { 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdUser)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Permission)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { idUser = item.IdUser }) |
-            @Html.ActionLink("Details", "Show", new { idUser = item.IdUser }) |
-            @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser }))
-            {
-                <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()">Deletar Usuário</a>
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.Users)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Permission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { idUser = item.IdUser }) |
+                @Html.ActionLink("Details", "Show", new { idUser = item.IdUser }) |
+                @Html.ActionLink("Excluir", "Delete", "User", new { idUser = item.IdUser }) |
+
+                @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser }))
+                {
+                    <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()">Deletar Usuário</a>
+                }
+            </td>
+        </tr>
+    }
     <ul>
         @if (Model.Pagination.PreviousPage)
         {

@@ -2,7 +2,7 @@
 
 namespace Website.Models.ViewModels
 {
-    public class UserViewModel 
+    public class UserViewModel
     {
         public int IdUser { get; set; }
 
@@ -20,7 +20,21 @@ namespace Website.Models.ViewModels
 
         [Required(ErrorMessage = "Por favor, informe a permissão.")]
         [Display(Name = "Permissão")]
-        [Range(1, 3, ErrorMessage = "Square Feet must be a positive number")]
+        [Range(1, 3, ErrorMessage = "Permissão deve ser entre 1 e 3")]
         public int Permission { get; set; }
+
+        [Display(Name = "Endereço")]
+        public string Address { get; set; }
+        [Display(Name = "Bairro")]
+        public string District { get; set; }
+        [Display(Name = "Cidade")]
+        public string City { get; set; }
+        [Display(Name = "Estado(UF)")]
+        public string State { get; set; }
+
+        [Display(Name = "CEP")]
+        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = false, HtmlEncode = false, DataFormatString = "00000-000")]
+        public string ZipCode { get; set; }
+
     }
 }

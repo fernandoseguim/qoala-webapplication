@@ -39,10 +39,15 @@ namespace Website.Controllers
                 model.Users.Add(
                     new UserViewModel
                     {
-                        IdUser = (int) user["id_user"],
+                        IdUser = (int)user["id_user"],
                         Name = user["name"].ToString(),
                         Email = user["email"].ToString(),
-                        Permission = (int) user["permission"]
+                        Permission = (int)user["permission"],
+                        Address = user["address"].ToString(),
+                        District = user["district"].ToString(),
+                        City = user["city"].ToString(),
+                        State = user["state"].ToString(),
+                        ZipCode = user["zipcode"].ToString(),
                     }
                 );
             };
@@ -68,12 +73,17 @@ namespace Website.Controllers
                 IdUser = (int)body["id_user"],
                 Name = body["name"].ToString(),
                 Email = body["email"].ToString(),
-                Permission = (int)body["permission"]
+                Permission = (int)body["permission"],
+                Address = body["address"].ToString(),
+                District = body["district"].ToString(),
+                City = body["city"].ToString(),
+                State = body["state"].ToString(),
+                ZipCode = body["zipcode"].ToString(),
             };
 
             return View(model);
         }
-        
+
         [AuthorizationRequest]
         public ActionResult Edit(int idUser)
         {
@@ -92,7 +102,12 @@ namespace Website.Controllers
                 IdUser = (int)body["id_user"],
                 Name = body["name"].ToString(),
                 Email = body["email"].ToString(),
-                Permission = (int)body["permission"]
+                Permission = (int)body["permission"],
+                Address = body["address"].ToString(),
+                District = body["district"].ToString(),
+                City = body["city"].ToString(),
+                State = body["state"].ToString(),
+                ZipCode = body["zipcode"].ToString(),
             };
 
             return View(model);
@@ -109,6 +124,11 @@ namespace Website.Controllers
                     new KeyValuePair<string, string>("name", model.Name),
                     new KeyValuePair<string, string>("email", model.Email),
                     new KeyValuePair<string, string>("permission", model.Permission.ToString()),
+                    new KeyValuePair<string, string>("address", model.Address),
+                    new KeyValuePair<string, string>("district", model.District ),
+                    new KeyValuePair<string, string>("city", model.City ),
+                    new KeyValuePair<string, string>("state", model.State ),
+                    new KeyValuePair<string, string>("zipcode", model.ZipCode ),
                 };
 
             request.AddJsonParameter(parameters);
