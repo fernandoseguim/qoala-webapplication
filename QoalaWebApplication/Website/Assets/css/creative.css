@@ -407,3 +407,20 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #222222;
 }
+
+.navbar-right {
+    margin-right: 0 !important;
+}
+
+.menu-logged {
+    padding: 100px 0 0 !important;
+}
+.is-logged section {
+    padding: 10px 0;
+}
+
+
+.is-logged #mainNav {
+    background: #245580;
+}
+

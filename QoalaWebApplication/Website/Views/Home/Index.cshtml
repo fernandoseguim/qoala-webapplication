@@ -70,31 +70,34 @@
     </div>
 </section>
 
-<section id="signup" class="bg-dark">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <h2 class="section-heading">Registre se</h2>
-                <hr class="light">
+@if (!Session.IsLogged())
+{
+    <section id="signup" class="bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Registre se</h2>
+                    <hr class="light">
 
-                @{Html.RenderPartial("../Account/_RegisterForm");}
+                    @{Html.RenderPartial("../Account/_RegisterForm");}
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="login">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <h2 class="section-heading">Acesse sua conta</h2>
-                <hr class="light">
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Acesse sua conta</h2>
+                    <hr class="light">
 
-                @{Html.RenderPartial("../Account/_LoginForm");}
+                    @{Html.RenderPartial("../Account/_LoginForm");}
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 <section id="contact" class="bg-primary">
     <div class="container">
         <div class="row">

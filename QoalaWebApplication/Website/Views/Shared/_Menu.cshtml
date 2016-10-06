@@ -14,16 +14,7 @@
                     <a class="page-scroll" href="#product">Produto</a>
                 </li>
 
-                @if (Session.CurrentUser() != null)
-                {
-                    <li>
-                        @Html.ActionLink("Minha conta", "Show", "Profile")
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="javascript:document.getElementById('logoutForm').submit()">Sair</a>
-                    </li>
-                }
-                else
+                @if (Session.Token() == null)
                 {
                     <li>
                         <a class="page-scroll" href="#signup">Registar</a>
@@ -32,13 +23,21 @@
                     <li>
                         <a class="page-scroll" href="#login">Acessar</a>
                     </li>
-
                 }
-
                 <li>
                     <a class="page-scroll" href="#contact">Contato</a>
                 </li>
 
+                @if (Session.Token() != null)
+                {
+                    <li>
+                        @Html.ActionLink("Minha conta", "Show", "Profile")
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="javascript:document.getElementById('logoutForm').submit()">Sair</a>
+                    </li>
+                    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) { }
+                }
                 <li>
                     <a class="page-scroll" href="#blog">Blog</a>
                 </li>
@@ -48,4 +47,3 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-@using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })){ }
