@@ -48,8 +48,6 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { idUser = item.IdUser }) |
                 @Html.ActionLink("Details", "Show", new { idUser = item.IdUser }) |
-                @Html.ActionLink("Excluir", "Delete", "User", new { idUser = item.IdUser }) |
-
                 @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser }))
                 {
                     <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()">Deletar Usuário</a>

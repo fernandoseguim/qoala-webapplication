@@ -31,7 +31,6 @@ namespace Website.Models.ViewModels
         public string City { get; set; }
         [Display(Name = "Estado(UF)")]
         public string State { get; set; }
-
         [Display(Name = "CEP")]
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = false, HtmlEncode = false, DataFormatString = "00000-000")]
         public string ZipCode { get; set; }
