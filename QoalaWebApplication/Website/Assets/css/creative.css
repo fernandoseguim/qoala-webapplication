@@ -23,11 +23,7 @@ a {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
-  color: #F05F40;
-}
-a:hover,
-a:focus {
-  color: #eb3812;
+  color: #333;
 }
 h1,
 h2,
@@ -41,9 +37,6 @@ p {
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 20px;
-}
-.bg-primary {
-  background-color: #F05F40;
 }
 .bg-dark {
   background-color: #222222;
@@ -98,7 +91,7 @@ aside {
 }
 .navbar-default .nav > li.active > a,
 .navbar-default .nav > li.active > a:focus {
-  color: #F05F40 !important;
+  color: #337ab7 !important;
   background-color: transparent;
 }
 .navbar-default .nav > li.active > a:hover,
@@ -143,7 +136,7 @@ aside {
   }
   .navbar-default.affix .nav > li > a:hover,
   .navbar-default.affix .nav > li > a:focus:hover {
-    color: #F05F40;
+    color: #245580;
   }
 }
 header {

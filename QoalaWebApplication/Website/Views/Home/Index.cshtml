@@ -1,39 +1,202 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿<header>
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1 id="homeHeading">Nunca mais perca seu pet 😍</h1>
+            <hr class="light">
+            <p>Quem nunca ficou preocupado após o pet sumir ? Agora isso acabou !</p>
+            <a href="#about" class="btn btn-primary btn-xl page-scroll">Quer saber como?</a>
+        </div>
+    </div>
+</header>
+<section class="bg-primary" id="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Você precisa disso, nós sabemos.</h2>
+                <hr class="light">
+                <p>
+                    É um fato conhecido de todos que um leitor se distrairá com o conteúdo de texto
+                    legível de uma página quando estiver examinando sua diagramação. A vantagem de
+                    usar Lorem Ipsum é que ele tem uma distribuição normal de letras, ao contrário
+                    de "Conteúdo aqui, conteúdo aqui", fazendo com que ele tenha uma aparência.
+                </p>
+                <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">O que é isso?</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
+                    <h3>Pequeno e simples</h3>
+                    <p class="text-muted">
+                        Do tamanho de uma moeda de 1 real.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
+                    <h3>Real-time</h3>
+                    <p class="text-muted">
+                        Acompanhe onde seu pet está de qualquer lugar
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+                    <h3>Quantos você quiser</h3>
+                    <p class="text-muted">
+                        Se você tem vários pets, podemos fazer um preço bacana para
+                        não perde-los de vista.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
+                    <h3>Feito com amor </h3>
+                    <p class="text-muted">
+                        Nossa equipe se dedica 24 horas por dia para vê-lo satisfeito e feliz
+                        com seu pet.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="signup" class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Registre se</h2>
+                <hr class="light">
+
+                @{Html.RenderPartial("../Account/_RegisterForm");}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Acesse sua conta</h2>
+                <hr class="light">
+
+                @{Html.RenderPartial("../Account/_LoginForm");}
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contact" class="bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Precisa de alguma coisa?</h2>
+                <hr class="light">
+                <p>
+                    Pronto para ter uma experiência incrível de conforto, segurança e infinitos "nhê nhê nhê" ?
+                    Fale com a gente (:
+                </p>
+            </div>
+            <div class="col-lg-4 col-lg-offset-2 text-center">
+                <i class="fa fa-phone fa-3x sr-contact"></i>
+                <p>123-456-6789</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@section Scripts {
+    <script type="text/javascript">
+            $("#formLogin").on("submit", function (event) {
+                event.preventDefault();
+                var data = {
+                    email: $(this).find("#Email").val(),
+                    password: $(this).find("#Password").val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("Login", "Account")",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        var body = JSON.parse(jqXHR.responseText)
+                        var outcome = "Não foi possível realizar o login";
+                        if (body.message !== undefined) {
+                            outcome = body.message;
+                        }
+                        $("#feedbackLogin").
+                            removeClass().
+                            addClass("alert alert-danger").
+                            html(outcome);
+                    },
+                    success: function (msg) {
+                        var outcome = "Não foi possível fazer o login";
+                        if (msg.message !== undefined) {
+                            outcome = msg.message;
+                        }
+                        $("#feedbackLogin").
+                            removeClass().
+                            addClass("alert alert-success").
+                            html(outcome);
+
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#formRegister").on("submit", function (event) {
+                event.preventDefault();
+                var data = {
+                    name: $(this).find("#Name").val(),
+                    email: $(this).find("#Email").val(),
+                    password: $(this).find("#Password").val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("Register", "Account")",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        var body = JSON.parse(jqXHR.responseText)
+                        var outcome = "Não foi possível realizar o cadastro";
+                        if (body.message !== undefined) {
+                            outcome = body.message;
+                        }
+                        $("#feedbackRegister").
+                            removeClass().
+                            addClass("alert alert-danger").
+                            html(outcome);
+                    },
+                    success: function (msg) {
+                        var outcome = "Não foi possível fazer o cadastro";
+                        if (msg.message !== undefined) {
+                            outcome = msg.message;
+                        }
+                        $("#feedbackRegister").
+                            removeClass().
+                            addClass("alert alert-success").
+                            html(outcome);
+
+                        location.reload();
+                    }
+                });
+            });
+    </script>
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>A tecnologia a nosso favor</h2>
-        <p>
-            Dispositivo pequeno, mas poderoso! Tenha a posibilidade de acompanhar onde seu pet está
-            com apenas um click. E o melhor de tudo isso, você pode acessar pelo seu computador ou pelo seu celular.
-        </p>
-        <p><a class="btn btn-default" href="#">Adquira o seu! </a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Histórias de desaparecimento de animais</h2>
-        <p>
-            Além de anúncios em jornais e rádios, o facebook se tornou opção de procura para as famílias angustiadas.
-            Conheça como a rede social ajudou algumas dessas histórias a terem um final feliz
-        </p>
-        <p><a class="btn btn-default" href="#">Leia a reportagem completa</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>A nova estrutura familiar</h2>
-        <p>
-            Esses animaizinhos ganharam um novo papel nas famílias atuais. Veja as pessoas que optaram em
-            ter apenas filhos com 4 patas.
-        </p>
-        <p><a class="btn btn-default" href="#">Reportagem completa aqui</a></p>
-    </div>
-</div>
-
-
-

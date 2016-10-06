@@ -345,8 +345,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -363,8 +361,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_FooterLayout.cshtml" />
-    <Content Include="Views\Home\News.cshtml" />
-    <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\Profile\Show.cshtml" />
@@ -392,7 +388,9 @@
     <Content Include="Views\Device\Show.cshtml" />
     <Content Include="Views\Device\Edit.cshtml" />
     <Content Include="Views\Device\New.cshtml" />
-    <Content Include="Views\Home\NewLayout.cshtml" />
+    <Content Include="Views\Account\_LoginForm.cshtml" />
+    <Content Include="Views\Account\_RegisterForm.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
