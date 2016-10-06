@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Hosting;
+using System.Web.Mvc;
 
 namespace Website.Controllers
 {
@@ -11,6 +12,13 @@ namespace Website.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public FileResult Download()
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath(@"~/App_Data/plural.txt"));
+            string fileName = "plural.txt";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
         public ActionResult NewDevice()
