@@ -23,7 +23,7 @@
                             <td>@post.Title</td>
                             <td>@post.ContentSummary</td>
                             <td>@(post.PublishedAt.IsEmpty() ? "Não" : "Sim")  </td>
-                            <td>Autor mockado</td>
+                            <td>@post.UserName</td>
                             <td>
                                 <div class="btn-group btn-group-xs" role="group">
                                     @if (post.PublishedAt.IsEmpty())

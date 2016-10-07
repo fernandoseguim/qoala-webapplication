@@ -88,7 +88,8 @@ namespace Website.Controllers
                         PublishedAt = post["published_at"].ToString(),
                         IdPost = (int)post["id_post"],
                         IdUser = (int)post["id_user"],
-                        Title = post["title"].ToString()
+                        Title = post["title"].ToString(),
+                        UserName = post["user_name"].ToString()
                     }
                 );
             };
