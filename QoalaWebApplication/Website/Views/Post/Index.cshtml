@@ -2,74 +2,46 @@
 <section>
     <div class="container">
         <div class="row">
-            <table class="table table-bordered list-posts">
-                <tr>
-                    <td>#</td>
-                    <td>Título</td>
-                    <td>Resumo do conteudo</td>
-                    <td>Publicado</td>
-                    <td>Autor</td>
-                    <td>Ações</td>
-                </tr>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Lista de posts</div>
 
-                @foreach (var post in Model.Posts)
-                {
-                    <tr data-idpost="@post.IdPost">
-                        <td>@post.IdPost</td>
-                        <td>@post.Title</td>
-                        <td>@post.ContentSummary</td>
-                        <td>@(post.PublishedAt.IsEmpty() ? "Não" : "Sim")  </td>
-                        <td>Autor mockado</td>
-                        <td>
-                            <ul>
-                                @if (post.PublishedAt.IsEmpty())
-                                {
-                                    using (Html.BeginForm("Publish", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi publicado" }, FormMethod.Post, new { id = "publishPostForm-" + post.IdPost, idPost = post.IdPost }))
-                                    {
-                                        <li><a href="javascript:document.getElementById('publishPostForm-@post.IdPost').submit()">Publicar Post</a></li>
-                                    }
-                                }
-                                <li>@Html.ActionLink("Editar Post", "Edit", new { idPost = post.IdPost, returnUrl = "/post" })</li>
-                                @using (Html.BeginForm("Delete", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi publicado" }, FormMethod.Post, new { id = "deletePostForm-" + post.IdPost }))
-                                {
-                                    <li><a href="javascript:document.getElementById('deletePostForm-@post.IdPost').submit()">Deletar Post</a></li>
-                                }
-                            </ul>
-                        </td>
+                <!-- Table -->
+                <table class="table">
+                    <tr>
+                        <td>#</td>
+                        <td>Titulo</td>
+                        <td>Resumo do conteúdo</td>
+                        <td>Publicado</td>
+                        <td>Autor</td>
+                        <td></td>
                     </tr>
-                }
-                <ul>
-                    @if (Model.Pagination.PreviousPage)
+                    @foreach (var post in Model.Posts)
                     {
-                        <li>@Html.ActionLink("Página Anterior", "Index", "Post", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
+                        <tr>
+                            <td>@post.IdPost</td>
+                            <td>@post.Title</td>
+                            <td>@post.ContentSummary</td>
+                            <td>@(post.PublishedAt.IsEmpty() ? "Não" : "Sim")  </td>
+                            <td>Autor mockado</td>
+                            <td>
+                                <div class="btn-group btn-group-xs" role="group">
+                                    @if (post.PublishedAt.IsEmpty())
+                                    {
+                                        using (Html.BeginForm("Publish", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi publicado"})) { }
+                                        <a href="javascript:document.getElementById('publishPostForm-@post.IdPost').submit()" class="btn btn-success">Publicar Post</a>
+
+                                    }
+                                    @Html.ActionLink("Editar Post", "Edit", new { idPost = post.IdPost, returnUrl = "/post"}, new { @class = "btn btn-default" })
+                                    <a href="javascript:document.getElementById('deletePostForm-@post.IdPost').submit()" class="btn btn-danger">Deletar Post</a>
+                                    @using (Html.BeginForm("Delete", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi deletado" })) { }
+                                </div>
+                            </td>
+                        </tr>
                     }
-                    @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
-                    {
-                        <li>
-                            @if (count == Model.Pagination.CurrentPage)
-                {
-                                <strong>Página @count</strong>
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Página " + count, "Index", "Post", new { page = count }, new { @class = "" });
-                }
-                        </li>
-                    }
-                    @if (Model.Pagination.NextPage)
-                    {
-                        <li>@Html.ActionLink("Próxima Página", "Index", "Post", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
-                    }
-                </ul>
-            </table>
-            <script>
-                $(".table").on('click', "tr", function () {
-                    var idPost = $(this).data('idpost');
-                    if (idPost != undefined) {
-                        window.location.href = "/post/show/?idPost=" + idPost;
-                    }
-                });
-            </script>
+                </table>
+            </div>
+            @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
         </div>
     </div>
 </section>

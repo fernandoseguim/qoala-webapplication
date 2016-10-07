@@ -76,6 +76,7 @@ namespace Website.Controllers
                 PreviousPage = (bool)pagination["previous_page"],
                 CurrentPage = (int)pagination["current_page"],
                 TotalNumberPages = (int)pagination["total_number_pages"],
+                ControllerName = "Post"
             };
             model.Posts = new List<PostViewModel>();
             foreach (var post in body["posts"])
