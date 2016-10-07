@@ -113,7 +113,7 @@ namespace Website.Controllers
             IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("title", post.Title),
-                    new KeyValuePair<string, string>("content", Regex.Escape(post.Content)),
+                    new KeyValuePair<string, string>("content", post.Content),
                     new KeyValuePair<string, string>("id_user", post.IdUser.ToString())
                 };
 

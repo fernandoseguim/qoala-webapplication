@@ -1,88 +1,83 @@
-﻿@using Website.Models.ViewModels
-@model PostViewModel
+﻿@model Website.Models.ViewModels.PostViewModel
 @{
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
     ViewBag.Title = "Blog";
-    int idPost = (int) HttpContext.Current.Request.Params.Get("idPost").AsDecimal();
 }
+<section>
+    <div class="container">
+        <div class="row">
+            <h3>Detalhes do Post #@Model.IdPost <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
 
-<h3>Detalhes do Post #@Model.IdPost <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
+            <div class="btn-group btn-group-sm" role="group">
+                @if (Model.PublishedAt.IsEmpty())
+                {
+                    using (Html.BeginForm("Publish", "Post", new { idPost = Model.IdPost, returnUrl = "/post?message=O post " + Model.IdPost + "foi publicado" }, FormMethod.Post, new { id = "publishPostForm-" + Model.IdPost })) { }
+                    <a href="javascript:document.getElementById('publishPostForm-@Model.IdPost').submit()" class="btn btn-success">Publicar Post</a>
 
-<div id="actions">
-    <ul>
-        @if (Model.PublishedAt.IsEmpty())
-        {
-            using (Html.BeginForm("Publish", "Post",  new { idPost = Model.IdPost}, FormMethod.Post, new { id = "publishForm", idPost = Model.IdPost }))
+                }
+                @Html.ActionLink("Editar Post", "Edit", new { idPost = Model.IdPost, returnUrl = "/post" }, new { @class = "btn btn-primary" })
+                <a href="javascript:document.getElementById('deletePostForm-@Model.IdPost').submit()" class="btn btn-danger">Deletar Post</a>
+                @using (Html.BeginForm("Delete", "Post", new { idPost = Model.IdPost, returnUrl = "/post?message=O post " + Model.IdPost + "foi deletado" }, FormMethod.Post, new { id = "deletePostForm-" + @Model.IdPost })) { }
+            </div>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublishedAt)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PublishedAt)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+
+                <dd>
+                    @Html.Raw(Html.DisplayFor(model => model.Content))
+                </dd>
+            </dl>
+
+            <hr />
+            <h4>Comentários</h4>
+
+            @if (Model.Comments.Count == 0)
             {
-                <li><a href="javascript:document.getElementById('publishForm').submit()">Publicar Post</a></li>
+                <strong>Não existem comentários aprovados neste post.</strong>
             }
-        }
-        <li>@Html.ActionLink("Editar Post", "Edit", new { idPost = Model.IdPost })</li>
-        @using (Html.BeginForm("Delete", "Post", new { idPost = Model.IdPost }, FormMethod.Post, new { id = "deleteForm" }))
-        {
-            <li><a href="javascript:document.getElementById('deleteForm').submit()">Deletar Post</a></li>
-        }
-    </ul>
-</div>
+            else
+            {
+                <dl class="dl-horizontal">
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.IdUser)
+                        </dt>
 
-<dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.Title)
-    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.IdUser)
+                        </dd>
 
-    <dd>
-        @Html.DisplayFor(model => model.Title)
-    </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Content)
+                        </dt>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.PublishedAt)
-    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Content)
+                        </dd>
 
-    <dd>
-        @Html.DisplayFor(model => model.PublishedAt)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Content)
-    </dt>
-
-    <dd>
-        @Html.Raw(Html.DisplayFor(model => model.Content))
-    </dd>
-</dl>
-
-<hr />
-<h4>Comentários</h4>
-
-@if(Model.Comments.Count == 0)
-{
-    <strong>Não existem comentários aprovados neste post.</strong>
-}
-else
-{
-    <dl class="dl-horizontal">
-        @foreach (var comment in Model.Comments)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.IdUser)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IdUser)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Content)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Content)
-            </dd>
-
-            <dt>
-                @Html.RouteLink(
+                        <dt>
+                            @Html.RouteLink(
                     "Editar comentário",
-                    new {
+                    new
+                    {
                         controller = "Comment",
                         action = "Edit",
                         idPost = comment.IdPost,
@@ -90,8 +85,11 @@ else
                         returnUrl = "/post/show?idPost=" + comment.IdPost
                     }
                 )
-            </dt>
-            <hr />
-        }
-    </dl>
-}
+                        </dt>
+                        <hr />
+                    }
+                </dl>
+            }
+        </div>
+    </div>
+</section>
