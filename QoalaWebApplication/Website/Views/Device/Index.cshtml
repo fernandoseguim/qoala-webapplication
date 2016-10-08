@@ -1,92 +1,41 @@
 ﻿@model Website.Models.ViewModels.DeviceListViewModel
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
-}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Lista de posts</div>
+                <table class="table">
+                    <tr>
+                        <td>#</td>
+                        <td>Apelido</td>
+                        <th>Cor</th>
+                        <td>Frequência de atualização</td>
+                        <td>Id User</td>
+                        <td></td>
+                    </tr>
 
-<h2>Index</h2>
-<table class="table">
-    <tr>
-        <th>
-            #
-        </th>
-        <th>
-            Alarme
-        </th>
-        <th>
-            Apelido
-        </th>
-        <th>
-            Cor
-        </th>
-        <th>
-            Frequência de atualização
-        </th>
-        <th>
-            Id User
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Devices)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdDevice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alarm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alias)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FrequencyUpdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUser)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { idDevice = item.IdDevice, idUser = item.IdUser }) |
-                @Html.ActionLink("Details", "Show", new { idDevice = item.IdDevice, idUser = item.IdUser }) |
-                @using (Html.BeginForm("Delete", "Device", new { idDevice = item.IdDevice }, FormMethod.Post, new { id = "deleteDeviceForm-" + item.IdDevice }))
-                {
-                    <a href="javascript:document.getElementById('deleteDeviceForm-@item.IdDevice').submit()">Deletar Device</a>
-                }
-                @using (Html.BeginForm("TurnAlarm", "Device", new { alarm = item.Alarm, idDevice = item.IdDevice, idUser = item.IdUser }, FormMethod.Post, new { id = "turnDeviceForm-" + item.IdDevice }))
-                {
-                    <a href="javascript:document.getElementById('turnDeviceForm-@item.IdDevice').submit()"> Device</a>
-                }
-            </td>
-        </tr>
-    }
-<ul>
-    @if (Model.Pagination.PreviousPage)
-        {
-        <li>@Html.ActionLink("Página Anterior", "Index", "Device", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
-    }
-    @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
-        {
-        <li>
-            @if (count == Model.Pagination.CurrentPage)
-            {
-                <strong>Página @count</strong>
-            }
-            else
-            {
-                @Html.ActionLink("Página " + count, "Index", "Device", new { page = count }, new { @class = "" });
-            }
-        </li>
-    }
-    @if (Model.Pagination.NextPage)
-        {
-        <li>@Html.ActionLink("Próxima Página", "Index", "Device", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
-    }
-</ul>
-
-
-</table>
+                    @foreach (var item in Model.Devices)
+                    {
+                        <tr>
+                            <td>@item.IdDevice</td>
+                            <td>@item.Alias</td>
+                            <td>@item.Color</td>
+                            <td>@item.FrequencyUpdate</td>
+                            <td>@item.IdUser</td>
+                            <td>
+                                <div class="btn-group btn-group-xs" role="group">
+                                    @Html.ActionLink("Editar", "Edit", new { idDevice = item.IdDevice, idUser = item.IdUser }, new { @class = "btn btn-default" })
+                                    @Html.ActionLink("Detalhes", "Show", new { idDevice = item.IdDevice, idUser = item.IdUser }, new { @class = "btn btn-primary" })
+                                    <a href="javascript:document.getElementById('deleteDeviceForm-@item.IdDevice').submit()" class="btn btn-danger">Apagar Device</a>
+                                    @using (Html.BeginForm("Delete", "Device", new { idUser = item.IdUser, idDevice = item.IdDevice }, FormMethod.Post, new { id = "deleteDeviceForm-" + item.IdDevice })) { }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
+        </div>
+    </div>
+</section>

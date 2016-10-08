@@ -1,67 +1,65 @@
 ﻿@model Website.Models.ViewModels.DeviceViewModel
-
 @{
     ViewBag.Title = "Show";
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
 }
 
-<h2>Show</h2>
+<section>
+    <div class="container">
+        <div class="row">
+            <h3>
+                Detalhes do Device #@Model.IdDevice 
+                <button type="button" class="btn btn-default">
+                    @Html.ActionLink("Voltar para Lista", "Index")
+                </button>
+                <button type="button" class="btn btn-default">
+                    @Html.ActionLink("Editar", "Edit", new { idUser = Model.IdUser, idDevice = Model.IdDevice })
+                </button>
+            </h3>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.IdDevice)
+                </dt>
 
-<div>
-    <h4>DeviceViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.IdDevice)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IdDevice)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IdDevice)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Alias)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Alarm)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Alias)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Alarm)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Color)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Alias)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Color)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Alias)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FrequencyUpdate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FrequencyUpdate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Color)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IdUser)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FrequencyUpdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FrequencyUpdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IdUser)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IdUser)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { idUser = Model.IdUser, idDevice = Model.IdDevice}) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                <dd>
+                    @Html.DisplayFor(model => model.IdUser)
+                </dd>
+            </dl>
+            @using (Html.BeginForm("Delete", "Device", new { idUser = Model.IdUser, idDevice = Model.IdDevice }, FormMethod.Post))
+            {
+                <button type="submit" class="btn btn-danger">Deletar</button>
+            }
+        </div>
+    </div>
+</section>

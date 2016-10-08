@@ -63,7 +63,6 @@ namespace Website.Controllers
             var model = new DeviceViewModel
             {
                 IdDevice = (int)body["id_device"],
-                Alarm = (bool)body["alarm"],
                 Alias = body["alias"].ToString(),
                 Color = body["color"].ToString(),
                 FrequencyUpdate = (int)body["frequency_update"],
@@ -172,6 +171,22 @@ namespace Website.Controllers
                 return RedirectToAction("Index", "Device", new { message = "O device não foi cadastrado" });
 
             return RedirectToAction("Index", "Device", new { message = "O device foi cadastrado" });
+        }
+
+
+        [HttpPost]
+        [AuthorizationRequest]
+        public ActionResult Delete(int idUser, int idDevice)
+        {
+            WSRequest request = new WSRequest("/users/" + idUser + "/devices/" + idDevice);
+            request.AddAuthorization(Session["token"].ToString());
+            
+            var response = request.Delete();
+
+            if (response.Code != 204)
+                return RedirectToAction("Index", "Device", new { message = "O device não foi deletado" });
+
+            return RedirectToAction("Index", "Device", new { message = "O device foi deletado" });
         }
     }
 }
