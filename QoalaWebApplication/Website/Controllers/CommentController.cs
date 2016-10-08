@@ -146,7 +146,7 @@ namespace Website.Controllers
             var response = request.Get();
 
             if (response.Code != 200)
-                return RedirectToAction("Edit", "Comment", new { message = "Não foi possível exibir o comentário" });
+                return RedirectToAction("Index", "Comment", new { message = "Não foi possível exibir o comentário" });
 
             var body = response.Body;
 

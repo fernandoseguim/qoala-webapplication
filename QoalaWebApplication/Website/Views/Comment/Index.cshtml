@@ -1,63 +1,38 @@
 ﻿@model Website.Models.ViewModels.CommentListViewModel
-@{
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
-}
-<table class="table table-bordered list-posts">
-    <tr>
-        <td>#</td>
-        <td>Usuário</td>
-        <td>Conteúdo</td>
-        <td>Aprovado</td>
-        <td>Ações</td>
-    </tr>
-    @foreach(var comment in Model.Comments)
-    {
-        <tr data-idcomment="@comment.IdComment" data-idpost="@comment.IdPost">
-            <td>@comment.IdComment</td>
-            <td>Usuário mockado</td>
-            <td>@comment.Content</td>
-            <td>@(comment.ApprovedAt.IsEmpty() ? "Não" : "Sim")  </td>
-            <td>
-                <ul>
-                    <li>@Html.ActionLink("Editar Comentário", "Edit", new { idComment = comment.IdComment, idPost = comment.IdPost , returnUrl = "/comment" })</li>
-                    @using (Html.BeginForm("Delete", "Comment", new { idComment = comment.IdComment, idPost = comment.IdPost, returnUrl = "/comment?message=O comentário " + comment.IdComment+ " foi deletado" }, FormMethod.Post, new { id = "deleteCommentForm-" + comment.IdComment }))
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Lista de posts</div>
+                <table class="table">
+                    <tr>
+                        <td>#</td>
+                        <td>Usuário</td>
+                        <td>Conteúdo</td>
+                        <td>Aprovado</td>
+                        <td></td>
+                    </tr>
+                    @foreach (var comment in Model.Comments)
                     {
-                        <li><a href="javascript:document.getElementById('deleteCommentForm-@comment.IdComment').submit()">Deletar Comentário</a></li>
+                        <tr>
+                            <td>@comment.IdComment</td>
+                            <td>Usuário mockado</td>
+                            <td>@comment.Content</td>
+                            <td>@(comment.ApprovedAt.IsEmpty() ? "Não" : "Sim")  </td>
+                            <td>
+                                <div class="btn-group btn-group-xs" role="group">
+                                    @Html.ActionLink("Mostar", "Show", new { idComment = comment.IdComment, idPost = comment.IdPost }, new { @class = "btn btn-default" })
+                                    @Html.ActionLink("Editar", "Edit", new { idComment = comment.IdComment, idPost = comment.IdPost, returnUrl = "/comment" }, new { @class = "btn btn-primary" })
+                                    <a href="javascript:document.getElementById('deleteCommentForm-@comment.IdComment').submit()" class="btn btn-danger">Apagar</a>
+                                </div>
+                                @using (Html.BeginForm("Delete", "Comment", new { idComment = comment.IdComment, idPost = comment.IdPost, returnUrl = "/comment?message=O comentário " + comment.IdComment + " foi deletado" }, FormMethod.Post, new { id = "deleteCommentForm-" + comment.IdComment })) { }
+
+                            </td>
+                        </tr>
                     }
-                </ul>
-            </td>
-        </tr>
-    }
-    <ul>
-        @if (Model.Pagination.PreviousPage)
-        {
-            <li>@Html.ActionLink("Página Anterior", "Index", "Comment", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
-        }
-        @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
-        {
-            <li>
-                @if (count == Model.Pagination.CurrentPage)
-                {
-                    <strong>Página @count</strong>
-                }
-                else
-                {
-                    @Html.ActionLink("Página " + count, "Index", "Comment", new { page = count }, new { @class = "" });
-                }
-            </li>
-        }
-        @if (Model.Pagination.NextPage)
-        {
-            <li>@Html.ActionLink("Próxima Página", "Index", "Comment", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
-        }
-    </ul>
-</table>
-<script>
-    $(".table").on('click', "tr", function () {
-        var idComment = $(this).data('idcomment');
-        var idPost = $(this).data('idpost');
-        if (idComment != undefined) {
-            window.location.href = "/comment/show/?idComment=" + idComment + "&idPost=" + idPost;
-        }
-    });
-</script>
+                </table>
+            </div>
+            @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
+        </div>
+    </div>
+</section>

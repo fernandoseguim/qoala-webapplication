@@ -27,11 +27,11 @@
                                     @if (post.PublishedAt.IsEmpty())
                                     {
                                         using (Html.BeginForm("Publish", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi publicado" }, FormMethod.Post, new { id = "publishPostForm-" + @post.IdPost })) { }
-                                        <a href="javascript:document.getElementById('publishPostForm-@post.IdPost').submit()" class="btn btn-success">Publicar Post</a>
+                                        <a href="javascript:document.getElementById('publishPostForm-@post.IdPost').submit()" class="btn btn-success">Publicar</a>
 
                                     }
-                                    @Html.ActionLink("Editar Post", "Edit", new { idPost = post.IdPost, returnUrl = "/post"}, new { @class = "btn btn-default" })
-                                    <a href="javascript:document.getElementById('deletePostForm-@post.IdPost').submit()" class="btn btn-danger">Deletar Post</a>
+                                    @Html.ActionLink("Editar", "Edit", new { idPost = post.IdPost, returnUrl = "/post"}, new { @class = "btn btn-default" })
+                                    <a href="javascript:document.getElementById('deletePostForm-@post.IdPost').submit()" class="btn btn-danger">Deletar</a>
                                     @using (Html.BeginForm("Delete", "Post", new { idPost = post.IdPost, returnUrl = "/post?message=O post " + post.IdPost + "foi deletado" }, FormMethod.Post, new { id = "deletePostForm-" + @post.IdPost })) { }
                                 </div>
                             </td>

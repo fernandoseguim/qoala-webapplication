@@ -2,44 +2,43 @@
 
 @{
     ViewBag.Title = "Detalhes do comentário";
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
 }
 
-<div id="actions">
-    <ul>
-        <li>@Html.ActionLink("Editar Comentário", "Edit", new { idPost = Model.IdPost, idComment = Model.IdComment })</li>
-        @using (Html.BeginForm("Delete", "Comment", new { idPost = Model.IdPost, idComment = Model.IdComment }, FormMethod.Post, new { id = "deleteForm" }))
-        {
-            <li><a href="javascript:document.getElementById('deleteForm').submit()">Deletar Comentário</a></li>
-        }
-    </ul>
-</div>
-<div>
-    <h3>Detalhes do comentário #@Model.IdComment <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+<section>
+    <div class="container">
+        <div class="row">
+            <h3>Detalhes do comentário #@Model.IdComment <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
+            <div class="btn-group btn-group">
+                @Html.ActionLink("Editar", "Edit", new { idPost = Model.IdPost, idComment = Model.IdComment, returnUrl = "/comment" }, new { @class = "btn btn-default" })
+                <a href="javascript:document.getElementById('deleteForm').submit()" class="btn btn-danger">Apagar Comentário</a>
+                @using (Html.BeginForm("Delete", "Comment", new { idPost = Model.IdPost, idComment = Model.IdComment }, FormMethod.Post, new { id = "deleteForm" })) { }
+            </div>
+            <hr class="light" />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ApprovedAt)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ApprovedAt)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApprovedAt)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ApprovedAt)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedAt)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
-</div>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedAt)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</section>
