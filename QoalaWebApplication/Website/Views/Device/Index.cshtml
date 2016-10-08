@@ -4,14 +4,14 @@
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
-                <div class="panel-heading">Lista de posts</div>
+                <div class="panel-heading">Lista de devices</div>
                 <table class="table">
                     <tr>
                         <td>#</td>
                         <td>Apelido</td>
                         <th>Cor</th>
                         <td>Frequência de atualização</td>
-                        <td>Id User</td>
+                        <td>Usuário</td>
                         <td></td>
                     </tr>
 
@@ -22,12 +22,12 @@
                             <td>@item.Alias</td>
                             <td>@item.Color</td>
                             <td>@item.FrequencyUpdate</td>
-                            <td>@item.IdUser</td>
+                            <td> @Html.ActionLink("Usuário #" + @item.IdUser, "Edit", new { idUser = @item.IdUser })</td>
                             <td>
-                                <div class="btn-group btn-group-xs" role="group">
-                                    @Html.ActionLink("Editar", "Edit", new { idDevice = item.IdDevice, idUser = item.IdUser }, new { @class = "btn btn-default" })
-                                    @Html.ActionLink("Detalhes", "Show", new { idDevice = item.IdDevice, idUser = item.IdUser }, new { @class = "btn btn-primary" })
-                                    <a href="javascript:document.getElementById('deleteDeviceForm-@item.IdDevice').submit()" class="btn btn-danger">Apagar Device</a>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    @Html.ActionLink("Detalhes", "Show", new { idDevice = item.IdDevice, idUser = item.IdUser }, new { @class = "btn btn-default" })
+                                    @Html.ActionLink("Editar", "Edit", new { idDevice = item.IdDevice, idUser = item.IdUser }, new { @class = "btn btn-primary" })
+                                    <a href="javascript:document.getElementById('deleteDeviceForm-@item.IdDevice').submit()" class="btn btn-danger">Apagar</a>
                                     @using (Html.BeginForm("Delete", "Device", new { idUser = item.IdUser, idDevice = item.IdDevice }, FormMethod.Post, new { id = "deleteDeviceForm-" + item.IdDevice })) { }
                                 </div>
                             </td>

@@ -84,7 +84,7 @@ namespace Website.Controllers
                 model.Posts.Add(
                     new PostViewModel
                     {
-                        ContentSummary = post["content"].ToString(),
+                        Content = post["content"].ToString(),
                         PublishedAt = post["published_at"].ToString(),
                         IdPost = (int)post["id_post"],
                         IdUser = (int)post["id_user"],

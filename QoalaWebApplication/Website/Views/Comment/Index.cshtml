@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
-                <div class="panel-heading">Lista de posts</div>
+                <div class="panel-heading">Lista de comentários</div>
                 <table class="table">
                     <tr>
                         <td>#</td>
@@ -20,7 +20,7 @@
                             <td>@comment.Content</td>
                             <td>@(comment.ApprovedAt.IsEmpty() ? "Não" : "Sim")  </td>
                             <td>
-                                <div class="btn-group btn-group-xs" role="group">
+                                <div class="btn-group btn-group-sm" role="group">
                                     @Html.ActionLink("Mostar", "Show", new { idComment = comment.IdComment, idPost = comment.IdPost }, new { @class = "btn btn-default" })
                                     @Html.ActionLink("Editar", "Edit", new { idComment = comment.IdComment, idPost = comment.IdPost, returnUrl = "/comment" }, new { @class = "btn btn-primary" })
                                     <a href="javascript:document.getElementById('deleteCommentForm-@comment.IdComment').submit()" class="btn btn-danger">Apagar</a>

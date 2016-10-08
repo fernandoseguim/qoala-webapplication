@@ -2,18 +2,16 @@
 @{
     ViewBag.Title = "Editar Post";
 }
-
 <section>
     <div class="container">
         <div class="row">
-            <h2>Editar <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h2>
+            <h2>Editar post #@Model.IdPost<button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h2>
 
             @using (Html.BeginForm("Update", "Post"))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                     @Html.HiddenFor(model => model.IdPost)
@@ -35,16 +33,18 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Salvar" class="btn btn-default" />
+                            <input type="submit" value="Salvar" class="btn btn-success" />
                         </div>
                     </div>
                 </div>
             }
-
-            @section Scripts {
-                @Scripts.Render("~/bundles/vendor/tinymce/js")
-                @Scripts.Render("~/bundles/jqueryval")
-                <script type="text/javascript">
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/vendor/tinymce/js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
                     tinymce.init({
                         selector: 'textarea',
                         height: 300,
@@ -56,8 +56,5 @@
                         toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                         content_css: '//www.tinymce.com/css/codepen.min.css'
                     });
-                </script>
-            }
-        </div>
-    </div>
-</section>
+    </script>
+}

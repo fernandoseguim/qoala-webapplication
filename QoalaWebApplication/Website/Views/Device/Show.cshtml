@@ -1,31 +1,24 @@
 ﻿@model Website.Models.ViewModels.DeviceViewModel
 @{
-    ViewBag.Title = "Show";
+    ViewBag.Title = "Editar Device";
 }
-
 <section>
     <div class="container">
         <div class="row">
             <h3>
                 Detalhes do Device #@Model.IdDevice 
-                <button type="button" class="btn btn-default">
-                    @Html.ActionLink("Voltar para Lista", "Index")
-                </button>
-                <button type="button" class="btn btn-default">
-                    @Html.ActionLink("Editar", "Edit", new { idUser = Model.IdUser, idDevice = Model.IdDevice })
-                </button>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-default">
+                        @Html.ActionLink("Voltar para Lista", "Index")
+                    </button>
+                    @Html.ActionLink("Editar", "Edit", new { idUser = Model.IdUser, idDevice = Model.IdDevice }, new { @class = "btn btn-primary" })
+                    <a href="javascript:document.getElementById('deleteForm').submit()" class="btn btn-danger">Apagar</a>
+                    @using (Html.BeginForm("Delete", "Device", new { idUser = Model.IdUser, idDevice = Model.IdDevice }, FormMethod.Post, new { id = "deleteForm" })) { }
+                </div>
             </h3>
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.IdDevice)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.IdDevice)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Alias)
+                    Apelido
                 </dt>
 
                 <dd>
@@ -33,7 +26,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Color)
+                    Cor
                 </dt>
 
                 <dd>
@@ -41,7 +34,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.FrequencyUpdate)
+                    Frêquencia de atualização
                 </dt>
 
                 <dd>
@@ -49,17 +42,13 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.IdUser)
+                    Usuário
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.IdUser)
+                    @Html.ActionLink("Usuário #" + Model.IdUser, "Show", "User", new { idUser = Model.IdUser })
                 </dd>
             </dl>
-            @using (Html.BeginForm("Delete", "Device", new { idUser = Model.IdUser, idDevice = Model.IdDevice }, FormMethod.Post))
-            {
-                <button type="submit" class="btn btn-danger">Deletar</button>
-            }
         </div>
     </div>
 </section>

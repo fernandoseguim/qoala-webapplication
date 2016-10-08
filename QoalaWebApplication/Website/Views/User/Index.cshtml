@@ -1,71 +1,38 @@
 ﻿@model Website.Models.ViewModels.UserListViewModel
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Lista de usuários</div>
+                <table class="table">
+                    <tr>
+                        <td>#</td>
+                        <td>Nome</td>
+                        <td>Email</td>
+                        <td>Permissão</td>
+                        <td></td>
+                    </tr>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<table class="table">
-    <tr>
-        <th>
-            #
-        </th>
-        <th>
-            Nome
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Permissão
-        </th>
-        <th></th>
-    </tr>
-
-@foreach(var item in Model.Users) { 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdUser)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Permission)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { idUser = item.IdUser }) |
-            @Html.ActionLink("Details", "Show", new { idUser = item.IdUser }) |
-            @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser }))
-            {
-                <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()">Deletar Usuário</a>
-            }
-        </td>
-    </tr>
-}
-    <ul>
-        @if (Model.Pagination.PreviousPage)
-        {
-            <li>@Html.ActionLink("Página Anterior", "Index", "User", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
-        }
-        @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
-        {
-            <li>
-                @if (count == Model.Pagination.CurrentPage)
-                {
-                    <strong>Página @count</strong>
-                }
-                else
-                {
-                    @Html.ActionLink("Página " + count, "Index", "User", new { page = count }, new { @class = "" });
-                }
-            </li>
-        }
-        @if (Model.Pagination.NextPage)
-        {
-            <li>@Html.ActionLink("Próxima Página", "Index", "User", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
-        }
-    </ul>
-</table>
+                    @foreach (var item in Model.Users)
+                    {
+                        <tr>
+                            <td>@item.IdUser</td>
+                            <td>@item.Name</td>
+                            <td>@item.Email</td>
+                            <td>@item.Permission</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    @Html.ActionLink("Mostar", "Show", new { idUser = item.IdUser }, new { @class = "btn btn-default" })
+                                    @Html.ActionLink("Editar", "Edit", new { idUser = item.IdUser }, new { @class = "btn btn-primary" })
+                                    <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()" class="btn btn-danger">Apagar</a>
+                                    @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser })) { }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
+        </div>
+    </div>
+</section>

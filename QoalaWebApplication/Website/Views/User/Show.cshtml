@@ -1,47 +1,30 @@
 ﻿@model Website.Models.ViewModels.UserViewModel
 
-@{
-    ViewBag.Title = "Show";
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
-}
+<section>
+    <div class="container">
+        <div class="row">
+            <h3>Detalhes do usuário #@Model.IdUser
+                <div class="btn-group btn-group">
+                    <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button>
+                    @Html.ActionLink("Editar", "Edit", new { idUser = Model.IdUser }, new { @class = "btn btn-primary" })
+                    <a href="javascript:document.getElementById('deleteForm').submit()" class="btn btn-danger">Apagar</a>
+                    @using (Html.BeginForm("Delete", "User", new { idUser = Model.IdUser }, FormMethod.Post, new { id = "deleteForm" })) { }
+                </div>
+            </h3>
+            <hr class="light"/>
+            <dl class="dl-horizontal">
+                <dt>Nome</dt>
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.IdUser)
-        </dt>
+                <dd>@Model.Name</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IdUser)
-        </dd>
+                <dt>Email</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                <dd>@Model.Email</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dt>Permissão</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Permission)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Permission)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                <dd>@Model.Permission</dd>
+            </dl>
+        </div>
+    </div>
+</section>

@@ -5,20 +5,22 @@
 <section>
     <div class="container">
         <div class="row">
-            <h3>Detalhes do Post #@Model.IdPost <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button></h3>
+            <h3>
+                Detalhes do Post #@Model.IdPost 
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button>
+                    @if (Model.PublishedAt.IsEmpty())
+                    {
+                        using (Html.BeginForm("Publish", "Post", new { idPost = Model.IdPost, returnUrl = "/post?message=O post " + Model.IdPost + "foi publicado" }, FormMethod.Post, new { id = "publishPostForm-" + Model.IdPost })) { }
+                        <a href="javascript:document.getElementById('publishPostForm-@Model.IdPost').submit()" class="btn btn-success">Publicar</a>
+                    }
+                    @Html.ActionLink("Editar", "Edit", new { idPost = Model.IdPost, returnUrl = "/post" }, new { @class = "btn btn-primary" })
+                    <a href="javascript:document.getElementById('deletePostForm-@Model.IdPost').submit()" class="btn btn-danger">Apagar</a>
+                    @using (Html.BeginForm("Delete", "Post", new { idPost = Model.IdPost, returnUrl = "/post?message=O post " + Model.IdPost + "foi deletado" }, FormMethod.Post, new { id = "deletePostForm-" + @Model.IdPost })) { }
+                </div>
+            </h3>
 
-            <div class="btn-group btn-group-sm" role="group">
-                @if (Model.PublishedAt.IsEmpty())
-                {
-                    using (Html.BeginForm("Publish", "Post", new { idPost = Model.IdPost, returnUrl = "/post?message=O post " + Model.IdPost + "foi publicado" }, FormMethod.Post, new { id = "publishPostForm-" + Model.IdPost })) { }
-                    <a href="javascript:document.getElementById('publishPostForm-@Model.IdPost').submit()" class="btn btn-success">Publicar Post</a>
-
-                }
-                @Html.ActionLink("Editar Post", "Edit", new { idPost = Model.IdPost, returnUrl = "/post" }, new { @class = "btn btn-primary" })
-                <a href="javascript:document.getElementById('deletePostForm-@Model.IdPost').submit()" class="btn btn-danger">Deletar Post</a>
-                @using (Html.BeginForm("Delete", "Post", new { idPost = Model.IdPost, returnUrl = "/post?message=O post " + Model.IdPost + "foi deletado" }, FormMethod.Post, new { id = "deletePostForm-" + @Model.IdPost })) { }
-            </div>
-
+            <hr class="light" />
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.Title)
@@ -45,7 +47,7 @@
                 </dd>
             </dl>
 
-            <hr />
+            <hr class="light"/>
             <h4>Comentários</h4>
 
             @if (Model.Comments.Count == 0)
