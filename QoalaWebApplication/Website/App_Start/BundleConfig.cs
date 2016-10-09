@@ -19,13 +19,19 @@ namespace Website
             );
 
             bundles.Add(new ScriptBundle("~/assets/js").
-                        IncludeDirectory("~/Assets/javascript/", "*.js", true));
+                        IncludeDirectory("~/Scripts", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/assets/js/scrollreveal").
+                        Include("~/Scripts/scrollreveal*"));
 
             bundles.Add(new StyleBundle("~/bundles/vendor/css").
                             IncludeDirectory("~/Assets/vendor/", "*.css", true));
 
             bundles.Add(new StyleBundle("~/assets/css").
-                        IncludeDirectory("~/Assets/css/", "*.css", true));
+                        IncludeDirectory("~/Content", "*.css", true));
+
+            bundles.Add(new StyleBundle("~/assets/qoala").
+                        Include("~/Content/creative*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));

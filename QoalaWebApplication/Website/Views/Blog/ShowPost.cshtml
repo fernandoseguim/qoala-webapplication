@@ -22,3 +22,43 @@
         </div>
     </div>
 </section>
+@if (Session["token"] != null) { 
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+                $("#form-comment").on("submit", function (event) {
+                    debugger
+                    event.preventDefault();
+                    var content = $(this).find("#Content");
+                    var data = {
+                        content: content.val(),
+                        IdPost: $(this).find("#IdPost").val()
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: '/comments',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (msg) {
+                            if (msg.success) {
+                                $("#feedback").removeClass().addClass("success").html("Seu comentário foi cadastrado");
+                                var listComment = $("#list-comments ul");
+                                var html = null;
+                                if (listComment.find(".comment").length == 0) {
+                                    html = "<h4>Comentários</h4><li class='comment'><span>@Session.CurrentUser().Name</span><h5>" + content.val() + "</h5><hr /></li>";
+                                    $("#list-comments ul").html(html)
+                                } else {
+                                    html = "<li class='comment'><span>@Session.CurrentUser().Name</span><h5>" + content.val() + "</h5><hr /></li>";
+                                    $("#list-comments ul").append(html)
+                                }
+                                content.val("");
+                            } else {
+                                $("#feedback").removeClass().addClass("error").html("Não foi possível cadastrar seu comentário.")
+                            }
+                        }
+                    });
+                });
+        </script>
+    }
+}
