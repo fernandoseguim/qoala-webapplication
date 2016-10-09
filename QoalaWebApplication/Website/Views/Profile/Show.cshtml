@@ -2,26 +2,73 @@
 
 @{
     ViewBag.Title = "Perfil";
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
 }
+<section>
+    <div class="container">
+        <div class="row">
+            <h2>Minha Conta</h2>
+            <hr class="light" />
+            <div class="col-lg-6 col-md-11 col-sm-2 col-xs-12">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Meus dados</div>
 
-<h2>@ViewBag.Title</h2>
-<div>
-    <h4>Seu perfil</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Nome:</dt>
-        <dd>
-            @Model.Name
-        </dd>
-        <dt>Email:</dt>
-        <dd>
-            @Model.Email
-        </dd>
-    </dl>
+                    <!-- Table -->
+                    <table class="table">
+                        <tr>
+                            <td>Nome:</td>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <td>Endereco:</td>
+                            <td>Blabla Bla</td>
+                        </tr>
+                        <tr>
+                            <td>Telefone:</td>
+                            <td>BLoBLOBLo</td>
+                        </tr>
+                    </table>
+                </div>
 
-    @using (Html.BeginForm("Delete", "Profile", new { idUser = Model.IdUser }, FormMethod.Post, new { id = "deleteForm" }))
-    {
-        <a href="javascript:document.getElementById('deleteForm').submit()">Deletar Conta</a>
-    }
-</div>
+                <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
+                    @using (Html.BeginForm("Delete", "Account", FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-danger">Deletar Conta</button>
+                        @Html.ActionLink("Editar conta", "Edit", "Profile", new { @class = "btn btn-success" })
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-11 col-sm-2 col-xs-12">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Meus Devices</div>
+
+                    <!-- Table -->
+                    <table class="table">
+                        <tr>
+                            <td>Apelido:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>@Model.Name</td>
+                            <td>
+                                <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"> 
+                                    @Html.ActionLink("Mostrar", "Show", "Device", new { @class = "btn btn-default", idDevice = 1, idUser = Model.IdUser })
+                                    @Html.ActionLink("Editar", "Edit", "Device", new { @class = "btn btn-success", idDevice = 1, idUser = Model.IdUser })
+                                    <button type="submit" class="btn btn-danger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Deletar</button>
+                                    @using (Html.BeginForm("Delete", "Device", FormMethod.Post, new { id = "deleteDevice1" })){ }
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                @Html.ActionLink("Ver todos", "Index", "Device", new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+</section>

@@ -9,19 +9,10 @@ namespace Website.Controllers
 {
     public class AccountController : Controller
     {
-
-        [AllowAnonymous]
-        [Route("login")]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
+        
         [HttpPost]
-        [AllowAnonymous]
         [Route("login")]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public JsonResult Login(LoginViewModel model, string returnUrl)
         {
             WSRequest request = new WSRequest("accounts/login");
 
@@ -32,42 +23,43 @@ namespace Website.Controllers
                 };
 
             request.AddJsonParameter(parameters);
-
+            var data = new
+            {
+                message = "Login efetuado com sucesso"
+            }; 
             try
             {
                 var response = request.Post();
                 if (response.Code != 201)
                 {
-                    ModelState.AddModelError(
-                        "",
-                        response.Body.GetValue("Message").ToString()
-                    );
-                    return View(model);
+                    Response.StatusCode = 400;
+                    data = new
+                    {
+                        message = response.Body.GetValue("Message").ToString()
+                    };
                 }
-                string token = response.Body.GetValue("token").ToString();
-                Session["token"] = token;
+                else
+                {
+                    string token = response.Body.GetValue("token").ToString();
+                    Session["token"] = token;
 
-                var cookie = new HttpCookie("qoala_token", token);
-                cookie.Expires = DateTime.Now.AddDays(7);
-                Response.Cookies.Add(cookie);
+                    var cookie = new HttpCookie("qoala_token", token);
+                    cookie.Expires = DateTime.Now.AddDays(7);
+                    Response.Cookies.Add(cookie);
+                }
             } catch(Exception e) {
-                ModelState.AddModelError("", e.Message);
-                return View(model);
+                Response.StatusCode = 400;
+                data = new
+                {
+                    message = e.Message
+                };
             }
 
-            return RedirectToAction("Show", "Profile");
+            return new JsonResult() { Data = data };
         }
-
-        [AllowAnonymous]
-        [Route("signup")]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
+        
         [HttpPost]
-        [AllowAnonymous]
-        [Route("signup")]
+        [Route("register")]
         public ActionResult Register(RegisterViewModel model)
         {
             WSRequest request = new WSRequest("accounts/register");
@@ -80,31 +72,39 @@ namespace Website.Controllers
                 };
 
             request.AddJsonParameter(parameters);
-
+            var data = new {
+                message = "Registro efetuado com sucesso"
+            };
             try
             {
                 var response = request.Post();
                 if (response.Code != 201)
                 {
-                    ModelState.AddModelError(
-                        "",
-                        response.Body.GetValue("Message").ToString()
-                    );
-                    return View(model);
+                    Response.StatusCode = 400;
+                    data = new
+                    {
+                        message = response.Body.GetValue("Message").ToString()
+                    };
                 }
-                string token = response.Body.GetValue("token").ToString();
-                Session["token"] = token;
-                var cookie = new HttpCookie("qoala_token", token);
-                cookie.Expires = DateTime.Now.AddDays(7);
-                Response.Cookies.Add(cookie);
+                else
+                {
+                    string token = response.Body.GetValue("token").ToString();
+                    Session["token"] = token;
+                    var cookie = new HttpCookie("qoala_token", token);
+                    cookie.Expires = DateTime.Now.AddDays(7);
+                    Response.Cookies.Add(cookie);
+                }
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", e.Message);
-                return View(model);
+                Response.StatusCode = 400;
+                data = new
+                {
+                    message = e.Message
+                };
             }
 
-            return RedirectToAction("Show", "Profile");
+            return new JsonResult() { Data = data };
         }
 
         [HttpPost]

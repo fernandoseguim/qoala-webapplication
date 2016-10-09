@@ -4,44 +4,28 @@
     ViewBag.Title = "Blog";
 }
 
-@{
-    if (Model.Posts == null)
-    {
-        <h3> Nada encontrado </h3>
-    }
-    else
-    {
-        foreach (var item in Model.Posts)
-        {
-            <h1>@Html.ActionLink(@item.Title, "ShowPost", "Blog", new { item.IdPost }, new { @class = "" })</h1>
-            <p>Publicado em @item.PublishedAt</p>
-            <div>@item.ContentSummary</div>
-            <hr />
-        }
-
-
-        <ul>
-            @if (Model.Pagination.PreviousPage)
-            {
-                <li>@Html.ActionLink("Página Anterior", "Index", "Blog", new { page = Model.Pagination.CurrentPage - 1 }, new { @class = "" })</li>
-            }
-            @for (var count = 1; count <= Model.Pagination.TotalNumberPages; count++)
-            {
-                <li>
-                    @if (count == Model.Pagination.CurrentPage)
+<section class="blog">
+    <div class="container">
+        <div class="row">
+            @{
+                if (Model.Posts == null)
+                {
+                    <h3> Nada encontrado </h3>
+                }
+                else
+                {
+                    <h1>Ultimas Notícias</h1>
+                    foreach (var item in Model.Posts)
                     {
-                        <strong>Página @count</strong>
+                        <hr />
+                        <h3>@Html.ActionLink(@item.Title, "ShowPost", "Blog", new { item.IdPost }, new { @class = "" })</h3>
+                        <p>Publicado em @item.PublishedAt |  @item.UserName</p>
+                        <div>@item.Content</div>
                     }
-                    else
-                    {
-                        @Html.ActionLink("Página " + count, "Index", "Blog", new { page = count }, new { @class = "" });
-                    }
-                </li>
+                }
             }
-            @if (Model.Pagination.NextPage)
-            {
-                <li>@Html.ActionLink("Próxima Página", "Index", "Blog", new { page = Model.Pagination.CurrentPage + 1 }, new { @class = "" })</li>
-            }
-        </ul>
-    }
-}
+        </div>
+        <hr />
+        @{ Html.RenderPartial("../Shared/_Pagination", Model.Pagination); }
+    </div>
+</section>

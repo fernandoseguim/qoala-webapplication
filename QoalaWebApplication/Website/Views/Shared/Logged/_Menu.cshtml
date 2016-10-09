@@ -1,15 +1,18 @@
 ﻿@{
     var currentUser = Session.CurrentUser();
-    switch (currentUser.Permission)
+    if (currentUser != null)
     {
-        case 1:
-            Html.RenderPartial("../Shared/Logged/Public/_Menu");
-            break;
-        case 2:
-            Html.RenderPartial("../Shared/Logged/Editor/_Menu");
-            break;
-        case 3:
-            Html.RenderPartial("../Shared/Logged/Administrator/_Menu");
-            break;
+        switch (currentUser.Permission)
+        {
+            case 1:
+                Html.RenderPartial("../Shared/Logged/Public/_Menu");
+                break;
+            case 2:
+                Html.RenderPartial("../Shared/Logged/Editor/_Menu");
+                break;
+            case 3:
+                Html.RenderPartial("../Shared/Logged/Administrator/_Menu");
+                break;
+        }
     }
 }

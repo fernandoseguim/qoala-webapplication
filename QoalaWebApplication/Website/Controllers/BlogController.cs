@@ -24,9 +24,10 @@ namespace Website.Controllers
                     {
                         IdPost = (int) post["id_post"],
                         Title = post["title"].ToString(),
-                        ContentSummary = post["content"].ToString(),
+                        Content = post["content"].ToString(),
                         PublishedAt = post["published_at"].ToString(),
                         IdUser = (int) post["id_user"],
+                        UserName = post["user_name"].ToString()
                     });
                 }
                 var pagination = body.GetValue("pagination");

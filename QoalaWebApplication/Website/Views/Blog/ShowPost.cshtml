@@ -3,15 +3,22 @@
 @{
     ViewBag.Title = "Blog";
 }
+<section class="blog">
+    <div class="container">
+        <div class="row">
+            <h1>@Model.Title</h1>
+            <p>Publicado em @Model.PublishedAt</p>
+            <p>Autor @Model.UserName</p>
 
-<h1>@Model.Title</h1>
-<p>Publicado em @Model.PublishedAt</p>
+            @if (@Model.Comments.Count > 0)
+            {
+                <p>Quantidade de comentários: @Model.Comments.Count</p>
+            }
+            <hr />
+            <p>@Html.Raw(Model.Content)</p>
 
-@if (@Model.Comments.Count > 0)
-{
-    <p>Quantidade de comentários: @Model.Comments.Count</p>
-}
-<p>@Html.Raw(Model.Content)</p>
-
-@{ Html.RenderPartial("../Comment/New", new CommentViewModel { IdPost = Model.IdPost }); }
-@{ Html.RenderPartial("../Comment/All", Model.Comments); }
+            @{ Html.RenderPartial("../Comment/New", new CommentViewModel { IdPost = Model.IdPost }); }
+            @{ Html.RenderPartial("../Comment/All", Model.Comments); }
+        </div>
+    </div>
+</section>

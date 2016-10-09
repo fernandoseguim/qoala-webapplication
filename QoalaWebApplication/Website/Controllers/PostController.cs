@@ -76,6 +76,7 @@ namespace Website.Controllers
                 PreviousPage = (bool)pagination["previous_page"],
                 CurrentPage = (int)pagination["current_page"],
                 TotalNumberPages = (int)pagination["total_number_pages"],
+                ControllerName = "Post"
             };
             model.Posts = new List<PostViewModel>();
             foreach (var post in body["posts"])
@@ -83,11 +84,12 @@ namespace Website.Controllers
                 model.Posts.Add(
                     new PostViewModel
                     {
-                        ContentSummary = post["content"].ToString(),
+                        Content = post["content"].ToString(),
                         PublishedAt = post["published_at"].ToString(),
                         IdPost = (int)post["id_post"],
                         IdUser = (int)post["id_user"],
-                        Title = post["title"].ToString()
+                        Title = post["title"].ToString(),
+                        UserName = post["user_name"].ToString()
                     }
                 );
             };
@@ -112,7 +114,7 @@ namespace Website.Controllers
             IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("title", post.Title),
-                    new KeyValuePair<string, string>("content", Regex.Escape(post.Content)),
+                    new KeyValuePair<string, string>("content", post.Content),
                     new KeyValuePair<string, string>("id_user", post.IdUser.ToString())
                 };
 

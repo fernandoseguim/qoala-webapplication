@@ -1,0 +1,49 @@
+﻿<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">Qoala</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="@Url.Action("Index","Home")#product">Produto</a>
+                </li>
+
+                @if (Session.Token() == null)
+                {
+                    <li>
+                        <a class="page-scroll" href="@Url.Action("Index","Home")#signup">Registar</a>
+                    </li>
+
+                    <li>
+                        <a class="page-scroll" href="@Url.Action("Index","Home")#login">Acessar</a>
+                    </li>
+                }
+                <li>
+                    <a class="page-scroll" href="@Url.Action("Index","Home")#contact">Contato</a>
+                </li>
+
+                @if (Session.Token() != null)
+                {
+                    <li>
+                        @Html.ActionLink("Minha conta", "Show", "Profile")
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="javascript:document.getElementById('logoutForm').submit()">Sair</a>
+                    </li>
+                    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) { }
+                }
+                <li>
+                    <a class="page-scroll" href="@Url.Action("Index","Blog")">Blog</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
