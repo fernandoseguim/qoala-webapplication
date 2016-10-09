@@ -129,8 +129,20 @@ aside {
       color: rgba(255, 255, 255, 0.7);
   }
   .navbar-default.affix .navbar-header .navbar-brand {
+    color: #337ab7;
+    font-size: 14px;
+  }
+  .is-logged .navbar-default.affix .navbar-header .navbar-brand {
     color: #fff;
     font-size: 14px;
+  }
+  .is-logged .navbar-default.affix .navbar-header .navbar-brand:hover,
+  .is-logged .navbar-default.affix .navbar-header .navbar-brand:focus {
+    color: #fff;
+  }
+  .navbar-default.affix .navbar-header .navbar-brand:hover,
+  .navbar-default.affix .navbar-header .navbar-brand:focus {
+    color: #eb3812;
   }
   .navbar-default.affix .nav > li > a,
   .navbar-default.affix .nav > li > a:focus {
