@@ -22,12 +22,13 @@
     <![endif]-->
 </head>
 @{
-    var strLogged = Session.IsLogged() ? "is-logged" : "non-logged";
+    var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    var strAddon = Session.IsLogged() ? "is-logged" : "non-logged";
 }
-<body id="page-top" class="@strLogged">
+<body id="page-top" class="@strAddon @controllerName.ToLower()">
     @{Html.RenderPartial("../Shared/_Menu");}
     @{
-        if (Session.IsLogged()) {
+        if (Session.IsLogged() && controllerName != "Home") {
             Html.RenderPartial("../Shared/Logged/_Menu");
         }
     }

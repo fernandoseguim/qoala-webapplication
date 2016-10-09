@@ -27,6 +27,7 @@ namespace Website.Controllers
                         Content = post["content"].ToString(),
                         PublishedAt = post["published_at"].ToString(),
                         IdUser = (int) post["id_user"],
+                        UserName = post["user_name"].ToString()
                     });
                 }
                 var pagination = body.GetValue("pagination");

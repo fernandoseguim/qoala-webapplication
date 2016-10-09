@@ -4,7 +4,7 @@
             <h1 id="homeHeading">Nunca mais perca seu pet 😍</h1>
             <hr class="light">
             <p>Quem nunca ficou preocupado após o pet sumir ? Agora isso acabou !</p>
-            <a href="#about" class="btn btn-primary btn-xl page-scroll">Quer saber como?</a>
+            <a href="#product" class="btn btn-primary btn-xl page-scroll">Quer saber como?</a>
         </div>
     </div>
 </header>
@@ -25,7 +25,7 @@
         </div>
     </div>
 </section>
-<section id="product">
+<section id="services">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 text-center">
@@ -115,91 +115,95 @@
             </div>
             <div class="col-lg-4 text-center">
                 <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-                <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+                <p><a href="mailto:your-email@your-domain.com">digaae@qoala.com</a></p>
             </div>
         </div>
     </div>
 </section>
-@Scripts.Render("~/bundles/jqueryval")
 
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-            $("#formLogin").on("submit", function (event) {
-                event.preventDefault();
-                var data = {
-                    email: $(this).find("#Email").val(),
-                    password: $(this).find("#Password").val()
-                };
-                $.ajax({
-                    type: 'POST',
-                    url: "@Url.Action("Login", "Account")",
-                    data: JSON.stringify(data),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        var body = JSON.parse(jqXHR.responseText)
-                        var outcome = "Não foi possível realizar o login";
-                        if (body.message !== undefined) {
-                            outcome = body.message;
-                        }
-                        $("#feedbackLogin").
-                            removeClass().
-                            addClass("alert alert-danger").
-                            html(outcome);
-                    },
-                    success: function (msg) {
-                        var outcome = "Não foi possível fazer o login";
-                        if (msg.message !== undefined) {
-                            outcome = msg.message;
-                        }
-                        $("#feedbackLogin").
-                            removeClass().
-                            addClass("alert alert-success").
-                            html(outcome);
-
-                        location.reload();
+        $("#mainNav li a.page-scroll").each(function () {
+            $(this).attr("href", $(this).attr("href").replace("/", ""))
+            $("body").scrollspy("refresh");
+        });
+        $("#formLogin").on("submit", function (event) {
+            event.preventDefault();
+            var data = {
+                email: $(this).find("#Email").val(),
+                password: $(this).find("#Password").val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Login", "Account")",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var body = JSON.parse(jqXHR.responseText)
+                    var outcome = "Não foi possível realizar o login";
+                    if (body.message !== undefined) {
+                        outcome = body.message;
                     }
-                });
-            });
-
-            $("#formRegister").on("submit", function (event) {
-                event.preventDefault();
-                var data = {
-                    name: $(this).find("#Name").val(),
-                    email: $(this).find("#Email").val(),
-                    password: $(this).find("#Password").val()
-                };
-                $.ajax({
-                    type: 'POST',
-                    url: "@Url.Action("Register", "Account")",
-                    data: JSON.stringify(data),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        var body = JSON.parse(jqXHR.responseText)
-                        var outcome = "Não foi possível realizar o cadastro";
-                        if (body.message !== undefined) {
-                            outcome = body.message;
-                        }
-                        $("#feedbackRegister").
-                            removeClass().
-                            addClass("alert alert-danger").
-                            html(outcome);
-                    },
-                    success: function (msg) {
-                        var outcome = "Não foi possível fazer o cadastro";
-                        if (msg.message !== undefined) {
-                            outcome = msg.message;
-                        }
-                        $("#feedbackRegister").
-                            removeClass().
-                            addClass("alert alert-success").
-                            html(outcome);
-
-                        location.reload();
+                    $("#feedbackLogin").
+                        removeClass().
+                        addClass("alert alert-danger").
+                        html(outcome);
+                },
+                success: function (msg) {
+                    var outcome = "Não foi possível fazer o login";
+                    if (msg.message !== undefined) {
+                        outcome = msg.message;
                     }
-                });
+                    $("#feedbackLogin").
+                        removeClass().
+                        addClass("alert alert-success").
+                        html(outcome);
+
+                    location.reload();
+                }
             });
+        });
+
+        $("#formRegister").on("submit", function (event) {
+            event.preventDefault();
+            var data = {
+                name: $(this).find("#Name").val(),
+                email: $(this).find("#Email").val(),
+                password: $(this).find("#Password").val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Register", "Account")",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var body = JSON.parse(jqXHR.responseText)
+                    var outcome = "Não foi possível realizar o cadastro";
+                    if (body.message !== undefined) {
+                        outcome = body.message;
+                    }
+                    $("#feedbackRegister").
+                        removeClass().
+                        addClass("alert alert-danger").
+                        html(outcome);
+                },
+                success: function (msg) {
+                    var outcome = "Não foi possível fazer o cadastro";
+                    if (msg.message !== undefined) {
+                        outcome = msg.message;
+                    }
+                    $("#feedbackRegister").
+                        removeClass().
+                        addClass("alert alert-success").
+                        html(outcome);
+
+                    location.reload();
+                }
+            });
+        });
     </script>
 }

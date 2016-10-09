@@ -11,21 +11,21 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="page-scroll" href="#product">Produto</a>
+                    <a class="page-scroll" href="@Url.Action("Index","Home")#product">Produto</a>
                 </li>
 
                 @if (Session.Token() == null)
                 {
                     <li>
-                        <a class="page-scroll" href="#signup">Registar</a>
+                        <a class="page-scroll" href="@Url.Action("Index","Home")#signup">Registar</a>
                     </li>
 
                     <li>
-                        <a class="page-scroll" href="#login">Acessar</a>
+                        <a class="page-scroll" href="@Url.Action("Index","Home")#login">Acessar</a>
                     </li>
                 }
                 <li>
-                    <a class="page-scroll" href="#contact">Contato</a>
+                    <a class="page-scroll" href="@Url.Action("Index","Home")#contact">Contato</a>
                 </li>
 
                 @if (Session.Token() != null)
@@ -39,7 +39,7 @@
                     using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) { }
                 }
                 <li>
-                    <a class="page-scroll" href="#blog">Blog</a>
+                    <a class="page-scroll" href="@Url.Action("Index","Blog")">Blog</a>
                 </li>
             </ul>
         </div>
