@@ -460,3 +460,22 @@ body {
 section {
   padding: 100px 0;
 }
+
+#logo-qoala-claro,
+#logo-qoala-escuro {
+    height: 280%;
+    top: -80%;
+    position:relative;
+}
+.affix-top #logo-qoala-claro {
+    display: none;
+}
+.affix-top #logo-qoala-escuro {
+    display: block;
+}
+.affix  #logo-qoala-claro {
+    display: block;
+}
+.affix #logo-qoala-escuro {
+    display: none;
+}
