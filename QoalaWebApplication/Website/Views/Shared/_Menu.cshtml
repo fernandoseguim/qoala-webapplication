@@ -17,7 +17,7 @@
                     <a class="page-scroll" href="@Url.Action("Index","Home")#product">Produto</a>
                 </li>
 
-                @if (Session.Token() == null)
+                @if (!Session.IsLogged())
                 {
                     <li>
                         <a class="page-scroll" href="@Url.Action("Index","Home")#signup">Registar</a>
@@ -31,7 +31,7 @@
                     <a class="page-scroll" href="@Url.Action("Index","Home")#contact">Contato</a>
                 </li>
 
-                @if (Session.Token() != null)
+                @if (Session.IsLogged())
                 {
                     <li>
                         @Html.ActionLink("Minha conta", "Show", "Profile")
