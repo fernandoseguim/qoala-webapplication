@@ -2,46 +2,46 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
 }
+<section>
+    <div class="container">
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <td>#</td>
+                    <td>Nome</td>
+                    <td>Email</td>
+                    <td>Permissão</td>
+                    <td>Endereço</td>
+                    <td>Cidade</td>
+                    <td>State</td>
+                    <td>ZipCode</td>
+                    <td></td>
+                </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            #
-        </th>
-        <th>
-            Nome
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Permissão
-        </th>
-        <th></th>
-    </tr>
-
-                    @foreach (var item in Model.Users)
-                    {
-                        <tr>
-                            <td>@item.IdUser</td>
-                            <td>@item.Name</td>
-                            <td>@item.Email</td>
-                            <td>@item.Permission</td>
-                            <td>
-                                <div class="btn-group btn-group-sm">
-                                    @Html.ActionLink("Mostar", "Show", new { idUser = item.IdUser }, new { @class = "btn btn-default" })
-                                    @Html.ActionLink("Editar", "Edit", new { idUser = item.IdUser }, new { @class = "btn btn-primary" })
-                                    <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()" class="btn btn-danger">Apagar</a>
-                                    @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser })) { }
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td>@item.IdUser</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>@item.Permission</td>
+                        <td>@item.Address</td>
+                        <td>@item.City</td>
+                        <td>@item.State</td>
+                        <td>@item.ZipCode</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                @Html.ActionLink("Mostar", "Show", new { idUser = item.IdUser }, new { @class = "btn btn-default" })
+                                @Html.ActionLink("Editar", "Edit", new { idUser = item.IdUser }, new { @class = "btn btn-primary" })
+                                <a href="javascript:document.getElementById('deleteForm-@item.IdUser').submit()" class="btn btn-danger">Apagar</a>
+                                @using (Html.BeginForm("Delete", "User", new { idUser = item.IdUser }, FormMethod.Post, new { id = "deleteForm-" + item.IdUser })) { }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
+        @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
     </div>
 </section>

@@ -27,22 +27,29 @@ namespace Website.Controllers
         [AuthorizationRequest]
         public ActionResult Update(UserViewModel model)
         {
-            WSRequest request = new WSRequest("/users/" + model.IdUser);
-            request.AddAuthorization(Session["token"].ToString());
             IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("name", model.Name),
-                    new KeyValuePair<string, string>("email", model.Email)
+                    new KeyValuePair<string, string>("email", model.Email),
+                    new KeyValuePair<string, string>("permission", model.Permission.ToString()),
+                    new KeyValuePair<string, string>("address", model.Address),
+                    new KeyValuePair<string, string>("district", model.District ),
+                    new KeyValuePair<string, string>("city", model.City ),
+                    new KeyValuePair<string, string>("state", model.State ),
+                    new KeyValuePair<string, string>("zipcode", model.ZipCode )
                 };
+
+            WSRequest request = new WSRequest("/users/" + model.IdUser);
+            request.AddAuthorization(Session["token"].ToString());
 
             request.AddJsonParameter(parameters);
 
             var response = request.Put();
 
             if (response.Code != 204)
-                return RedirectToAction("Edit", "Profile", new { error = "Não foi possivel editar o usuário" });
+                return RedirectToAction("Edit", "Profile", new { message = "Não foi possivel editar o usuário" });
 
-            return RedirectToAction("Show", "Profile");
+            return RedirectToAction("Show", "Profile", new { message = "Sucesso ao editar perfil" });
         }
 
         [HttpPost]

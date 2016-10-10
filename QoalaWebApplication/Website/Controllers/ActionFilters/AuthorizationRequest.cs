@@ -42,8 +42,8 @@ namespace Website.Controllers.ActionFilters
         {
             return new RouteValueDictionary(new
             {
-                action = "Login",
-                controller = "Account",
+                action = "Index",
+                controller = "Home",
                 Message = "Você precisa estar logado para fazer essa ação",
             });
         }
