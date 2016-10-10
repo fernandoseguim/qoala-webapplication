@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Website.Models.API;
@@ -24,6 +25,11 @@ namespace Website.Controllers.ActionFilters
                     var response = request.Get();
                     if (response.Code != 200)
                     {
+                        HttpContext.Current.Session["token"] = null;
+                        HttpContext.Current.Session["CurrentUser"] = null;
+                        var cookie = new HttpCookie("qoala_token");
+                        cookie.Expires = DateTime.Now.AddDays(-1d);
+                        HttpContext.Current.Response.Cookies.Add(cookie);
                         return;
                     }
                     var body = response.Body;
