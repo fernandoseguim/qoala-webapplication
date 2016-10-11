@@ -1,22 +1,24 @@
-﻿<div class="container sub-menu">
-    <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Perfil
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li>@Html.ActionLink("Visualizar Perfil", "Show", "Profile")</li>
-            <li>@Html.ActionLink("Editar Perfil", "Edit", "Profile")</li>
-        </ul>
+﻿<section class="menu-logged">
+    <div class="container sub-menu">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Perfil
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Visualizar Perfil", "Show", "Profile")</li>
+                <li>@Html.ActionLink("Editar Perfil", "Edit", "Profile")</li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Device
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Meus Devices", "Index", "Device")</li>
+                <li>@Html.ActionLink("Criar Device", "New", "Device")</li>
+            </ul>
+        </div>
     </div>
-    <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Device
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li>@Html.ActionLink("Meus Devices", "Index", "Device")</li>
-            <li>@Html.ActionLink("Criar Device", "New", "Device")</li>
-        </ul>
-    </div>
-</div>
+</section>
