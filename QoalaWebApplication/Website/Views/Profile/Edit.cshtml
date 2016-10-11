@@ -9,14 +9,13 @@
         <div class="row">
             <h2>Editar Conta</h2>
 
-
             @using (Html.BeginForm("Update", "Profile"))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.IdUser)
+                    @Html.HiddenFor(model => model.Id_User)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })

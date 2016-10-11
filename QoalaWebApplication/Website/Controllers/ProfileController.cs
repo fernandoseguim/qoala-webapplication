@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Website.Controllers.ActionFilters;
@@ -13,14 +14,34 @@ namespace Website.Controllers
         [AuthorizationRequest]
         public ActionResult Show()
         {
-            return View((UserViewModel)Session["CurrentUser"]);
+            var user = ((UserViewModel)Session["CurrentUser"]);
+            var request = new WSRequest("users/" + user.Id_User);
+            request.AddAuthorization(Session["token"].ToString());
+
+            var response = request.Get();
+            if (response.Code == 200)
+            {
+                var userModel = response.Body.ToObject<UserViewModel>();
+                return View(userModel);
+            }
+            return View();
         }
 
         [HttpGet]
         [AuthorizationRequest]
         public ActionResult Edit()
         {
-            return View((UserViewModel)Session["CurrentUser"]);
+            var user = ((UserViewModel)Session["CurrentUser"]);
+            var request = new WSRequest("users/" + user.Id_User);
+            request.AddAuthorization(Session["token"].ToString());
+
+            var response = request.Get();
+            if (response.Code == 200)
+            {
+                var userModel = response.Body.ToObject<UserViewModel>();
+                return View(userModel);
+            }
+            return View();
         }
 
         [HttpPost]
@@ -39,7 +60,7 @@ namespace Website.Controllers
                     new KeyValuePair<string, string>("zipcode", model.ZipCode )
                 };
 
-            WSRequest request = new WSRequest("/users/" + model.IdUser);
+            WSRequest request = new WSRequest("/users/" + model.Id_User);
             request.AddAuthorization(Session["token"].ToString());
 
             request.AddJsonParameter(parameters);
@@ -57,12 +78,12 @@ namespace Website.Controllers
         public ActionResult Delete(int idUser)
         {
             var user = (UserViewModel)Session["CurrentUser"];
-            if (user.IdUser != idUser)
+            if (user.Id_User != idUser)
                 return RedirectToAction("Show", "Profile");
 
             WSRequest request = new WSRequest("/users/" + idUser);
             request.AddAuthorization(Session["token"].ToString());
-           
+
             var response = request.Delete();
 
             if (response.Code != 204)

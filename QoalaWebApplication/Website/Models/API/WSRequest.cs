@@ -8,10 +8,12 @@ namespace Website.Models.API
 {
     public class WSRequest
     {
+#if DEBUG
+        private static readonly string URLWebService = "http://localhost:52444/";
+#else
+        private static readonly string URLWebService = "http://ws.qoala.com.br/";
+#endif
 
-        private string _path;
-        private StringBuilder _url;
-        
         private RestClient _client;
         private RestRequest _request;
         public Response response { get; set; }
@@ -26,10 +28,9 @@ namespace Website.Models.API
         /// </summary>
         public WSRequest(string path)
         {
-            this._path = path;
-            this._url = new StringBuilder().Append("http://ws.qoala.com.br/").Append(_path);
+            string url = URLWebService + path;
 
-            string url = this._url.ToString();
+            System.Console.WriteLine("WSRequest: " + url);
 
             this._client = new RestClient(url);
 
@@ -53,7 +54,7 @@ namespace Website.Models.API
         /// </summary>
         public void AddHeaders(Dictionary<string, string> dictonary)
         {
-            foreach(KeyValuePair<string, string> dict in dictonary)
+            foreach (KeyValuePair<string, string> dict in dictonary)
             {
                 this._request.AddHeader(dict.Key, dict.Value);
             }
@@ -90,7 +91,7 @@ namespace Website.Models.API
             {
                 json.Add(item.Key, item.Value);
             }
-            
+
             this._request.AddJsonBody(json);
         }
 

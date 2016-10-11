@@ -15,6 +15,7 @@ namespace Website.Controllers.ActionFilters
                 filterContext.Result = new RedirectToRouteResult(routeValuesRedirect());
                 return;
             }
+
             WSRequest request = new WSRequest("accounts/me");
 
             request.AddAuthorization(token.ToString());
@@ -29,7 +30,7 @@ namespace Website.Controllers.ActionFilters
 
             Models.ViewModels.UserViewModel user = new Models.ViewModels.UserViewModel
             {
-                IdUser = (int)body.GetValue("id_user"),
+                Id_User = (int)body.GetValue("id_user"),
                 Email = body.GetValue("email").ToString(),
                 Name = body.GetValue("name").ToString(),
                 Permission = (int)body.GetValue("permission")

@@ -34,7 +34,7 @@
                 @if (Session.IsLogged())
                 {
                     <li>
-                        @Html.ActionLink("Minha conta", "Show", "Profile")
+                        @Html.ActionLink("Minha conta ("+ Session.CurrentUser().Name+")", "Show", "Profile")
                     </li>
                     <li>
                         <a class="page-scroll" href="javascript:document.getElementById('logoutForm').submit()">Sair</a>

@@ -17,7 +17,7 @@ namespace Website.Controllers
             WSRequest request = new WSRequest("posts/" + comment.IdPost.ToString() + "/comments");
             IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("id_user", user.IdUser.ToString()),
+                    new KeyValuePair<string, string>("id_user", user.Id_User.ToString()),
                     new KeyValuePair<string, string>("id_post", comment.IdPost.ToString()),
                     new KeyValuePair<string, string>("content", comment.Content),
                 };
@@ -39,7 +39,7 @@ namespace Website.Controllers
         public ActionResult Index(int page = 1)
         {
             var user = (UserViewModel) Session["CurrentUser"];
-            WSRequest request = new WSRequest("users/" + user.IdUser + "/posts/comments?page=" + page);
+            WSRequest request = new WSRequest("users/" + user.Id_User + "/posts/comments?page=" + page);
             request.AddAuthorization(Session["token"].ToString());
             var response = request.Get();
             if (response.Code != 200)

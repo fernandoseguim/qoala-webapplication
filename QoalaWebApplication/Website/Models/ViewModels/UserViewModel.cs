@@ -4,12 +4,13 @@ namespace Website.Models.ViewModels
 {
     public class UserViewModel
     {
-        public int IdUser { get; set; }
+        public int Id_User { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o nome.")]
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
+        [EmailAddress(ErrorMessage ="Digite um e-mail válido!")]
         [Required(ErrorMessage = "Por favor, informe o email.")]
         public string Email { get; set; }
 
