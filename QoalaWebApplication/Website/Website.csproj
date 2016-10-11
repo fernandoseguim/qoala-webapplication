@@ -208,6 +208,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Models\ViewModels\AccountViewModel.cs" />
     <Compile Include="Models\ViewModels\BlogViewModel.cs" />
     <Compile Include="Models\ViewModels\CommentListViewModel.cs" />
+    <Compile Include="Models\ViewModels\InformationViewModel.cs" />
     <Compile Include="Models\ViewModels\PostListViewModel.cs" />
     <Compile Include="Models\ViewModels\UserListViewModel.cs" />
     <Compile Include="Models\ViewModels\DeviceListViewModel.cs" />
@@ -436,6 +438,11 @@
     <Content Include="Views\Account\_RegisterForm.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
+    <Content Include="Views\Information\Index.cshtml" />
+    <Content Include="Views\Information\Edit.cshtml" />
+    <Content Include="Views\Information\Show.cshtml" />
+    <Content Include="Views\Information\New.cshtml" />
+    <Content Include="Views\Information\Render.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\images\" />

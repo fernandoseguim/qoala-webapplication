@@ -1,6 +1,10 @@
 ﻿<section class="menu-logged">
     <div class="container sub-menu">
         <div class="btn-group" role="group">
+            @Html.ActionLink("Visualizar Perfil", "Show", "Profile", null, new { @class = "btn btn-default" })
+        </div>
+
+        <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Device
                 <span class="caret"></span>
@@ -12,7 +16,14 @@
         </div>
 
         <div class="btn-group" role="group">
-            @Html.ActionLink("Visualizar Perfil", "Show", "Profile", null, new { @class = "btn btn-default" })
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Informações do site
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Listar informações", "Index", "Information")</li>
+                <li>@Html.ActionLink("Adicionar nova informação", "New", "Information")</li>
+            </ul>
         </div>
 
         <div class="btn-group" role="group">

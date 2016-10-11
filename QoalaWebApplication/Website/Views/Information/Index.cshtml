@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Website.Models.ViewModels.InformationViewModel>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Lista de Informações</div>
+                <table class="table">
+                    <tr>
+                        <td>Chave</td>
+                        <td>Valor</td>
+                        <td></td>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Key)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Value)
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    @Html.ActionLink("Mostrar", "Show", new { key = item.Key }, new { @class = "btn btn-default" })
+                                    @Html.ActionLink("Editar", "Edit", new { key = item.Key }, new { @class = "btn btn-primary" })
+                                    <a href="javascript:document.getElementById('deleteInfoForm-@item.Key').submit()" class="btn btn-danger">Deletar</a>
+                                    @using (Html.BeginForm("Delete", "Information", new { key = item.Key }, FormMethod.Post, new { id = "deleteInfoForm-" + @item.Key })) { }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

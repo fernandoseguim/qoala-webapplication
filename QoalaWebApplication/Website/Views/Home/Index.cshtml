@@ -13,12 +13,7 @@
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <h2 class="section-heading">Você precisa disso, nós sabemos.</h2>
                 <hr class="light">
-                <p>
-                    É um fato conhecido de todos que um leitor se distrairá com o conteúdo de texto
-                    legível de uma página quando estiver examinando sua diagramação. A vantagem de
-                    usar Lorem Ipsum é que ele tem uma distribuição normal de letras, ao contrário
-                    de "Conteúdo aqui, conteúdo aqui", fazendo com que ele tenha uma aparência.
-                </p>
+                <p id="info-about"></p>
                 <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">O que é isso?</a>
             </div>
         </div>
@@ -203,6 +198,16 @@
                     location.reload();
                 }
             });
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/information/render?key=about",
+                type: "GET",
+                success: function (html) {
+                    $("#info-about").html(html);
+                }
+            })
         });
     </script>
 }

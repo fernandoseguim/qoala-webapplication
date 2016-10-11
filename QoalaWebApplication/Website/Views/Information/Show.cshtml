@@ -1,0 +1,35 @@
+﻿@model Website.Models.ViewModels.InformationViewModel
+
+<section>
+    <div class="container">
+        <div class="row">
+            <h3>
+                Detalhes da informação #@Model.Key
+                <div class="btn-group btn-group">
+                    <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button>
+                    @Html.ActionLink("Editar", "Edit", new { key = Model.Key }, new { @class = "btn btn-primary" })
+                    <a href="javascript:document.getElementById('deleteForm').submit()" class="btn btn-danger">Apagar</a>
+                    @using (Html.BeginForm("Delete", "User", new { key = Model.Key}, FormMethod.Post, new { id = "deleteForm" })) { }
+                </div>
+            </h3>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Key)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Key)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Value)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Value)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</section>
