@@ -8,11 +8,8 @@ namespace Website.Models.API
 {
     public class WSRequest
     {
-#if DEBUG
-        private static readonly string URLWebService = "http://localhost:52444/";
-#else
+        //private static readonly string URLWebService = "http://localhost:52444/";
         private static readonly string URLWebService = "http://ws.qoala.com.br/";
-#endif
 
         private RestClient _client;
         private RestRequest _request;
