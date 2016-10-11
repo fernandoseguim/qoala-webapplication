@@ -4,7 +4,7 @@ namespace Website.Models.ViewModels
 {
     public class UserViewModel
     {
-        public int Id_User { get; set; }
+        public int IdUser { get; set; }
 
         [Required(ErrorMessage = "Por favor, informe o nome.")]
         [Display(Name = "Nome")]
@@ -33,7 +33,7 @@ namespace Website.Models.ViewModels
         [Display(Name = "Estado(UF)")]
         public string State { get; set; }
         [Display(Name = "CEP")]
-        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = false, HtmlEncode = false, DataFormatString = "00000-000")]
+        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = false, HtmlEncode = false, DataFormatString = "99999-999", NullDisplayText = "")]
         public string ZipCode { get; set; }
 
     }

@@ -15,7 +15,7 @@ namespace Website.Controllers
         public ActionResult Show()
         {
             var user = ((UserViewModel)Session["CurrentUser"]);
-            var request = new WSRequest("users/" + user.Id_User);
+            var request = new WSRequest("users/" + user.IdUser);
             request.AddAuthorization(Session["token"].ToString());
 
             var response = request.Get();
@@ -32,13 +32,14 @@ namespace Website.Controllers
         public ActionResult Edit()
         {
             var user = ((UserViewModel)Session["CurrentUser"]);
-            var request = new WSRequest("users/" + user.Id_User);
+            var request = new WSRequest("users/" + user.IdUser);
             request.AddAuthorization(Session["token"].ToString());
 
             var response = request.Get();
             if (response.Code == 200)
             {
                 var userModel = response.Body.ToObject<UserViewModel>();
+                userModel.IdUser = (int)response.Body.GetValue("id_user");
                 return View(userModel);
             }
             return View();
@@ -60,7 +61,7 @@ namespace Website.Controllers
                     new KeyValuePair<string, string>("zipcode", model.ZipCode )
                 };
 
-            WSRequest request = new WSRequest("/users/" + model.Id_User);
+            WSRequest request = new WSRequest("/users/" + model.IdUser);
             request.AddAuthorization(Session["token"].ToString());
 
             request.AddJsonParameter(parameters);
@@ -78,7 +79,7 @@ namespace Website.Controllers
         public ActionResult Delete(int idUser)
         {
             var user = (UserViewModel)Session["CurrentUser"];
-            if (user.Id_User != idUser)
+            if (user.IdUser != idUser)
                 return RedirectToAction("Show", "Profile");
 
             WSRequest request = new WSRequest("/users/" + idUser);

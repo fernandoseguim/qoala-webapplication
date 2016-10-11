@@ -39,7 +39,7 @@ namespace Website.Controllers
                 model.Users.Add(
                     new UserViewModel
                     {
-                        Id_User = (int)user["id_user"],
+                        IdUser = (int)user["id_user"],
                         Name = user["name"].ToString(),
                         Email = user["email"].ToString(),
                         Permission = (int)user["permission"],
@@ -70,7 +70,7 @@ namespace Website.Controllers
 
             var model = new UserViewModel
             {
-                Id_User = (int)body["id_user"],
+                IdUser = (int)body["id_user"],
                 Name = body["name"].ToString(),
                 Email = body["email"].ToString(),
                 Permission = (int)body["permission"],
@@ -99,7 +99,7 @@ namespace Website.Controllers
 
             var model = new UserViewModel
             {
-                Id_User = (int)body["id_user"],
+                IdUser = (int)body["id_user"],
                 Name = body["name"].ToString(),
                 Email = body["email"].ToString(),
                 Permission = (int)body["permission"],
@@ -117,7 +117,7 @@ namespace Website.Controllers
         [AuthorizationRequest]
         public ActionResult Update(UserViewModel model)
         {
-            WSRequest request = new WSRequest("/users/" + model.Id_User);
+            WSRequest request = new WSRequest("/users/" + model.IdUser);
             request.AddAuthorization(Session["token"].ToString());
             IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {

@@ -3,13 +3,13 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.Generic;
 using System.Text;
+using Website.Properties;
 
 namespace Website.Models.API
 {
     public class WSRequest
     {
-        //private static readonly string URLWebService = "http://localhost:52444/";
-        private static readonly string URLWebService = "http://ws.qoala.com.br/";
+        private static readonly string URLWebService = Settings.Default.WebServiceURL;
 
         private RestClient _client;
         private RestRequest _request;

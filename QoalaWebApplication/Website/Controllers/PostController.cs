@@ -58,7 +58,7 @@ namespace Website.Controllers
                 request = new WSRequest("/posts?page=" + page);
             } else
             {
-                request = new WSRequest("users/" + user.Id_User + "/posts?page=" + page);
+                request = new WSRequest("users/" + user.IdUser + "/posts?page=" + page);
             }
 
             var response = request.Get();
@@ -102,7 +102,7 @@ namespace Website.Controllers
         public ActionResult New()
         {
             var user = (UserViewModel) Session["CurrentUser"];
-            return View(new PostViewModel { IdUser = user.Id_User });
+            return View(new PostViewModel { IdUser = user.IdUser });
         }
 
         [HttpPost]

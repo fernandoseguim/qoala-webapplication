@@ -30,7 +30,7 @@ namespace Website.Controllers.ActionFilters
 
             Models.ViewModels.UserViewModel user = new Models.ViewModels.UserViewModel
             {
-                Id_User = (int)body.GetValue("id_user"),
+                IdUser = (int)body.GetValue("id_user"),
                 Email = body.GetValue("email").ToString(),
                 Name = body.GetValue("name").ToString(),
                 Permission = (int)body.GetValue("permission")
