@@ -467,15 +467,21 @@ section {
     top: -80%;
     position:relative;
 }
-.affix-top #logo-qoala-claro {
-    display: none;
-}
-.affix-top #logo-qoala-escuro {
-    display: block;
-}
+
+.is-logged #logo-qoala-claro,
 .affix  #logo-qoala-claro {
     display: block;
 }
+.is-logged #logo-qoala-escuro,
 .affix #logo-qoala-escuro {
     display: none;
+}
+
+.is-logged #logo-qoala-claro,
+.affix-top #logo-qoala-claro {
+    display: none;
+}
+.affix-top #logo-qoala-escuro,
+.is-logged #logo-qoala-escuro {
+    display: block;
 }
