@@ -1,0 +1,42 @@
+﻿@model Website.Models.ViewModels.ListViewModel<Website.Models.ViewModels.Sponsor.PlanViewModel>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Lista de Planos de Investimento</div>
+
+                <table class="table">
+                    <tr>
+                        <td>#</td>
+                        <td>Titulo</td>
+                        <td>Resumo do conteúdo</td>
+                        <td>Criado em</td>
+                        <td>Restando</td>
+                        <td>Valor</td>
+                        <td></td>
+                    </tr>
+                    @foreach (var plan in Model.ListModel)
+                    {
+                        <tr>
+                            <td>@plan.IdPlan</td>
+                            <td>@plan.Name</td>
+                            <td style="width: 200px">@plan.Rewards</td>
+                            <td>@(plan.CreatedAt)  </td>
+                            <td>@plan.Left</td>
+                            <td>@plan.Price_cents</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    @Html.ActionLink("Mostrar", "Show", new { idPlan = plan.IdPlan }, new { @class = "btn btn-default" })
+                                    @Html.ActionLink("Editar", "Edit", new { idPlan = plan.IdPlan, returnUrl = "/plan"}, new { @class = "btn btn-primary" })
+                                    <a href="javascript:document.getElementById('deletePlanForm-@plan.IdPlan').submit()" class="btn btn-danger">Deletar</a>
+                                    @using (Html.BeginForm("Delete", "Plan", new { idPlan = plan.IdPlan, returnUrl = "/plan?message=O plano " + plan.IdPlan + "foi deletado" }, FormMethod.Post, new { id = "deletePlanForm-" + @plan.IdPlan })) { }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
+        </div>
+    </div>
+</section>

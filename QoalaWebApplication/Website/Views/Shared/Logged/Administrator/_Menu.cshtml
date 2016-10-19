@@ -49,6 +49,17 @@
 
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Planos de investimento
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Criar Planos", "New", "Plan")</li>
+                <li>@Html.ActionLink("Listar Planos", "Index", "Plan")</li>
+            </ul>
+        </div>
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Usuários
                 <span class="caret"></span>
             </button>

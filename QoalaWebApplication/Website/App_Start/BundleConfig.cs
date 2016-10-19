@@ -31,14 +31,14 @@ namespace Website
                         IncludeDirectory("~/Content", "*.css", true));
 
             bundles.Add(new StyleBundle("~/assets/qoala").
-                        Include("~/Content/creative*"));
+                        Include("~/Content/creative.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-
+            
         }
     }
 }
