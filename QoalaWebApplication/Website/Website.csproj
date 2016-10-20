@@ -220,6 +220,7 @@
     <Compile Include="Models\ViewModels\InformationViewModel.cs" />
     <Compile Include="Models\ViewModels\ListViewModel.cs" />
     <Compile Include="Models\ViewModels\PostListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Sponsor\SponsorPlanViewModel.cs" />
     <Compile Include="Models\ViewModels\Sponsor\PlanViewModel.cs" />
     <Compile Include="Models\ViewModels\UserListViewModel.cs" />
     <Compile Include="Models\ViewModels\DeviceListViewModel.cs" />
@@ -459,6 +460,7 @@
     <Content Include="Views\Plan\Index.cshtml" />
     <Content Include="Views\Plan\New.cshtml" />
     <Content Include="Views\Plan\Show.cshtml" />
+    <Content Include="Views\Shared\Logged\Sponsor\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\images\" />

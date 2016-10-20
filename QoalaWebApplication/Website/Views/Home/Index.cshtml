@@ -19,6 +19,56 @@
         </div>
     </div>
 </section>
+@if (Session.IsLogged())
+{
+    <section class="bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Investimento</h2>
+                    <hr class="light">
+                    <table>
+                        <tr>
+                            <td>
+                                Pacote
+                            </td>
+                            <td>
+                                Valor
+                            </td>
+                            <td>
+                                QNT total
+                            </td>
+                            <td>
+                                QNT Disponivel
+                            </td>
+                            <td></td>
+                        </tr>
+                        @foreach (var item in ViewBag.plan)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.PriceCurrent
+                                </td>
+                                <td>
+                                    @item.QntTotal
+                                </td>
+                                <td>
+                                    @item.QntLeft
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Investir", "User", "AddPlan", new { idPlan = item.idPlan })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+}
 <section id="services">
     <div class="container">
         <div class="row">

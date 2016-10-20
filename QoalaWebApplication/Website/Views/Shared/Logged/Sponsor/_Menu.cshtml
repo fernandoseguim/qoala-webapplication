@@ -1,0 +1,13 @@
+﻿<section class="menu-logged">
+    <div class="container sub-menu">
+        <div class="btn-group" role="group">
+            @Html.ActionLink("Visualizar Perfil", "Show", "Profile", null, new { @class = "btn btn-default" })
+        </div>
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @Html.ActionLink("Meu Insve", "Index", "Device")
+            </button>
+        </div>
+    </div>
+</section>

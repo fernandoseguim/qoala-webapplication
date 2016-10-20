@@ -18,7 +18,7 @@ namespace Website.Controllers
             var response = request.Get();
             if (response.Code != 200)
             {
-                return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse post" });
+                return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse plano" });
             }
             var body = response.Body;
             //var js = new Newtonsoft.Json.JsonSerializer();
@@ -117,7 +117,7 @@ namespace Website.Controllers
                 else
                 {
                     //return RedirectToAction("Show", "Plan", new { idPlan = response.Body.GetValue("id_plan") });
-                    return RedirectToAction("Show", "Plan", new { idPlan = plan.IdPlan });
+                    return RedirectToAction("Index", "Plan", new { idPlan = plan.IdPlan });
                 }
             }
             return View("New", plan); //RedirectToAction("New", "Plan", new { error = "Não foi possivel cadastrar" });
@@ -193,5 +193,41 @@ namespace Website.Controllers
             return RedirectToAction("Index", "Plan", new { message = "Plano " + idPlan + " foi deletado." });
         }
 
+
+        [HttpPost]
+        [AuthorizationRequest]
+        public ActionResult AddPlan(SponsorPlanViewModel model)
+        {
+            WSRequest request = new WSRequest("users/" + model.IdUser + "/plans/" + model.IdPlan + "/" + model.Qnt);
+            request.AddAuthorization(Session["token"].ToString());
+
+            var response = request.Post();
+
+            if (response.Code != 201)
+                return RedirectToAction("Profile", "Index", new { message = "Não foi possivel adicionar plano" });
+
+            return RedirectToAction("Profile", "Index");
+        }
+
+        [HttpGet]
+        [AuthorizationRequest]
+        public ActionResult NewSponsor(int idPlan)
+        {
+            WSRequest request = new WSRequest("plans/" + idPlan);
+            request.AddAuthorization(Session["token"].ToString());
+            var response = request.Get();
+            if (response.Code != 200)
+            {
+                return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse plano" });
+            }
+            var body = response.Body;
+            
+            var model = new SponsorPlanViewModel
+            {
+                PlanName = body["name"].ToString()
+            };
+
+            return View(model);
+        }
     }
 }
