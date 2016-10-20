@@ -12,7 +12,7 @@ namespace Website.Controllers
         
         [HttpPost]
         [Route("login")]
-        public JsonResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             WSRequest request = new WSRequest("accounts/login");
 
@@ -54,8 +54,9 @@ namespace Website.Controllers
                     message = e.Message
                 };
             }
-
-            return new JsonResult() { Data = data };
+            return new JsonResult { Data = data };
+            // nao da pra fazer isso, pq? :: só não faz o redirect nem nada
+            //return RedirectToAction("Show", "Profile", new { Data=data });
         }
         
         [HttpPost]

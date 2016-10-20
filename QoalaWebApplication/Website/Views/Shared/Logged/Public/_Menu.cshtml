@@ -1,4 +1,5 @@
-﻿<section class="menu-logged">
+﻿@model int
+<section class="menu-logged">
     <div class="container sub-menu">
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,5 +21,18 @@
                 <li>@Html.ActionLink("Criar Device", "New", "Device")</li>
             </ul>
         </div>
+        @if (Model == 4)
+        {
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Device
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Meus Planos", "Index", "SponsorPlans")</li>
+                    <li>@Html.ActionLink("Criar Planos", "New", "SponsorPlans")</li>
+                </ul>
+            </div>
+        }
     </div>
 </section>

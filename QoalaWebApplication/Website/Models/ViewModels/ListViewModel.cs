@@ -7,9 +7,21 @@ namespace Website.Models.ViewModels
         public List<T> ListModel { get; set; }
         public PaginationViewModel Pagination { get; set; }
 
-        public ListViewModel() {
+        /// <summary>
+        /// Cria objeto default de lista com paginacao
+        /// </summary>
+        /// <param name="ControllerName">Nome do Controller para retorno das Actions de paginacao</param>
+        public ListViewModel(string ControllerName)
+        {
             ListModel = new List<T>();
-            Pagination = new PaginationViewModel();
+            Pagination = new PaginationViewModel
+            {
+                NextPage = false,
+                PreviousPage = false,
+                CurrentPage = 1,
+                TotalNumberPages = 1,
+                ControllerName = ControllerName
+            };
         }
     }
 }

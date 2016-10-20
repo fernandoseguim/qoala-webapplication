@@ -5,7 +5,8 @@
         switch (currentUser.Permission)
         {
             case 1:
-                Html.RenderPartial("../Shared/Logged/Public/_Menu");
+            case 4:
+                Html.RenderPartial("../Shared/Logged/Public/_Menu", currentUser.Permission);
                 break;
             case 2:
                 Html.RenderPartial("../Shared/Logged/Editor/_Menu");

@@ -26,7 +26,7 @@ namespace Website.Controllers
                 IdPlan = (int)body["id_plan"],
                 Name = body["name"].ToString(),
                 Left = (int)body["left"],
-                Price_cents = (int)body["price_cents"],
+                Price_cents = (int)body["price_curr"],
                 Rewards = body["rewards"].ToString(),
             };
 
@@ -39,10 +39,10 @@ namespace Website.Controllers
         {
             var user = (UserViewModel)Session["CurrentUser"];
             WSRequest request = null;
-                request = new WSRequest("/plans?page=" + page);
+            request = new WSRequest("/plans?page=" + page);
 
             var response = request.Get();
-            ListViewModel<PlanViewModel> model = new ListViewModel<PlanViewModel>();
+            ListViewModel<PlanViewModel> model = new ListViewModel<PlanViewModel>("Plan");
             //model.ListModel = new List<PlanViewModel>();
             //model.Pagination = new PaginationViewModel();
 
@@ -51,14 +51,17 @@ namespace Website.Controllers
                 var body = response.Body;
 
                 var pagination = body.GetValue("pagination");
-                model.Pagination = new PaginationViewModel
+                if (pagination != null)
                 {
-                    NextPage = (bool)pagination["next_page"],
-                    PreviousPage = (bool)pagination["previous_page"],
-                    CurrentPage = (int)pagination["current_page"],
-                    TotalNumberPages = (int)pagination["total_number_pages"],
-                    ControllerName = "Plan"
-                };
+                    model.Pagination = new PaginationViewModel
+                    {
+                        NextPage = (bool)pagination["next_page"],
+                        PreviousPage = (bool)pagination["previous_page"],
+                        CurrentPage = (int)pagination["current_page"],
+                        TotalNumberPages = (int)pagination["total_number_pages"],
+                        ControllerName = "Plan"
+                    };
+                }
                 foreach (var post in body["plans"])
                 {
                     model.ListModel.Add(
@@ -80,34 +83,41 @@ namespace Website.Controllers
         [AuthorizationRequest]
         public ActionResult New()
         {
-            return View(new PlanViewModel());
+            return View(new PlanViewModel() { Price_cents = 50000 });
         }
 
         [HttpPost]
         [AuthorizationRequest]
         public ActionResult Create(PlanViewModel plan)
         {
-            WSRequest request = new WSRequest("/plans");
-            request.AddAuthorization(Session["token"].ToString());
-            IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
+            if (ModelState.IsValid)
+            {
+                WSRequest request = new WSRequest("/plans");
+                request.AddAuthorization(Session["token"].ToString());
+                IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("name", plan.Name),
-                    new KeyValuePair<string, string>("id_plan", plan.IdPlan.ToString()),
+                    //new KeyValuePair<string, string>("id_plan", plan.IdPlan.ToString()),
                     new KeyValuePair<string, string>("left", plan.Left.ToString()),
                     new KeyValuePair<string, string>("price_cents", plan.Price_cents.ToString()),
                     new KeyValuePair<string, string>("rewards", plan.Rewards),
                 };
 
-            request.AddJsonParameter(parameters);
+                request.AddJsonParameter(parameters);
 
-            var response = request.Post();
+                var response = request.Post();
 
-            if (response.Code != 201)
-                return RedirectToAction("New", "Plan", new { error = "Não foi possivel cadastrar" });
-
-            //return RedirectToAction("Show", "Plan", new { idPlan = response.Body.GetValue("id_plan") });
-            return RedirectToAction("Show", "Plan", new { idPlan = plan.IdPlan });
-
+                if (response.Code != 201)
+                {
+                    ModelState.AddModelError("", response.Code + ":" + response.Body.GetValue("Message").ToString());
+                }
+                else
+                {
+                    //return RedirectToAction("Show", "Plan", new { idPlan = response.Body.GetValue("id_plan") });
+                    return RedirectToAction("Show", "Plan", new { idPlan = plan.IdPlan });
+                }
+            }
+            return View("New", plan); //RedirectToAction("New", "Plan", new { error = "Não foi possivel cadastrar" });
         }
 
         [HttpGet]
@@ -155,8 +165,11 @@ namespace Website.Controllers
             if (response.Code != 204)
                 return RedirectToAction("Edit", "Plan", plan);
 
-            return RedirectToAction("Show", "Plan", new { idPlan = plan.IdPlan,
-                message = string.Format("O plano {0} - {1} foi atualizado", plan.IdPlan, plan.Name)});
+            return RedirectToAction("Show", "Plan", new
+            {
+                idPlan = plan.IdPlan,
+                message = string.Format("O plano {0} - {1} foi atualizado", plan.IdPlan, plan.Name)
+            });
         }
 
         [HttpPost]
@@ -173,6 +186,6 @@ namespace Website.Controllers
                 return Redirect(returnUrl);
             return RedirectToAction("Index", "Plan", new { message = "Plano " + idPlan + " foi deletado." });
         }
-        
+
     }
 }
