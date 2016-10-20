@@ -19,7 +19,7 @@
         </div>
     </div>
 </section>
-@if (Session.IsLogged())
+@if (Session.IsLogged() && Session.CurrentUser().Permission == 4)
 {
     <section class="bg-primary">
         <div class="container">
@@ -43,7 +43,7 @@
                             </td>
                             <td></td>
                         </tr>
-                        @foreach (var item in ViewBag.plan)
+                        @foreach (var item in ViewBag.plans)
                         {
                             <tr>
                                 <td>
