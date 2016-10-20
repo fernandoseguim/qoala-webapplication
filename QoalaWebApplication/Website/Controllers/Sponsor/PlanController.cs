@@ -198,15 +198,16 @@ namespace Website.Controllers
         [AuthorizationRequest]
         public ActionResult AddPlan(SponsorPlanViewModel model)
         {
-            WSRequest request = new WSRequest("users/" + model.IdUser + "/plans/" + model.IdPlan + "/" + model.Qnt);
+            var user = (UserViewModel)Session["CurrentUser"];
+            WSRequest request = new WSRequest("users/" + user.IdUser + "/plans/" + model.IdPlan + "/" + model.Qnt);
             request.AddAuthorization(Session["token"].ToString());
 
             var response = request.Post();
 
-            if (response.Code != 201)
-                return RedirectToAction("Profile", "Index", new { message = "Não foi possivel adicionar plano" });
+            if (response.Code != 200)
+                return RedirectToAction("Index", "Home", new { message = "Não foi possivel adicionar plano" });
 
-            return RedirectToAction("Profile", "Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
