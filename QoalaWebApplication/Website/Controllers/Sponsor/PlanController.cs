@@ -14,19 +14,22 @@ namespace Website.Controllers
         public ActionResult Show(int idPlan)
         {
             WSRequest request = new WSRequest("plans/" + idPlan);
+            request.AddAuthorization(Session["token"].ToString());
             var response = request.Get();
             if (response.Code != 200)
             {
                 return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse post" });
             }
             var body = response.Body;
+            //var js = new Newtonsoft.Json.JsonSerializer();
+            //var mod=js.Deserialize(new System.IO.StringReader(body.ToString()), typeof(PlanViewModel));
 
             var model = new PlanViewModel
             {
                 IdPlan = (int)body["id_plan"],
                 Name = body["name"].ToString(),
                 Left = (int)body["left"],
-                Price_cents = (int)body["price_curr"],
+                Price_cents = (int)body["price_cents"],
                 Rewards = body["rewards"].ToString(),
             };
 
@@ -62,16 +65,16 @@ namespace Website.Controllers
                         ControllerName = "Plan"
                     };
                 }
-                foreach (var post in body["plans"])
+                foreach (var plan in body["plans"])
                 {
                     model.ListModel.Add(
                         new PlanViewModel
                         {
-                            IdPlan = (int)body["id_plan"],
-                            Name = body["name"].ToString(),
-                            Left = (int)body["left"],
-                            Price_cents = (int)body["price_cents"],
-                            Rewards = body["rewards"].ToString(),
+                            IdPlan = (int)plan["id_plan"],
+                            Name = plan["name"].ToString(),
+                            Left = (int)plan["left"],
+                            Price_cents = (int)plan["price_cents"],
+                            Rewards = plan["rewards"].ToString(),
                         }
                     );
                 };
@@ -125,10 +128,13 @@ namespace Website.Controllers
         public ActionResult Edit(int idPlan)
         {
             WSRequest request = new WSRequest("plans/" + idPlan);
+            request.AddAuthorization(Session["token"].ToString());
             var response = request.Get();
             if (response.Code != 200)
             {
-                return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse post" });
+                ModelState.AddModelError("", "Não foi possível buscar esse plano");
+
+                return RedirectToAction("Index", "Plan");
             }
             var body = response.Body;
 

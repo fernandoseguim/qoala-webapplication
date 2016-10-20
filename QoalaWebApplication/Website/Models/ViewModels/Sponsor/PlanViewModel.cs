@@ -34,7 +34,7 @@ namespace Website.Models.ViewModels.Sponsor
         //[DataType(DataType.Currency)]
         public float Price_curr
         {
-            get { return Price_cents / 100; }
+            get { return (Price_cents / 100); }
             set { Price_cents = int.Parse((value * 100).ToString("0")); }
         }
 

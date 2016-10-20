@@ -9,11 +9,7 @@
                 Detalhes do Plano #@Model.IdPlan 
                 <div class="btn-group btn-group-sm" role="group">
                     <button type="button" class="btn btn-default">@Html.ActionLink("Voltar para Lista", "Index")</button>
-                    @if (Model.PublishedAt.IsEmpty())
-                    {
-                        using (Html.BeginForm("Publish", "Plan", new { idPlan = Model.IdPlan, returnUrl = "/plan?message=O plano " + Model.IdPlan + "foi publicado" }, FormMethod.Post, new { id = "publishPlanForm-" + Model.IdPlan })) { }
-                        <a href="javascript:document.getElementById('publishPlanForm-@Model.IdPlan').submit()" class="btn btn-success">Publicar</a>
-                    }
+                    
                     @Html.ActionLink("Editar", "Edit", new { idPlan = Model.IdPlan, returnUrl = "/plan" }, new { @class = "btn btn-primary" })
                     <a href="javascript:document.getElementById('deletePlanForm-@Model.IdPlan').submit()" class="btn btn-danger">Apagar</a>
                     @using (Html.BeginForm("Delete", "Plan", new { idPlan = Model.IdPlan, returnUrl = "/plan?message=O plano " + Model.IdPlan + "foi deletado" }, FormMethod.Post, new { id = "deletePlanForm-" + @Model.IdPlan })) { }
@@ -23,75 +19,41 @@
             <hr class="light" />
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.Title)
+                    @Html.DisplayNameFor(model => model.IdPlan)
                 </dt>
-
                 <dd>
-                    @Html.DisplayFor(model => model.Title)
+                    @Html.DisplayFor(model => model.IdPlan)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.PublishedAt)
+                    @Html.DisplayNameFor(model => model.Name)
                 </dt>
-
                 <dd>
-                    @Html.DisplayFor(model => model.PublishedAt)
+                    @Html.DisplayFor(model => model.Name)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Content)
+                    @Html.DisplayNameFor(model => model.Left)
                 </dt>
-
                 <dd>
-                    @Html.Raw(Html.DisplayFor(model => model.Content))
+                    @Html.DisplayFor(model => model.Left)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price_curr)
+                </dt>
+                <dd>
+                    @Html.Raw(Html.DisplayFor(model => model.Price_curr))
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rewards)
+                </dt>
+                <dd>
+                    @Html.Raw(Html.DisplayFor(model => model.Rewards))
                 </dd>
             </dl>
 
-            <hr class="light"/>
-            <h4>Comentários</h4>
-
-            @if (Model.Comments.Count == 0)
-            {
-                <strong>Não existem comentários aprovados neste plano.</strong>
-            }
-            else
-            {
-                <dl class="dl-horizontal">
-                    @foreach (var comment in Model.Comments)
-                    {
-                        <dt>
-                            @Html.DisplayNameFor(model => model.IdUser)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.IdUser)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Content)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.Content)
-                        </dd>
-
-                        <dt>
-                            @Html.RouteLink(
-                    "Editar comentário",
-                    new
-                    {
-                        controller = "Comment",
-                        action = "Edit",
-                        idPlan = comment.IdPlan,
-                        idComment = comment.IdComment,
-                        returnUrl = "/plan/show?idPlan=" + comment.IdPlan
-                    }
-                )
-                        </dt>
-                        <hr />
-                    }
-                </dl>
-            }
         </div>
     </div>
 </section>
