@@ -6,73 +6,109 @@
                 <div class="panel-heading">Relatório de Planos de Investimento</div>
                 @using (Html.BeginForm())
                 {
-                @Html.AntiForgeryToken()
-                
-                <table class="table">
-                    <tr>
-                        <td>@Html.LabelFor(m => m.Filter.IdPlan)</td>
-                        <td>@Html.LabelFor(m => m.Filter.Name)</td>
-                        <td>@Html.LabelFor(m => m.Filter.PlanLeft)</td>
-                        <td>@Html.LabelFor(m => m.Filter.PlanSold)</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="md-4">@Html.EditorFor(m => m.Filter.IdPlan) a @Html.EditorFor(m => m.Filter.IdPlan2)</td>
-                        <td>@Html.EditorFor(m => m.Filter.Name) a @Html.EditorFor(m => m.Filter.Name)</td>
-                        <td>@Html.EditorFor(m => m.Filter.PlanLeft) a @Html.EditorFor(m => m.Filter.PlanLeft)</td>
-                        <td>@Html.EditorFor(m => m.Filter.PlanSold) a @Html.EditorFor(m => m.Filter.PlanSold)</td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <div class="btn-group">
-                                    <input type="submit" value="Filtrar" class="btn btn-success" />
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                }
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="panel-heading">Resultado de Planos de Investimento</div>
-                <table class="table">
-                    <tr>
-                        <td>#</td>
-                        <td>@Html.LabelFor(m => m.Filter.Name)</td>
-                        <td>@Html.LabelFor(m => m.Filter.PlanLeft)</td>
-                        <td>@Html.LabelFor(m => m.Filter.PlanSold)</td>
-                        <td>@Html.LabelFor(m => m.Filter.PriceCents)</td>
-                        <td>@Html.LabelFor(m => m.Filter.FundsNow)</td>
-                        <td></td>
-                    </tr>
-                    @foreach (var plan in Model.ListModel)
-                    {
-                    <tr>
-                        <td>@plan.IdPlan a @plan.IdPlan2</td>
-                        <td>@plan.Name</td>
-                        <td>@plan.PlanLeft</td>
-                        <td>@plan.PlanSold</td>
-                        <td>@plan.PriceCents</td>
-                        <td>@plan.FundsNow</td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Filter.IdPlan, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Filter.IdPlan, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="col-md-1">
+                                até
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Filter.IdPlan2, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Filter.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Filter.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Filter.PlanLeft, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Filter.PlanLeft, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="col-md-1">
+                                até
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Filter.PlanLeft, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Filter.PlanSold, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Filter.PlanSold, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="col-md-1">
+                                até
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Filter.PlanSold2, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div><div class="col-md-offset-9">
+                            <div class="form-group ">
                                 <div class="btn-group">
-                                    @Html.ActionLink("Mostrar Compradores", "Show", new { idPlan = plan.IdPlan }, new { @class = "btn btn-default" })
+                                    <input type="submit" value="Filtrar" class="btn btn-success">
+                                    <input type="reset" value="Limpar" class="btn btn-primary">
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                    }
-                    <tr class="header-content-inner">
-                        <td>Total:</td>
-                        <td>@Model.ListModel.Count() registros</td>
-                        <td>@Model.ListModel.Sum(a => a.PlanLeft) restante</td>
-                        <td>@Model.ListModel.Sum(a => a.PlanSold) vendido</td>
-                        <td></td>
-                        <td>@Model.ListModel.Sum(a=>a.FundsNow) arrecadado</td>
-                        <td></td>
-                    </tr>
-                </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+                <div class="panel panel-default">
+                    <div class="panel-heading">Resultado de Planos de Investimento</div>
+                    <table class="table">
+                        <tr>
+                            <td>#</td>
+                            <td>@Html.LabelFor(m => m.Filter.Name)</td>
+                            <td>@Html.LabelFor(m => m.Filter.PlanLeft)</td>
+                            <td>@Html.LabelFor(m => m.Filter.PlanSold)</td>
+                            <td>@Html.LabelFor(m => m.Filter.PriceCents)</td>
+                            <td>@Html.LabelFor(m => m.Filter.FundsNow)</td>
+                            <td></td>
+                        </tr>
+                        @foreach (var plan in Model.ListModel)
+                        {
+                            <tr>
+                                <td>@plan.IdPlan a @plan.IdPlan2</td>
+                                <td>@plan.Name</td>
+                                <td>@plan.PlanLeft</td>
+                                <td>@plan.PlanSold</td>
+                                <td>@plan.PriceCents</td>
+                                <td>@plan.FundsNow</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <div class="btn-group">
+                                            @Html.ActionLink("Mostrar Compradores", "Show", new { idPlan = plan.IdPlan }, new { @class = "btn btn-default" })
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        <tr class="header-content-inner">
+                            <td>Total:</td>
+                            <td>@Model.ListModel.Count() registros</td>
+                            <td>@Model.ListModel.Sum(a => a.PlanLeft) restante</td>
+                            <td>@Model.ListModel.Sum(a => a.PlanSold) vendido</td>
+                            <td></td>
+                            <td>@Model.ListModel.Sum(a => a.FundsNow) arrecadado</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
             </div>
-            @{Html.RenderPartial("../Shared/_Pagination", Model.Pagination);}
         </div>
-    </div>
 </section>

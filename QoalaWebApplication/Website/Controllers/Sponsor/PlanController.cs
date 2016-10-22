@@ -94,9 +94,11 @@ namespace Website.Controllers
         public ActionResult Report(ReportViewModel filter = null)
         {
             var user = (UserViewModel)Session["CurrentUser"];
+            ListViewModel<ReportViewModel> model = new ListViewModel<ReportViewModel>();
+            model.Filter = filter;
             WSRequest request = null;
             request = new WSRequest("/plans/reports?id_plan=" + filter.IdPlan +
-                "&id_plan2 = " + filter.IdPlan+
+                "&id_plan2 = " + filter.IdPlan +
                 "&name=" + filter.Name +
                 "&plan_left=" + filter.PlanLeft +
                 "&plan_left2=" + filter.PlanLeft2 +
@@ -106,8 +108,6 @@ namespace Website.Controllers
             var response = request.Get();
             if (response.Code == 200)
             {
-                ListViewModel<ReportViewModel> model = new ListViewModel<ReportViewModel>();
-                model.Filter = filter;
                 var body = response.Body;
                 var report = body["report"];
                 foreach (var plan in report)
@@ -125,7 +125,11 @@ namespace Website.Controllers
                 };
                 return View(model);
             }
-            return RedirectToAction("Report");
+            else
+            {
+                ModelState.AddModelError("", response.Code + " - " + response.Body["Message"]);
+                return View(model);
+            }
         }
 
         [HttpGet]
