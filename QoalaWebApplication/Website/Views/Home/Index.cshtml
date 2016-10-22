@@ -27,43 +27,54 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">Investimento</h2>
                     <hr class="light">
-                    <table>
-                        <tr>
-                            <td>
-                                Pacote
-                            </td>
-                            <td>
-                                Valor
-                            </td>
-                            <td>
-                                QNT total
-                            </td>
-                            <td>
-                                QNT Disponivel
-                            </td>
-                            <td></td>
-                        </tr>
-                        @foreach (var item in ViewBag.plans)
-                        {
+                    @if(Session.CurrentUser().IdPlan != null)
+                    {
+                        <strong>Obrigado por ja ter investido</strong>
+                    } else { 
+                        <table>
                             <tr>
                                 <td>
-                                    @item.Name
+                                    Pacote
                                 </td>
                                 <td>
-                                    @item.PriceCurrent
+                                    Beneficios
                                 </td>
                                 <td>
-                                    @item.QntTotal
+                                    Valor
                                 </td>
                                 <td>
-                                    @item.QntLeft
+                                    QNT total
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Investir", "User", "AddPlan", new { idPlan = item.idPlan })
+                                    QNT Disponivel
                                 </td>
+                                <td></td>
                             </tr>
-                        }
-                    </table>
+                            @foreach (var item in ViewBag.plans)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Name
+                                    </td>
+                                    <td>
+                                        @item.Rewards
+                                    </td>
+                                    <td>
+                                        @item.Price_curr
+                                    </td>
+                                    <td>
+                                        @item.QntTotal
+                                    </td>
+                                    <td>
+                                        @item.Left
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Investir", "NewSponsor", "Plan", new { idPlan = item.IdPlan }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
                 </div>
             </div>
         </div>

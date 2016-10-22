@@ -36,5 +36,7 @@ namespace Website.Models.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = false, HtmlEncode = false, DataFormatString = "99999-999", NullDisplayText = "")]
         public string ZipCode { get; set; }
 
+        public string IdPlan { get; set; }
+
     }
 }

@@ -15,7 +15,11 @@ namespace Website.Models.ViewModels.Sponsor
         [Required(ErrorMessage = "Por favor, informe a quantidade")]
         [Display(Name = "Quantidade")]
         public int Qnt { get; set; }
+        public int QntLeft { get; set; }
 
         public string PlanName { get; set; }
+        
+        [Display(Name = "CPF")]
+        public string UserDocument { get; set; }
     }
 }

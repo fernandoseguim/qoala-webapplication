@@ -242,10 +242,13 @@ namespace Website.Controllers
         public ActionResult AddPlan(SponsorPlanViewModel model)
         {
             var user = (UserViewModel)Session["CurrentUser"];
-            WSRequest request = new WSRequest("users/" + user.IdUser + "/plans/" + model.IdPlan + "/" + model.Qnt);
+            WSRequest request = new WSRequest("users/" + user.IdUser + "/plans/" + model.IdPlan + "/" + model.Qnt + "/" + model.UserDocument);
             request.AddAuthorization(Session["token"].ToString());
 
             var response = request.Post();
+
+            if (response.Code == 400)
+                return RedirectToAction("NewSponsor", "Plan", new { idPlan = model.IdPlan, message = "A quantidade de é maior que a disponivel" });
 
             if (response.Code != 200)
                 return RedirectToAction("Index", "Home", new { message = "Não foi possivel adicionar plano" });
@@ -262,13 +265,14 @@ namespace Website.Controllers
             var response = request.Get();
             if (response.Code != 200)
             {
-                return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse plano" });
+                return RedirectToAction("Index", "Home", new { idPlan = idPlan, message = "Não foi possível buscar esse plano" });
             }
             var body = response.Body;
 
             var model = new SponsorPlanViewModel
             {
-                PlanName = body["name"].ToString()
+                PlanName = body["name"].ToString(),
+                QntLeft = (int)body["left"]
             };
 
             return View(model);
