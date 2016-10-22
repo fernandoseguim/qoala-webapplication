@@ -220,6 +220,7 @@
     <Compile Include="Models\ViewModels\InformationViewModel.cs" />
     <Compile Include="Models\ViewModels\ListViewModel.cs" />
     <Compile Include="Models\ViewModels\PostListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Sponsor\ReportViewModel.cs" />
     <Compile Include="Models\ViewModels\Sponsor\SponsorPlanViewModel.cs" />
     <Compile Include="Models\ViewModels\Sponsor\PlanViewModel.cs" />
     <Compile Include="Models\ViewModels\UserListViewModel.cs" />

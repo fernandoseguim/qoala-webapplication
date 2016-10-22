@@ -81,48 +81,51 @@ namespace Website.Controllers
             return View(model);
         }
 
-        public class ReportViewModel
+        [HttpGet]
+        [AuthorizationRequest]
+        public ActionResult Report()
         {
-            public int ID_PLAN { get; set; }
-            public string NAME_PLAN { get; set; }
-            public int PLAN_LEFT { get; set; }
-            public int PLAN_SOLDS { get; set; }
-            public int PRICE_CENTS { get; set; }
-            public int FUNDS_NOW { get { return PRICE_CENTS * PLAN_SOLDS; }  }
+            //Traz a lista vazia
+            return View(new ListViewModel<ReportViewModel>());
         }
 
-        [HttpGet]
         [HttpPost]
         [AuthorizationRequest]
-        public ActionResult Report(ListViewModel<ReportViewModel> filter = null)
+        public ActionResult Report(ReportViewModel filter = null)
         {
             var user = (UserViewModel)Session["CurrentUser"];
             WSRequest request = null;
-            request = new WSRequest("/plans/reports");
+            request = new WSRequest("/plans/reports?id_plan=" + filter.IdPlan +
+                "&id_plan2 = " + filter.IdPlan+
+                "&name=" + filter.Name +
+                "&plan_left=" + filter.PlanLeft +
+                "&plan_left2=" + filter.PlanLeft2 +
+                "&plan_sold=" + filter.PlanSold +
+                "&plan_sold2=" + filter.PlanSold2);
             request.AddAuthorization(Session["token"].ToString());
-
             var response = request.Get();
-            ListViewModel<ReportViewModel> model = new ListViewModel<ReportViewModel>();
-            model.Filter = filter.Filter;
             if (response.Code == 200)
-            {    
+            {
+                ListViewModel<ReportViewModel> model = new ListViewModel<ReportViewModel>();
+                model.Filter = filter;
                 var body = response.Body;
-
-                foreach (var plan in body["plans"])
+                var report = body["report"];
+                foreach (var plan in report)
                 {
                     model.ListModel.Add(
                         new ReportViewModel
                         {
-                            ID_PLAN = (int)plan["id_plan"],
-                            NAME_PLAN = plan["name_plan"].ToString(),
-                            PLAN_LEFT = (int)plan["plan_left"],
-                            PRICE_CENTS = (int)plan["price_cents"],
-                            PLAN_SOLDS = (int)plan["plan_solds"],
+                            IdPlan = (int)plan["id_plan"],
+                            Name = plan["name_plan"].ToString(),
+                            PlanLeft = (int)plan["plan_left"],
+                            PriceCents = (int)plan["price_cents"],
+                            PlanSold = (int)plan["plan_solds"],
                         }
                     );
                 };
+                return View(model);
             }
-            return View(model);
+            return RedirectToAction("Report");
         }
 
         [HttpGet]

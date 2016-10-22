@@ -2,11 +2,17 @@
 
 namespace Website.Models.ViewModels
 {
-    public class ListViewModel<T> where T : class, new()
+    public class ListViewModel<T> : ListViewModel<T, T> where T : class, new()
+    {
+
+    }
+
+    public class ListViewModel<T, F> 
+        where F: class, new()
     {
         public List<T> ListModel { get; set; }
         public PaginationViewModel Pagination { get; set; }
-        public T Filter { get; set; }
+        public F Filter { get; set; }
 
         /// <summary>
         /// Cria objeto default de lista com paginacao
@@ -23,7 +29,7 @@ namespace Website.Models.ViewModels
                 TotalNumberPages = 1,
                 ControllerName = ""
             };
-            Filter = new T();
+            Filter = new F();
         }
     }
 }
