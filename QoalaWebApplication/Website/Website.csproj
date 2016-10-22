@@ -462,6 +462,7 @@
     <Content Include="Views\Plan\Show.cshtml" />
     <Content Include="Views\Shared\Logged\Sponsor\_Menu.cshtml" />
     <Content Include="Views\Plan\NewSponsor.cshtml" />
+    <Content Include="Views\Plan\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\images\" />

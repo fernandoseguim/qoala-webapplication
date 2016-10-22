@@ -43,11 +43,9 @@ namespace Website.Controllers
             var user = (UserViewModel)Session["CurrentUser"];
             WSRequest request = null;
             request = new WSRequest("/plans?page=" + page);
-
+            request.AddAuthorization(Session["token"].ToString());
             var response = request.Get();
-            ListViewModel<PlanViewModel> model = new ListViewModel<PlanViewModel>("Plan");
-            //model.ListModel = new List<PlanViewModel>();
-            //model.Pagination = new PaginationViewModel();
+            ListViewModel<PlanViewModel> model = new ListViewModel<PlanViewModel>();
 
             if (response.Code == 200)
             {
@@ -65,6 +63,7 @@ namespace Website.Controllers
                         ControllerName = "Plan"
                     };
                 }
+
                 foreach (var plan in body["plans"])
                 {
                     model.ListModel.Add(
@@ -75,6 +74,50 @@ namespace Website.Controllers
                             Left = (int)plan["left"],
                             Price_cents = (int)plan["price_cents"],
                             Rewards = plan["rewards"].ToString(),
+                        }
+                    );
+                };
+            }
+            return View(model);
+        }
+
+        public class ReportViewModel
+        {
+            public int ID_PLAN { get; set; }
+            public string NAME_PLAN { get; set; }
+            public int PLAN_LEFT { get; set; }
+            public int PLAN_SOLDS { get; set; }
+            public int PRICE_CENTS { get; set; }
+            public int FUNDS_NOW { get { return PRICE_CENTS * PLAN_SOLDS; }  }
+        }
+
+        [HttpGet]
+        [HttpPost]
+        [AuthorizationRequest]
+        public ActionResult Report(ListViewModel<ReportViewModel> filter = null)
+        {
+            var user = (UserViewModel)Session["CurrentUser"];
+            WSRequest request = null;
+            request = new WSRequest("/plans/reports");
+            request.AddAuthorization(Session["token"].ToString());
+
+            var response = request.Get();
+            ListViewModel<ReportViewModel> model = new ListViewModel<ReportViewModel>();
+            model.Filter = filter.Filter;
+            if (response.Code == 200)
+            {    
+                var body = response.Body;
+
+                foreach (var plan in body["plans"])
+                {
+                    model.ListModel.Add(
+                        new ReportViewModel
+                        {
+                            ID_PLAN = (int)plan["id_plan"],
+                            NAME_PLAN = plan["name_plan"].ToString(),
+                            PLAN_LEFT = (int)plan["plan_left"],
+                            PRICE_CENTS = (int)plan["price_cents"],
+                            PLAN_SOLDS = (int)plan["plan_solds"],
                         }
                     );
                 };
@@ -222,7 +265,7 @@ namespace Website.Controllers
                 return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse plano" });
             }
             var body = response.Body;
-            
+
             var model = new SponsorPlanViewModel
             {
                 PlanName = body["name"].ToString()
