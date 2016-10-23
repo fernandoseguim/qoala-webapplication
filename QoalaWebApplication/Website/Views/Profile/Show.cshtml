@@ -51,5 +51,31 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <h2>Meu investimento</h2>
+            <hr class="light" />
+            <div class="col-lg-6 col-md-11 col-sm-2 col-xs-12">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+
+                    <!-- Table -->
+                    <table class="table">
+                        <tr>
+                            <td>Nome do plano:</td>
+                            <td>@Model.Plan.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Preço:</td>
+                            <td>@Model.Plan.Price_cents</td>
+                        </tr>
+                        <tr>
+                            <td>Benefício:</td>
+                            <td>@Model.Plan.Rewards</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

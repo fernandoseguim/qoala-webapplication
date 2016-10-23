@@ -38,5 +38,7 @@ namespace Website.Models.ViewModels
 
         public int? IdPlan { get; set; }
 
+        public Sponsor.PlanViewModel Plan { get; set; }
+
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Website.Controllers.ActionFilters;
 using Website.Models.API;
 using Website.Models.ViewModels;
+using Website.Models.ViewModels.Sponsor;
 
 namespace Website.Controllers
 {
@@ -19,9 +20,28 @@ namespace Website.Controllers
             request.AddAuthorization(Session["token"].ToString());
 
             var response = request.Get();
-            if (response.Code == 200)
+            if (response.Code == 200) 
             {
                 var userModel = response.Body.ToObject<UserViewModel>();
+                userModel.Plan = new PlanViewModel { };
+                if (userModel.Permission == 4 && userModel.IdPlan != null)
+                {
+                    var PlanRequest = new WSRequest("plans/" + userModel.IdPlan);
+                    PlanRequest.AddAuthorization(Session["token"].ToString());
+
+                    var PlanResponse = PlanRequest.Get();
+                    if (PlanResponse.Code == 200)
+                    {
+                        var PBody = PlanResponse.Body;
+                        userModel.Plan = new PlanViewModel
+                        {
+                            Name = PBody.GetValue("name").ToString(),
+                            Price_cents = (int)PBody.GetValue("price_cents"),
+                            Rewards = PBody.GetValue("rewards").ToString()
+                        };
+                    }
+                }
+                
                 return View(userModel);
             }
             return View();
