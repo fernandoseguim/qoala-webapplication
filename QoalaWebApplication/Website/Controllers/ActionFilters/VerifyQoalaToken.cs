@@ -76,6 +76,7 @@ namespace Website.Controllers.ActionFilters
                     IdUser = (int)body.GetValue("id_user"),
                     Email = body.GetValue("email").ToString(),
                     Name = body.GetValue("name").ToString(),
+                    IdPlan = body.GetValue("id_plan").ToString(),
                     Permission = (int)body.GetValue("permission")
                 };
 

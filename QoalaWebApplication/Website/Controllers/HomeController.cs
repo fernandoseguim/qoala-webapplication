@@ -39,6 +39,7 @@ namespace Website.Controllers
                             Name = item["name"].ToString(),
                             Price_cents = (int)item["price_cents"],
                             Rewards = item["rewards"].ToString(),
+                            QntTotal = (int)item["sold"] + (int)item["left"]
                         }
                     );
                 }
