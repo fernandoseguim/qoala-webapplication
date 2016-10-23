@@ -50,6 +50,7 @@ namespace Website.Models.ViewModels.Sponsor
 
         [Display(Name = "Criado em")]
         public string CreatedAt { get; set; }
+        public int QntTotal { get; set; }
 
     }
 }

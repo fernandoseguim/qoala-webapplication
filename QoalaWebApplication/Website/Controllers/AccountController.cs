@@ -108,6 +108,59 @@ namespace Website.Controllers
             return new JsonResult() { Data = data };
         }
 
+
+        [HttpPost]
+        [Route("register_sponsor")]
+        public ActionResult RegisterSponsor(RegisterViewModel model)
+        {
+            WSRequest request = new WSRequest("accounts/register");
+
+            IEnumerable<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("name", model.Name),
+                    new KeyValuePair<string, string>("password", model.Password),
+                    new KeyValuePair<string, string>("document", model.Document),
+                    new KeyValuePair<string, string>("permission", "4"),
+                    new KeyValuePair<string, string>("email", model.Email)
+                };
+
+            request.AddJsonParameter(parameters);
+            var data = new
+            {
+                message = "Registro efetuado com sucesso"
+            };
+            try
+            {
+                var response = request.Post();
+                if (response.Code != 201)
+                {
+                    Response.StatusCode = 400;
+                    data = new
+                    {
+                        message = response.Body.GetValue("Message").ToString()
+                    };
+                }
+                else
+                {
+                    string token = response.Body.GetValue("token").ToString();
+                    Session["token"] = token;
+                    var cookie = new HttpCookie("qoala_token", token);
+                    cookie.Expires = DateTime.Now.AddDays(7);
+                    Response.Cookies.Add(cookie);
+                }
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = 400;
+                data = new
+                {
+                    message = e.Message
+                };
+            }
+
+            return new JsonResult() { Data = data };
+        }
+
         [HttpPost]
         [Route("logout")]
         public ActionResult Logout()

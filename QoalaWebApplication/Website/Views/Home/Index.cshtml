@@ -27,9 +27,9 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">Investimento</h2>
                     <hr class="light">
-                    @if(Session.CurrentUser().IdPlan != null)
+                    @if(Session.CurrentUser().IdPlan > 0)
                     {
-                        <strong>Obrigado por ja ter investido</strong>
+                        <strong>Obrigado por já ter investido</strong>
                     } else { 
                         <table>
                             <tr>
@@ -41,6 +41,9 @@
                                 </td>
                                 <td>
                                     Valor
+                                </td>
+                                <td>
+                                    Quantidade Total
                                 </td>
                                 <td>
                                     Quantidade Disponivel
@@ -58,6 +61,9 @@
                                     </td>
                                     <td>
                                         @item.Price_curr
+                                    </td>
+                                    <td>
+                                        @item.QntTotal
                                     </td>
                                     <td>
                                         @item.Left
@@ -142,6 +148,19 @@
                     <hr class="light">
 
                     @{Html.RenderPartial("../Account/_LoginForm");}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sponsor" class="bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Seja um investidor</h2>
+                    <hr class="light">
+
+                    @{Html.RenderPartial("../Account/_SponsorRegisterForm");}
                 </div>
             </div>
         </div>
@@ -253,6 +272,85 @@
                     location.reload();
                 }
             });
+        });
+        $("#formRegister").on("submit", function (event) {
+            event.preventDefault();
+            var data = {
+                name: $(this).find("#Name").val(),
+                email: $(this).find("#Email").val(),
+                password: $(this).find("#Password").val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Register", "Account")",
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var body = JSON.parse(jqXHR.responseText)
+                    var outcome = "Não foi possível realizar o cadastro";
+                    if (body.message !== undefined) {
+                        outcome = body.message;
+                    }
+                    $("#feedbackRegister").
+                        removeClass().
+                        addClass("alert alert-danger").
+                        html(outcome);
+                },
+                success: function (msg) {
+                    var outcome = "Não foi possível fazer o cadastro";
+                    if (msg.message !== undefined) {
+                        outcome = msg.message;
+                    }
+                    $("#feedbackRegister").
+                        removeClass().
+                        addClass("alert alert-success").
+                        html(outcome);
+
+                    location.reload();
+                }
+            });
+        });
+
+        
+        $("#formRegisterSponsor").on("submit", function (event) {
+            event.preventDefault();
+            var data = {
+                name: $(this).find("#Name").val(),
+                email: $(this).find("#Email").val(),
+                password: $(this).find("#Password").val(),
+                document: $(this).find("#Document").val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("RegisterSponsor", "Account")",
+                data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            error: function(jqXHR, textStatus, errorThrown) {
+                var body = JSON.parse(jqXHR.responseText)
+                var outcome = "Não foi possível realizar o cadastro";
+                if (body.message !== undefined) {
+                    outcome = body.message;
+                }
+                $("#feedbackRegisterSponsor").
+                    removeClass().
+                    addClass("alert alert-danger").
+                    html(outcome);
+            },
+            success: function (msg) {
+                var outcome = "Não foi possível fazer o cadastro";
+                if (msg.message !== undefined) {
+                    outcome = msg.message;
+                }
+                $("#feedbackRegisterSponsor").
+                    removeClass().
+                    addClass("alert alert-success").
+                    html(outcome);
+
+                location.reload();
+            }
+        });
         });
 
         $(document).ready(function () {

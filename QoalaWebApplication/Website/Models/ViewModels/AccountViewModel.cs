@@ -70,6 +70,10 @@ namespace Website.Models.ViewModels
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Por favor, informe o document.")]
+        [Display(Name = "Documento")]
+        public string Document { get; set; }
+
         [Required(ErrorMessage = "Por favor, informe o seu e-mail.")]
         [EmailAddress]
         [Display(Name = "E-mail")]
@@ -85,8 +89,10 @@ namespace Website.Models.ViewModels
         [Display(Name = "Confirmar senha")]
         [Compare("Password", ErrorMessage = "As senhas não conferem. Verifique e tente novamente!")]
         public string ConfirmPassword { get; set; }
-    }
 
+
+    }
+    
     public class ResetPasswordViewModel
     {
         [Required]
