@@ -85,27 +85,26 @@ namespace Website.Controllers
         [AuthorizationRequest]
         public ActionResult Report()
         {
-            //Traz a lista vazia
-            return View(new ListViewModel<ReportViewModel>());
+            return Report(new ReportViewModel());
         }
 
         [HttpPost]
         [AuthorizationRequest]
-        public ActionResult Report(ReportViewModel filter = null)
+        public ActionResult Report(ReportViewModel filter)
         {
             var user = (UserViewModel)Session["CurrentUser"];
             ListViewModel<ReportViewModel> model = new ListViewModel<ReportViewModel>();
             model.Filter = filter;
             WSRequest request = null;
             request = new WSRequest("/plans/reports?id_plan=" + filter.IdPlan +
-                "&id_plan2 = " + filter.IdPlan +
+                "&id_plan2=" + filter.IdPlan +
                 "&name=" + filter.Name +
                 "&plan_left=" + filter.PlanLeft +
                 "&plan_left2=" + filter.PlanLeft2 +
                 "&plan_sold=" + filter.PlanSold +
                 "&plan_sold2=" + filter.PlanSold2);
             request.AddAuthorization(Session["token"].ToString());
-            var response = request.Get();
+                var response = request.Get();
             if (response.Code == 200)
             {
                 var body = response.Body;
