@@ -23,7 +23,8 @@ namespace Website.Controllers
                 var response = request.Get();
                 if (response.Code != 200)
                 {
-                    return RedirectToAction("Index", "Home", new { message = "Não foi possível buscar esse plano" });
+                    ModelState.AddModelError("", "Não foi possível buscar esse plano");
+                    return RedirectToAction("Index", "Home", "ERRO");
                 }
                 var body = response.Body;
                 List<PlanViewModel> list = new List<PlanViewModel>();

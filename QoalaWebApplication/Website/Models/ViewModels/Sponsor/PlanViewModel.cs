@@ -22,7 +22,6 @@ namespace Website.Models.ViewModels.Sponsor
         /// assim como 120,00 será 12000
         /// </summary>
         public int Price_cents { get; set; }
-        public int QntTotal { get; set; }
 
         /// <summary>
         /// Esta propriedade faz a conversão para tirar e colocar dos centavos <br/>
